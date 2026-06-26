@@ -1,0 +1,7 @@
+arm:
+  selected: false
+  payload_kg: TBD
+  reach_m: TBD
+  dof: TBD
+  driver: TBD
+  moveit_config: TBD

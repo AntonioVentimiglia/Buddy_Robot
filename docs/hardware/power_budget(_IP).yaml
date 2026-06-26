@@ -1,0 +1,53 @@
+project: Buddy
+status: in_progress
+last_updated: 2026-06-26
+battery:
+  chemistry: TBD
+  nominal_voltage_v: TBD
+  capacity_wh: TBD
+  bms_continuous_current_a: TBD
+  bms_peak_current_a: TBD
+rails:
+  motor_high_power:
+    voltage_v: TBD
+    loads:
+      - name: left_motor_driver
+        nominal_w: TBD
+        peak_w: TBD
+      - name: right_motor_driver
+        nominal_w: TBD
+        peak_w: TBD
+  jetson_compute:
+    voltage_v: TBD
+    loads:
+      - name: jetson_orin_nano_super
+        nominal_w: TBD
+        peak_w: TBD
+  sensors_12v:
+    voltage_v: 12
+    loads:
+      - name: lidar_2d
+        nominal_w: TBD
+        peak_w: TBD
+      - name: fans
+        nominal_w: TBD
+        peak_w: TBD
+  logic_5v:
+    voltage_v: 5
+    loads:
+      - name: drive_mcu
+        nominal_w: TBD
+        peak_w: TBD
+      - name: usb_hub
+        nominal_w: TBD
+        peak_w: TBD
+runtime_target:
+  average_power_w: TBD
+  runtime_hours: TBD
+  usable_fraction: 0.80
+  conversion_efficiency: 0.90
+  required_wh_formula: average_power_w * runtime_hours / usable_fraction / conversion_efficiency
+safety:
+  main_fuse_a: TBD
+  branch_fuses: TBD
+  estop_interrupts: motor_enable_or_motor_power

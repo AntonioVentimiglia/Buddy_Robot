@@ -1,0 +1,3 @@
+# Replace idVendor/idProduct/serial with real values from `udevadm info`.
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1234", ATTRS{idProduct}=="5678", SYMLINK+="buddy_drive_mcu", MODE="0660", GROUP="dialout"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1234", ATTRS{idProduct}=="5679", SYMLINK+="buddy_power_mcu", MODE="0660", GROUP="dialout"

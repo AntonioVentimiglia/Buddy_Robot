@@ -1,0 +1,12 @@
+modes:
+  safe_idle:
+    motion_allowed: false
+    sensors_required: false
+  teleop_low_speed:
+    motion_allowed: true
+    max_linear_mps: 0.20
+    max_angular_radps: 0.40
+  autonomy_conservative:
+    motion_allowed: true
+    max_linear_mps: 0.30
+    max_angular_radps: 0.60

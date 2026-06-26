@@ -1,0 +1,61 @@
+project: Buddy
+status: in_progress
+last_updated: 2026-06-26
+known_choices:
+  compute: NVIDIA Jetson Orin Nano Super
+  drive: four_wheel_differential_drive
+  lidar: 2d_lidar_required
+  camera: rgbd_camera_required
+  ros2_preference: jazzy_first
+requirements:
+  mobility:
+    REQ_MOB_001:
+      statement: Carry total robot mass at target speed indoors.
+      target: TBD_total_mass_kg_at_TBD_mps
+      verification: timed_drive_test_with_payload
+      status: needs_user_input
+    REQ_MOB_002:
+      statement: Start from rest on target ramp angle.
+      target: TBD_degrees
+      verification: ramp_test_with_current_logging
+      status: needs_user_input
+    REQ_MOB_003:
+      statement: Stop from cruise speed within safe distance.
+      target: TBD_meters_or_seconds
+      verification: measured_stop_test
+      status: needs_user_input
+  navigation:
+    REQ_NAV_001:
+      statement: Navigate mapped indoor routes using 2D LiDAR and Nav2.
+      target: TBD_clearance_m
+      verification: simulation_route_and_real_route
+      status: draft
+  perception:
+    REQ_PER_001:
+      statement: Publish RGB-D camera streams for teleop, object detection, and future manipulation.
+      target: TBD_resolution_fps_depth_range
+      verification: bag_replay_and_live_camera_test
+      status: needs_camera_selection
+  power:
+    REQ_PWR_001:
+      statement: Operate for target runtime at normal duty cycle.
+      target: TBD_minutes
+      verification: endurance_test_with_power_logs
+      status: needs_user_input
+  safety:
+    REQ_SAFE_001:
+      statement: Physical E-stop disables or inhibits drive motion.
+      target: stop_or_disable_within_TBD_seconds
+      verification: measured_estop_test
+      status: draft
+    REQ_SAFE_002:
+      statement: Drive MCU stops motion if command stream times out.
+      target: 200_ms_initial_placeholder
+      verification: bench_watchdog_test
+      status: draft
+  development:
+    REQ_DEV_001:
+      statement: Deploy robot software remotely with rollback or known-good recovery.
+      target: TBD_release_process
+      verification: deploy_and_rollback_test
+      status: draft

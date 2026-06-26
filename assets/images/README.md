@@ -1,0 +1,3 @@
+# Images
+
+Assets for images.

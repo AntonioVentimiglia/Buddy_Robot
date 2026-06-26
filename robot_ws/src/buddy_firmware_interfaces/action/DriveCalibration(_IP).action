@@ -1,0 +1,8 @@
+# Goal
+string calibration_type
+---
+bool success
+string result_text
+---
+float32 progress
+string status_text

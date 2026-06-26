@@ -1,0 +1,11 @@
+rgbd_camera:
+  ros__parameters:
+    vendor: TBD
+    model: TBD
+    frame_id: front_camera_link
+    optical_frame_id: front_camera_optical_frame
+    color_topic: /camera/color/image_raw
+    depth_topic: /camera/depth/image_rect_raw
+    camera_info_topic: /camera/color/camera_info
+    target_fps: TBD
+    target_resolution: TBD

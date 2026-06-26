@@ -1,0 +1,7 @@
+# In progress. Use for development, not final robot runtime until device/GPU/networking are understood.
+FROM ubuntu:24.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y     curl gnupg lsb-release build-essential git python3-pip     && rm -rf /var/lib/apt/lists/*
+
+# TODO: add ROS 2 Jazzy apt setup or use official ROS image where appropriate.

@@ -1,0 +1,22 @@
+protocol: buddy_drive_mcu
+status: in_progress
+transport_options: [CAN_FD, CAN_2_0, RS485, USB_SERIAL, micro_ROS]
+command_timeout_ms: 200
+messages:
+  cmd_wheel_velocity:
+    direction: ros_to_mcu
+    fields:
+      left_front_radps: float32
+      left_rear_radps: float32
+      right_front_radps: float32
+      right_rear_radps: float32
+      sequence: uint32
+  status:
+    direction: mcu_to_ros
+    fields:
+      encoder_ticks: array_int32_4
+      wheel_velocity_radps: array_float32_4
+      battery_voltage_v: float32
+      estop_active: bool
+      fault_code: uint32
+      timestamp_us: uint64

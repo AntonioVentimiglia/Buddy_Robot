@@ -1,0 +1,12 @@
+services:
+  buddy_ros:
+    build:
+      context: ../..
+      dockerfile: devops/docker/Dockerfile.ros2_jazzy(_IP)
+    network_mode: host
+    privileged: true
+    volumes:
+      - ../../:/workspaces/buddy_ros2_robot
+    environment:
+      - ROS_DOMAIN_ID=42
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp

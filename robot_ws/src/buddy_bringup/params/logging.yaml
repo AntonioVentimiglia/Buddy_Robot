@@ -1,0 +1,7 @@
+logging:
+  default_level: info
+  bag_profiles:
+    navigation_light:
+      topics: [/tf, /tf_static, /odom, /scan, /cmd_vel, /diagnostics]
+    perception_debug:
+      topics: [/tf, /tf_static, /camera/color/image_raw, /camera/depth/image_rect_raw, /scan, /diagnostics]

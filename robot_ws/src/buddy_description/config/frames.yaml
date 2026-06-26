@@ -1,0 +1,21 @@
+frames:
+  fixed_world: map
+  odom: odom
+  base_footprint: base_footprint
+  base_link: base_link
+  lidar: base_laser
+  camera_link: front_camera_link
+  camera_optical: front_camera_optical_frame
+  imu: imu_link
+  arm_base: arm_base_link
+known_mounts:
+  base_laser:
+    parent: base_link
+    xyz_m: [0.18, 0.0, 0.16]
+    rpy_rad: [0.0, 0.0, 0.0]
+    status: placeholder
+  front_camera_link:
+    parent: base_link
+    xyz_m: [0.28, 0.0, 0.14]
+    rpy_rad: [0.0, 0.0, 0.0]
+    status: placeholder

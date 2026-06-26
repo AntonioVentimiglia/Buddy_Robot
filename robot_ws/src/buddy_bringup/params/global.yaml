@@ -1,0 +1,7 @@
+/**:
+  ros__parameters:
+    use_sim_time: false
+    robot_name: buddy
+    robot_namespace: /buddy
+    ros_domain_id: 42
+    frame_prefix: ""

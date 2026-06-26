@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="buddy_sensors">
+    <link name="base_laser">
+      <visual><geometry><cylinder radius="0.04" length="0.04"/></geometry></visual>
+    </link>
+    <joint name="base_laser_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="base_laser"/>
+      <!-- Update after LiDAR mount is designed. -->
+      <origin xyz="0.18 0 0.16" rpy="0 0 0"/>
+    </joint>
+
+    <link name="front_camera_link">
+      <visual><geometry><box size="0.09 0.03 0.03"/></geometry></visual>
+    </link>
+    <joint name="front_camera_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="front_camera_link"/>
+      <!-- Update pitch/height after camera model and task-space are known. -->
+      <origin xyz="0.28 0 0.14" rpy="0 0 0"/>
+    </joint>
+
+    <link name="front_camera_optical_frame"/>
+    <joint name="front_camera_optical_joint" type="fixed">
+      <parent link="front_camera_link"/>
+      <child link="front_camera_optical_frame"/>
+      <!-- Optical frame convention: z forward, x right, y down. -->
+      <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
+    </joint>
+
+    <link name="imu_link">
+      <visual><geometry><box size="0.04 0.03 0.01"/></geometry></visual>
+    </link>
+    <joint name="imu_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="imu_link"/>
+      <origin xyz="0 0 0.11" rpy="0 0 0"/>
+    </joint>
+  </xacro:macro>
+</robot>

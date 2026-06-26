@@ -1,0 +1,9 @@
+lidar_2d:
+  ros__parameters:
+    vendor: TBD
+    model: TBD
+    frame_id: base_laser
+    scan_topic: /scan
+    expected_rate_hz: TBD
+    range_min_m: TBD
+    range_max_m: TBD
