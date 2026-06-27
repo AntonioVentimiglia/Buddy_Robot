@@ -1,0 +1,73 @@
+robot:
+  name: Buddy
+  version_target: v0.1
+  mission: indoor autonomous mobile base for learning and practical tasks
+
+environment:
+  indoor_only: true
+  surfaces:
+    - carpet
+    - marble
+  minimum_doorway_width_m: 0.75
+  operates_near_people_pets_furniture: true
+
+geometry:
+  target_footprint_length_m: 0.30
+  target_footprint_width_m: 0.30
+  allowed_growth_length_m: 0.45
+  allowed_growth_width_m: 0.45
+  ground_clearance_m: 0.05
+
+mobility:
+  drive_type: four_wheel_differential_skid_steer
+  motor_channel_assumption: left_right_two_channel_drive
+  wheel_encoder_required: true
+  autonomous_near_people_max_mps: 0.25
+  autonomous_empty_room_max_mps: 0.50
+  teleop_commissioning_max_mps: 0.75
+  future_top_speed_goal_mps: 2.50
+  stopping_distance_target_m: 0.25
+  ramp_angle_v0_1_deg: 5
+  future_ramp_angle_goal_deg: 20
+
+mass:
+  robot_body_target_kg: 10-15
+  design_gross_mass_limit_kg: 20
+  future_payload_goal_kg: 10
+  payload_v0_1_test_kg: 0-2
+
+sensors:
+  lidar_2d_required: true
+  rgbd_camera_required: true
+  imu_required: true
+  camera_environment: indoor_lighting
+  object_avoidance_required: true
+  object_interaction_future: true
+
+compute:
+  onboard_computer: Jetson Orin Nano Super
+  os_baseline: Ubuntu 24.04 via JetPack 7.x
+  ros_distro: Jazzy
+  storage_recommendation: NVMe
+  development_hosts:
+    - Mac
+    - Windows
+
+power:
+  runtime_target_min: 60
+  battery_preference: Li-ion
+  autonomous_charging_v0_1: false
+  autonomous_charging_future: true
+
+safety:
+  physical_estop_required: true
+  software_only_estop_allowed: false
+  remote_operation_without_local_estop_v0_1: false
+  command_watchdog_required: true
+  max_autonomous_speed_near_people_mps: 0.25
+
+budget:
+  v0_1_budget_usd: 300-600
+  budget_includes_jetson: false
+  budget_includes_arm: false
+  budget_includes_autonomous_dock: false

@@ -58,9 +58,6 @@
 - `docs/requirements/README.md`
 - `docs/requirements/mission_profile(_IP).md`
 - `docs/requirements/requirements(_IP).yaml`
-- `docs/safety/README.md`
-- `docs/safety/commissioning_checklists(_IP).md`
-- `docs/safety/safety_architecture(_IP).md`
 - `docs/system_model/README.md`
 - `docs/system_model/architecture_overview.md`
 - `docs/system_model/fault_state_model(_IP).md`
@@ -167,7 +164,7 @@
 - `robot_ws/src/buddy_description/urdf/README.md`
 - `robot_ws/src/buddy_description/urdf/arm_placeholder(_IP).urdf.xacro`
 - `robot_ws/src/buddy_description/urdf/base_four_wheel_diff.urdf.xacro`
-- `robot_ws/src/buddy_description/urdf/buddy_robot.urdf.xacro`
+- `robot_ws/src/buddy_description/urdf/buddy_robot_v0_1.urdf.xacro`
 - `robot_ws/src/buddy_description/urdf/ros2_control_four_wheel_base(_IP).xacro`
 - `robot_ws/src/buddy_description/urdf/sensors_rgbd_2d_lidar.urdf.xacro`
 - `robot_ws/src/buddy_diagnostics/CMakeLists.txt`

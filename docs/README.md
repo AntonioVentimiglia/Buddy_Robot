@@ -9,5 +9,4 @@ Start here:
 3. `system_model/frame_tree.md`
 4. `system_model/interface_contract.md`
 5. `hardware/hardware_scoring_matrix(_IP).md`
-6. `safety/safety_architecture(_IP).md`
 7. `decisions/ADR-0001-ros2-jetpack-baseline(_IP).md`

@@ -2,7 +2,17 @@
 
 **Last updated:** 2026-06-26
 
-This file is the root-level context document for AI assistants, future contributors, and design sessions. Paste this file into future prompts when asking for architectural changes. Every meaningful repository change must update this file.
+Buddy v0.1 is an indoor autonomous mobile base using:
+- Jetson Orin Nano Super
+- ROS 2 Jazzy
+- four-wheel differential/skid-steer geometry
+- 2D LiDAR
+- RGB-D camera
+- wheel encoders
+- IMU
+- no arm in v1
+- no autonomous charging dock in v1
+- no high-speed autonomous operation in v1
 
 ## 1. Project identity
 
@@ -121,7 +131,6 @@ Packages:
 - Folder-level context lives in `README.md` inside each folder.
 - Design decisions live in `docs/decisions/` as ADRs.
 - Hardware research lives in `research/`, not scattered through ROS packages.
-- Safety assumptions live in `docs/safety/` and commissioning TODOs.
 - Build/deploy automation lives in `devops/` and `tools/`.
 - Do not hard-code final hardware values until verified by measurement or selected part datasheets.
 
