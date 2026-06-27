@@ -11,19 +11,19 @@
 
 | Domain | Answer |
 |---|---|
-| Indoor/outdoor/mixed | TBD |
-| Floor/terrain | TBD |
-| Top speed | TBD |
-| Cruise speed | TBD |
-| Ramp/threshold | TBD |
-| Total mass target | TBD |
-| Payload target | TBD |
-| Runtime target | TBD |
-| Arm required for v1? | TBD |
-| Budget range | TBD |
-| Robot max footprint | TBD |
-| People/pets nearby? | TBD |
-| Autonomous vs supervised | TBD |
+| Indoor/outdoor/mixed | Indoor |
+| Floor/terrain | Carpet and Marble |
+| Top speed | 2.5 m/s |
+| Cruise speed | 1.5 m/s |
+| Ramp/threshold | 20 deg |
+| Total mass target | 20 kg |
+| Payload target | 10 kg |
+| Runtime target | 60 min |
+| Arm required for v1? | NO |
+| Budget range | 300-500 USD |
+| Robot max footprint | 0.3 m x 0.3 m |
+| People/pets nearby? | YES |
+| Autonomous vs supervised | Autonomous |
 
 ## Notes
 
