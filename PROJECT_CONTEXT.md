@@ -1,6 +1,29 @@
 # Buddy Project Context for AI Prompts
 
-**Last updated:** 2026-06-26
+**Last updated:** 2026-06-28
+
+> This is the single canonical context file. Paste it into any AI prompt to
+> orient it. The only other top-level doc you need is the runbook
+> `robot_ws/SIMULATION_START_HERE.md`. (The old `MANIFEST.md` file index was
+> deleted — it went stale instantly and duplicated this file.)
+
+## 0. Reality check — what actually exists today
+
+The package list in section 6 is the *intended* architecture. As of this writing
+only a few packages have working content; the rest are empty scaffolds. Do not
+assume a package does anything until you have opened it.
+
+| Package | State |
+|---|---|
+| `buddy_description` | **Working.** Single URDF entry `buddy.urdf.xacro`; geometry in `buddy_params.xacro`; loads in RViz. |
+| `buddy_simulation` | **Working.** `gazebo_lab.launch.py` spawns the URDF in Gazebo (diff drive + 2D LiDAR), no separate SDF. |
+| `tools` (`robot_ws/tools/torque_sweep.py`) | **Working.** Standalone torque/RPM sizing, no ROS needed. |
+| `buddy_base` | Skeleton. `ros2_control` hardware interface is a stub (transport TBD). |
+| `buddy_bringup` | Skeleton. Launch files still marked `(_IP)`. |
+| `buddy_navigation`, `buddy_perception`, `buddy_manipulation`, `buddy_mission`, `buddy_diagnostics`, `buddy_operator`, `buddy_firmware_interfaces`, `buddy_tests` | Empty scaffolds / placeholders. Ignore until reached. |
+
+**To start working right now:** read `robot_ws/SIMULATION_START_HERE.md`. Geometry
+is changed in exactly one file: `robot_ws/src/buddy_description/urdf/buddy_params.xacro`.
 
 Buddy v0.1 is an indoor autonomous mobile base using:
 - Jetson Orin Nano Super
@@ -101,14 +124,15 @@ map
 Frame changes must update:
 
 - `docs/system_model/frame_tree.md`
-- `robot_ws/src/buddy_description/urdf/`
+- `robot_ws/src/buddy_description/urdf/buddy_params.xacro` (dimensions) and the relevant macro file
 - `robot_ws/src/buddy_description/config/frames.yaml`
-- Simulation sensor plugins
+- `robot_ws/src/buddy_description/urdf/buddy.gazebo.xacro` (sim sensor frames)
 - Calibration notes
 
 ## 6. Package strategy
 
-ROS workspace path: `robot_ws/`.
+ROS workspace path: `robot_ws/`. This is the **intended** package layout — see
+section 0 for which packages are actually built today.
 
 Packages:
 
@@ -127,8 +151,17 @@ Packages:
 
 ## 7. Repository conventions
 
-- Any incomplete code/config file must end with `(_IP)` before its extension or at the end of its filename.
-- Folder-level context lives in `README.md` inside each folder.
+- `(_IP)` marks an in-progress file, BUT only on standalone docs/notes — never on a
+  file that is referenced by path from working code (xacro includes, launch targets,
+  rviz configs). A `(_IP)` in a path that code loads silently breaks the reference,
+  which is exactly the bug that was just cleaned up. Mark such files "WIP" with an
+  in-file comment instead.
+- The robot model has exactly one entry point: `buddy.urdf.xacro`. All dimensions
+  live in `buddy_params.xacro`. There is no separate Gazebo SDF — the sim spawns
+  this URDF. Do not reintroduce a parallel model file.
+- Folder-level context lives in `README.md` only where a folder has real content or a
+  non-obvious convention. Empty scaffold folders intentionally have no README (the
+  ~90 placeholder stubs were removed as noise).
 - Design decisions live in `docs/decisions/` as ADRs.
 - Hardware research lives in `research/`, not scattered through ROS packages.
 - Build/deploy automation lives in `devops/` and `tools/`.

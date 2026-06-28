@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
+<!-- PLACEHOLDER arm mount only. Replace with the selected arm model when chosen. -->
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:macro name="buddy_arm_placeholder">
-    <!-- Placeholder only. Replace with selected arm package/model when known. -->
     <link name="arm_base_link">
-      <visual><geometry><box size="0.12 0.12 0.04"/></geometry></visual>
-      <collision><geometry><box size="0.12 0.12 0.04"/></geometry></collision>
+      <visual><geometry><box size="0.10 0.10 0.04"/></geometry></visual>
+      <collision><geometry><box size="0.10 0.10 0.04"/></geometry></collision>
       <inertial>
         <mass value="0.5"/>
         <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
@@ -13,7 +13,7 @@
     <joint name="arm_base_joint" type="fixed">
       <parent link="base_link"/>
       <child link="arm_base_link"/>
-      <origin xyz="0.00 0 0.14" rpy="0 0 0"/>
+      <origin xyz="0.0 0 0.07" rpy="0 0 0"/>
     </joint>
   </xacro:macro>
 </robot>

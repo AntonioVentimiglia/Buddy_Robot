@@ -13,14 +13,19 @@ Ignore these for now: `buddy_navigation`, `buddy_perception`, `buddy_manipulatio
 
 ## Assumed v0.1 geometry
 
+All of these live in ONE file — `src/buddy_description/urdf/buddy_params.xacro`.
+Edit there and RViz, Gazebo physics, and the diff-drive plugin all update together.
+
 - Four-wheel differential / skid-steer layout.
 - Body box: 0.28 m long, 0.22 m wide, 0.10 m tall.
-- Total outside footprint with wheels: about 0.30 m long x 0.295 m wide.
-- Wheel radius: 0.06 m.
-- Wheel width: 0.035 m.
-- Wheelbase: 0.18 m between front and rear wheel centers.
-- Track width: 0.26 m between left and right wheel centers.
+- Wheel radius: 0.06 m, width 0.035 m.
+- Wheelbase: 0.18 m (front-to-rear centers). Track width: 0.26 m (left-to-right centers).
 - Gross mass for torque calculations: start with 30 kg = 20 kg robot + 10 kg payload.
+
+> Reality note: a 0.28 m body at 30 kg gross is physically very dense and is almost
+> certainly a placeholder that's too small. It's kept only because the sim and torque
+> defaults already used it. When you pick real chassis dimensions, change them in
+> `buddy_params.xacro` (the single source) — nothing else needs editing.
 
 ## Install the simulation dependencies on Ubuntu 24.04 + ROS 2 Jazzy
 

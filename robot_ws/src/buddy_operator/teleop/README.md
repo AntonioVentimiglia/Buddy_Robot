@@ -1,3 +1,0 @@
-# teleop
-
-Operator teleop.

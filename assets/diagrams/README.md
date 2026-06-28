@@ -1,3 +1,0 @@
-# Diagrams
-
-Assets for diagrams.

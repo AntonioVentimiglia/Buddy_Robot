@@ -1,3 +1,0 @@
-# Calculators
-
-Tooling for calculators.

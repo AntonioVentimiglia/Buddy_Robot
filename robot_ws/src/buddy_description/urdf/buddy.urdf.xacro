@@ -1,128 +1,31 @@
 <?xml version="1.0"?>
+<!-- THE single robot description entry point for Buddy v0.1.
+     RViz, Gazebo, and (optionally) ros2_control all build from this file.
+     Geometry lives in buddy_params.xacro. -->
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="buddy">
-  <!-- Minimal active model for RViz and early frame design. -->
-  <xacro:arg name="base_length" default="0.28"/>
-  <xacro:arg name="base_width" default="0.22"/>
-  <xacro:arg name="base_height" default="0.10"/>
-  <xacro:arg name="base_center_z" default="0.10"/>
-  <xacro:arg name="wheel_radius" default="0.06"/>
-  <xacro:arg name="wheel_width" default="0.035"/>
-  <xacro:arg name="wheel_x" default="0.09"/>
-  <xacro:arg name="wheel_y" default="0.13"/>
-  <xacro:arg name="wheel_z" default="-0.04"/>
+  <!-- Build switches -->
+  <xacro:arg name="use_gazebo" default="true"/>       <!-- emit gz plugins + sensors -->
+  <xacro:arg name="use_ros2_control" default="false"/> <!-- emit ros2_control (real hardware) -->
 
-  <xacro:property name="base_length" value="$(arg base_length)"/>
-  <xacro:property name="base_width" value="$(arg base_width)"/>
-  <xacro:property name="base_height" value="$(arg base_height)"/>
-  <xacro:property name="base_center_z" value="$(arg base_center_z)"/>
-  <xacro:property name="wheel_radius" value="$(arg wheel_radius)"/>
-  <xacro:property name="wheel_width" value="$(arg wheel_width)"/>
-  <xacro:property name="wheel_x" value="$(arg wheel_x)"/>
-  <xacro:property name="wheel_y" value="$(arg wheel_y)"/>
-  <xacro:property name="wheel_z" value="$(arg wheel_z)"/>
+  <xacro:property name="use_gazebo" value="$(arg use_gazebo)"/>
+  <xacro:property name="use_ros2_control" value="$(arg use_ros2_control)"/>
 
-  <material name="body_gray"><color rgba="0.45 0.45 0.45 1"/></material>
-  <material name="wheel_black"><color rgba="0.02 0.02 0.02 1"/></material>
-  <material name="sensor_blue"><color rgba="0.1 0.2 0.8 1"/></material>
-  <material name="camera_green"><color rgba="0.0 0.5 0.2 1"/></material>
+  <xacro:include filename="$(find buddy_description)/urdf/buddy_params.xacro"/>
+  <xacro:include filename="$(find buddy_description)/urdf/base_four_wheel_diff.urdf.xacro"/>
+  <xacro:include filename="$(find buddy_description)/urdf/sensors_rgbd_2d_lidar.urdf.xacro"/>
+  <xacro:include filename="$(find buddy_description)/urdf/arm_placeholder.urdf.xacro"/>
+  <xacro:include filename="$(find buddy_description)/urdf/buddy.gazebo.xacro"/>
+  <xacro:include filename="$(find buddy_description)/urdf/ros2_control_four_wheel_base.xacro"/>
 
-  <link name="base_footprint"/>
+  <xacro:buddy_base/>
+  <xacro:buddy_sensors/>
+  <xacro:buddy_arm_placeholder/>
 
-  <joint name="base_footprint_joint" type="fixed">
-    <parent link="base_footprint"/>
-    <child link="base_link"/>
-    <origin xyz="0 0 ${base_center_z}" rpy="0 0 0"/>
-  </joint>
+  <xacro:if value="${use_gazebo}">
+    <xacro:buddy_gazebo/>
+  </xacro:if>
 
-  <link name="base_link">
-    <visual>
-      <geometry><box size="${base_length} ${base_width} ${base_height}"/></geometry>
-      <material name="body_gray"/>
-    </visual>
-    <collision>
-      <geometry><box size="${base_length} ${base_width} ${base_height}"/></geometry>
-    </collision>
-    <inertial>
-      <mass value="20.0"/>
-      <inertia ixx="0.20" ixy="0" ixz="0" iyy="0.20" iyz="0" izz="0.25"/>
-    </inertial>
-  </link>
-
-  <xacro:macro name="wheel" params="name x y">
-    <link name="${name}_link">
-      <visual>
-        <origin xyz="0 0 0" rpy="1.57079632679 0 0"/>
-        <geometry><cylinder radius="${wheel_radius}" length="${wheel_width}"/></geometry>
-        <material name="wheel_black"/>
-      </visual>
-      <collision>
-        <origin xyz="0 0 0" rpy="1.57079632679 0 0"/>
-        <geometry><cylinder radius="${wheel_radius}" length="${wheel_width}"/></geometry>
-      </collision>
-      <inertial>
-        <mass value="0.50"/>
-        <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
-      </inertial>
-    </link>
-    <joint name="${name}_joint" type="continuous">
-      <parent link="base_link"/>
-      <child link="${name}_link"/>
-      <origin xyz="${x} ${y} ${wheel_z}" rpy="0 0 0"/>
-      <axis xyz="0 1 0"/>
-    </joint>
-  </xacro:macro>
-
-  <xacro:wheel name="left_front_wheel"  x="${wheel_x}"  y="${wheel_y}"/>
-  <xacro:wheel name="left_rear_wheel"   x="-${wheel_x}" y="${wheel_y}"/>
-  <xacro:wheel name="right_front_wheel" x="${wheel_x}"  y="-${wheel_y}"/>
-  <xacro:wheel name="right_rear_wheel"  x="-${wheel_x}" y="-${wheel_y}"/>
-
-  <link name="base_laser">
-    <visual>
-      <geometry><cylinder radius="0.035" length="0.035"/></geometry>
-      <material name="sensor_blue"/>
-    </visual>
-  </link>
-  <joint name="base_laser_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="base_laser"/>
-    <origin xyz="0.06 0 0.10" rpy="0 0 0"/>
-  </joint>
-
-  <link name="front_camera_link">
-    <visual>
-      <geometry><box size="0.07 0.025 0.025"/></geometry>
-      <material name="camera_green"/>
-    </visual>
-  </link>
-  <joint name="front_camera_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="front_camera_link"/>
-    <origin xyz="0.15 0 0.06" rpy="0 0 0"/>
-  </joint>
-
-  <link name="front_camera_optical_frame"/>
-  <joint name="front_camera_optical_joint" type="fixed">
-    <parent link="front_camera_link"/>
-    <child link="front_camera_optical_frame"/>
-    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
-  </joint>
-
-  <link name="imu_link">
-    <visual><geometry><box size="0.035 0.025 0.010"/></geometry></visual>
-  </link>
-  <joint name="imu_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="imu_link"/>
-    <origin xyz="0 0 0.055" rpy="0 0 0"/>
-  </joint>
-
-  <link name="arm_base_placeholder_link">
-    <visual><geometry><box size="0.08 0.08 0.025"/></geometry></visual>
-  </link>
-  <joint name="arm_base_placeholder_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="arm_base_placeholder_link"/>
-    <origin xyz="0 0 0.075" rpy="0 0 0"/>
-  </joint>
+  <xacro:if value="${use_ros2_control}">
+    <xacro:buddy_ros2_control/>
+  </xacro:if>
 </robot>

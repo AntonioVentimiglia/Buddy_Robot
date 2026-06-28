@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- WORK IN PROGRESS: the hardware plugin/transport below is a stub.
+       It is only emitted when buddy.urdf.xacro is built with use_ros2_control:=true
+       (real-hardware path). The Gazebo sim path uses the gz DiffDrive plugin instead,
+       so the two never fight over the same wheel joints. -->
+  <xacro:macro name="buddy_ros2_control">
+    <ros2_control name="BuddyBaseSystem" type="system">
+      <hardware>
+        <plugin>buddy_base/BuddyBaseHardware</plugin>
+        <param name="transport">TBD_CAN_or_serial_or_micro_ros</param>
+      </hardware>
+      <xacro:macro name="wheel_iface" params="name">
+        <joint name="${name}">
+          <command_interface name="velocity"/>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+        </joint>
+      </xacro:macro>
+      <xacro:wheel_iface name="left_front_wheel_joint"/>
+      <xacro:wheel_iface name="left_rear_wheel_joint"/>
+      <xacro:wheel_iface name="right_front_wheel_joint"/>
+      <xacro:wheel_iface name="right_rear_wheel_joint"/>
+    </ros2_control>
+  </xacro:macro>
+</robot>
