@@ -1,3 +1,0 @@
-# docs
-
-Test area: docs.

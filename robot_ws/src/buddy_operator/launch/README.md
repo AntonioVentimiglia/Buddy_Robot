@@ -1,3 +1,0 @@
-# launch
-
-Operator launch.

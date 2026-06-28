@@ -2,11 +2,12 @@
 
 This is the starter GitHub repository for **Buddy**, an autonomous ROS 2 robot using a **Jetson Orin Nano Super**, a **four-wheel differential-drive base**, **2D LiDAR**, and an **RGB-D camera**. It is designed to survive hardware changes while keeping the ROS 2 interfaces, frame tree, simulation, documentation, tests, firmware contracts, and deployment workflow organized from day one.
 
-The root-level source of truth for future AI prompts is:
+Two files orient everything:
 
-- [`PROJECT_CONTEXT.md`](PROJECT_CONTEXT.md)
+- [`PROJECT_CONTEXT.md`](PROJECT_CONTEXT.md) — canonical context to paste into AI prompts; includes a "what actually builds today" table.
+- [`robot_ws/SIMULATION_START_HERE.md`](robot_ws/SIMULATION_START_HERE.md) — the runbook to start modeling and torque testing right now.
 
-Every structural change to this repository should update `PROJECT_CONTEXT.md` and the affected folder `README.md` files.
+Structural changes should update `PROJECT_CONTEXT.md`.
 
 ## Current design baseline
 
@@ -27,18 +28,17 @@ Every structural change to this repository should update `PROJECT_CONTEXT.md` an
 
 1. Read `PROJECT_CONTEXT.md`.
 2. Fill `TODO/01_clarifications_needed.md` and `docs/requirements/requirements(_IP).yaml`.
-3. Review `docs/system_model/frame_tree.md` and `robot_ws/src/buddy_description/urdf/`.
+3. Review `docs/system_model/frame_tree.md` and the robot model (`robot_ws/src/buddy_description/urdf/buddy.urdf.xacro`, dimensions in `buddy_params.xacro`).
 4. Choose a ROS 2 + JetPack baseline in `docs/decisions/ADR-0001-ros2-jetpack-baseline(_IP).md`.
 5. Start simulation before buying major hardware.
 
 ## Naming rule for incomplete artifacts
 
-Files ending in `(_IP)` are intentionally **in progress**. When a file becomes a real contract or build artifact, remove `(_IP)` from the filename and update:
-
-- `PROJECT_CONTEXT.md`
-- The local folder `README.md`
-- Any TODO files that mention the artifact
-- Any launch/build references
+Files ending in `(_IP)` are intentionally **in progress**. Use `(_IP)` only on
+standalone docs/notes — never on files referenced by path from working code (xacro
+includes, launch targets, rviz configs), because the marker silently breaks the
+reference. Mark those "WIP" with an in-file comment instead. When promoting a file,
+update `PROJECT_CONTEXT.md` and any TODO/launch references.
 
 ## Repository map
 

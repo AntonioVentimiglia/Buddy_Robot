@@ -11,11 +11,9 @@
 
 ## Week 2 - Robot description
 
-- Edit `robot_ws/src/buddy_description/urdf/base_four_wheel_diff.urdf.xacro` with provisional dimensions.
-- Confirm the frame tree in RViz.
-- Add approximate wheel locations.
-- Add LiDAR, camera, and IMU placeholders.
-- Keep all dimensions in one Xacro properties block.
+- Edit `robot_ws/src/buddy_description/urdf/buddy_params.xacro` with provisional dimensions (this is the single source of truth).
+- Confirm the frame tree in RViz: `ros2 launch buddy_description view_model.launch.py`.
+- LiDAR, camera, IMU, and arm placeholders are already wired in.
 
 ## Week 3 - Simulation
 
@@ -27,7 +25,7 @@
 
 ## Week 4 - Hardware shortlist
 
-- Use `tools/calculators/drive_torque_sizing(_IP).py` and `tools/calculators/battery_sizing(_IP).py`.
+- Use `robot_ws/tools/torque_sweep.py` (canonical, CLI) and `tools/calculators/battery_sizing(_IP).py`.
 - Fill research notes for motors, motor drivers, MCU, LiDAR, camera, IMU, battery, chassis.
 - Complete hardware scoring matrix.
 - Do not buy high-cost parts until torque, power, mounting, driver support, and safety behavior are checked.

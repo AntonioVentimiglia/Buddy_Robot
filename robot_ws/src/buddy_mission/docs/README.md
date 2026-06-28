@@ -1,3 +1,0 @@
-# docs
-
-Mission docs.

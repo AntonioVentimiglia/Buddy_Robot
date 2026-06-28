@@ -1,3 +1,0 @@
-# Images
-
-Assets for images.

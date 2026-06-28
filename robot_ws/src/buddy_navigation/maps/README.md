@@ -1,3 +1,0 @@
-# maps
-
-Navigation maps.

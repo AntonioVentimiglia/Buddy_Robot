@@ -1,3 +1,0 @@
-# Checks
-
-Tooling for checks.

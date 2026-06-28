@@ -1,3 +1,0 @@
-# config
-
-Manipulation config.

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!-- SINGLE SOURCE OF TRUTH for Buddy geometry and mass.
+     Every other xacro (base, sensors, gazebo) reads these properties.
+     Change a number here and it propagates to RViz, Gazebo physics, and the
+     diff-drive plugin at once.
+
+     NOTE (placeholder warning): the current 0.28 x 0.22 x 0.10 m body at ~30 kg
+     gross is physically dense and almost certainly too small for the real robot.
+     It is kept only because the live sim and torque defaults already used it.
+     Revisit once chassis dimensions are chosen, then this is the only file to edit. -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Body box -->
+  <xacro:property name="base_length" value="0.28"/>
+  <xacro:property name="base_width"  value="0.22"/>
+  <xacro:property name="base_height" value="0.10"/>
+  <xacro:property name="base_mass"   value="18.0"/>
+
+  <!-- base_link center height above ground (base_footprint -> base_link) -->
+  <xacro:property name="base_center_z" value="0.10"/>
+
+  <!-- Wheels -->
+  <xacro:property name="wheel_radius" value="0.06"/>
+  <xacro:property name="wheel_width"  value="0.035"/>
+  <xacro:property name="wheel_mass"   value="0.8"/>
+  <xacro:property name="wheel_x"      value="0.09"/>   <!-- +/- from center, fore/aft -->
+  <xacro:property name="wheel_y"      value="0.13"/>   <!-- +/- from center, left/right (track/2) -->
+  <xacro:property name="wheel_z"      value="-0.04"/>  <!-- wheel center relative to base_link -->
+
+  <!-- Derived: kept as one expression so it can never drift from wheel_y -->
+  <xacro:property name="wheel_separation" value="${2.0 * wheel_y}"/>
+</robot>

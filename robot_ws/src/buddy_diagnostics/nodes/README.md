@@ -1,3 +1,0 @@
-# nodes
-
-Diagnostics nodes.

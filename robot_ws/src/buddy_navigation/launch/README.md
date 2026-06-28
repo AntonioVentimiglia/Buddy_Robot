@@ -1,3 +1,0 @@
-# launch
-
-Navigation launch.

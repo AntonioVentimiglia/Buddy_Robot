@@ -1,5 +1,9 @@
 # Master TODO
 
+> Status: the robot model (`buddy_description`) and Gazebo sim (`buddy_simulation`)
+> are wired up and runnable — see `robot_ws/SIMULATION_START_HERE.md`. Phases 2-3
+> below are now about refining a working setup, not building it from scratch.
+
 ## Phase 0 - Requirements and assumptions
 
 - [ ] Fill `docs/requirements/requirements(_IP).yaml`.
@@ -24,15 +28,15 @@
 
 - [ ] Choose provisional chassis dimensions.
 - [ ] Choose provisional wheel diameter and track width.
-- [ ] Validate `base_link`, `base_footprint`, wheel frames, LiDAR frame, camera frames, and IMU frame in RViz.
-- [ ] Create simple collision geometry.
-- [ ] Add inertial placeholders and replace later with measured/calculated values.
+- [x] Frame tree, wheels, LiDAR/camera/IMU/arm placeholders modeled (`buddy.urdf.xacro`). Validate in RViz.
+- [x] Simple collision geometry present (boxes/cylinders).
+- [x] Inertial placeholders auto-computed from mass/dims in xacro. Replace with measured values later.
 
 ## Phase 3 - Simulation
 
-- [ ] Bring up Gazebo world with differential drive.
-- [ ] Publish simulated `/scan`, `/odom`, `/tf`, `/joint_states`.
-- [ ] Teleop simulated robot.
+- [x] Gazebo world with differential drive wired up (`gazebo_lab.launch.py`).
+- [x] Bridge configured for `/scan`, `/odom`, `/tf`, `/joint_states`, `/clock`, `/cmd_vel`.
+- [ ] Teleop simulated robot (verify it drives).
 - [ ] Run Nav2 in simulation.
 - [ ] Record first simulated bag.
 

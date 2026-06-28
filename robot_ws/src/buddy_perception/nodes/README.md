@@ -1,3 +1,0 @@
-# nodes
-
-Perception nodes.

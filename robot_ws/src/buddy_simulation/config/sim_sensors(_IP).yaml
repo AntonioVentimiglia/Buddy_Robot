@@ -1,9 +1,0 @@
-sim_sensors:
-  lidar:
-    topic: /scan
-    frame_id: base_laser
-    rate_hz: 10
-  camera:
-    color_topic: /camera/color/image_raw
-    depth_topic: /camera/depth/image_rect_raw
-    frame_id: front_camera_optical_frame

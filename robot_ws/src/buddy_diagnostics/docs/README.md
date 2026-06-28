@@ -1,3 +1,0 @@
-# docs
-
-Diagnostics docs.
