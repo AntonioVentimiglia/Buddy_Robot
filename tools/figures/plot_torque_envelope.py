@@ -1,36 +1,41 @@
 #!/usr/bin/env python3
 """Render the Buddy v0.1 per-wheel torque envelope figure.
 
-Imports the sizing math from robot_ws/tools/torque_sweep.py so the figure can
-never drift from the analysis. Regenerate after any parameter change:
+Equations and every parameter come from buddy_calcs (design_params.yaml +
+requirements yaml), so the figure cannot drift from the analysis. Regenerated
+by tools/build.py, or directly:
 
     python3 tools/figures/plot_torque_envelope.py
 
 Output: assets/figures/torque_envelope.svg
-Parameters mirror docs/research/hardware/motors_and_gearboxes/motor_sizing_and_selection.md
 """
 
 from __future__ import annotations
 
-import math
 import sys
 from pathlib import Path
 
 import matplotlib.pyplot as plt
 
 REPO = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(REPO / "robot_ws" / "tools"))
-from torque_sweep import torque_nm  # noqa: E402
+sys.path.insert(0, str(REPO))
+from buddy_calcs import P, R  # noqa: E402
+from buddy_calcs.drive import pivot_torque as _pivot, torque_nm  # noqa: E402
 
-# v0.1 design parameters (single place; keep in sync with the sizing doc)
-MASS_KG = 20.0
-WHEEL_R = 0.048  # goBILDA Hogback 96mm (ADR-0004)
-DRIVEN = 4
-CRR = 0.05
-EFF = 0.75
-SF = 2.0
-ACCEL = 0.5
-WHEEL_X, WHEEL_Y = 0.09, 0.13  # from buddy_params.xacro
+# v0.1 design parameters — all from design_params.yaml / requirements yaml
+MASS_KG = R["mass"]["design_gross_mass_limit_kg"]
+WHEEL_R = P["wheels"]["radius_m"]
+DRIVEN = P["drive_motor"]["count"]
+CRR = P["assumptions"]["crr_carpet"]
+EFF = P["assumptions"]["drivetrain_efficiency"]
+SF = P["assumptions"]["safety_factor"]
+ACCEL = P["assumptions"]["accel_design_mps2"]
+WHEEL_X = P["wheels"]["x_offset_m"]
+WHEEL_Y = P["wheels"]["y_offset_m"]
+MU_LO = P["assumptions"]["scrub_mu"]["carpet_low"]
+MU_HI = P["assumptions"]["scrub_mu"]["carpet_high"]
+STALL_SELECTED = P["drive_motor"]["stall_torque_nm"]
+RAMP_DESIGN = R["mobility"]["ramp_angle_v0_1_deg"]
 
 # Palette (validated reference palette, light mode)
 SURFACE = "#fcfcfb"
@@ -45,21 +50,20 @@ BAND = "#f0efec"      # neutral requirement band
 
 def pivot_torque(mu: float) -> float:
     """Per-wheel torque to pivot in place against tire scrub (peak/stall)."""
-    contact_r = math.hypot(WHEEL_X, WHEEL_Y)
-    resist_moment = mu * MASS_KG * 9.80665 * contact_r
-    return (resist_moment / (4 * WHEEL_Y)) * WHEEL_R / EFF
+    return _pivot(mu, MASS_KG, WHEEL_R, WHEEL_X, WHEEL_Y, EFF)
 
 
 def main() -> int:
     ramps = [r / 2 for r in range(0, 41)]  # 0..20 deg
     t_accel = [torque_nm(MASS_KG, WHEEL_R, DRIVEN, ACCEL, r, CRR, EFF, SF) for r in ramps]
     t_steady = [torque_nm(MASS_KG, WHEEL_R, DRIVEN, 0.0, r, CRR, EFF, SF) for r in ramps]
-    piv_lo, piv_hi = pivot_torque(0.6), pivot_torque(0.8)
+    piv_lo, piv_hi = pivot_torque(MU_LO), pivot_torque(MU_HI)
 
     plt.rcParams.update({
         "font.family": "sans-serif",
         "font.sans-serif": ["Helvetica Neue", "Helvetica", "Arial", "DejaVu Sans"],
         "svg.fonttype": "none",
+        "svg.hashsalt": "buddy",
     })
     fig, ax = plt.subplots(figsize=(8.6, 5.4), dpi=100)
     fig.patch.set_facecolor(SURFACE)
@@ -67,12 +71,12 @@ def main() -> int:
 
     # Pivot-in-place requirement band (dominant constraint)
     ax.axhspan(piv_lo, piv_hi, color=BAND, zorder=1)
-    ax.text(0.4, piv_hi + 0.08, "pivot-in-place on carpet ($\\mu$ = 0.6–0.8) — peak / stall requirement",
+    ax.text(0.4, piv_hi + 0.08, f"pivot-in-place on carpet ($\\mu$ = {MU_LO:g}–{MU_HI:g}) — peak / stall requirement",
             fontsize=9, color=INK, va="bottom", zorder=4)
 
     # Motor stall reference lines (identity by label, not color)
     for stall, name, label_x, ha in [
-        (3.73, "goBILDA 5203 26.9:1 stall — selected", 20.0, "right"),
+        (STALL_SELECTED, "goBILDA 5203 26.9:1 stall — selected", 20.0, "right"),
         (2.65, "Pololu 37D 70:1 stall", 10.4, "left"),
         (2.00, "Waveshare DDSM115 stall", 20.0, "right"),
     ]:
@@ -89,10 +93,10 @@ def main() -> int:
     ax.plot(ramps, t_steady, color=SERIES_2, linewidth=2, zorder=5,
             label=f"steady climb (SF {SF:g})")
     # v0.1 design point: 5 deg ramp + accel
-    t_design = torque_nm(MASS_KG, WHEEL_R, DRIVEN, ACCEL, 5.0, CRR, EFF, SF)
-    ax.plot([5.0], [t_design], marker="o", markersize=9, color=SERIES_1,
+    t_design = torque_nm(MASS_KG, WHEEL_R, DRIVEN, ACCEL, RAMP_DESIGN, CRR, EFF, SF)
+    ax.plot([RAMP_DESIGN], [t_design], marker="o", markersize=9, color=SERIES_1,
             markeredgecolor=SURFACE, markeredgewidth=2, zorder=6)
-    ax.annotate(f"v0.1 design case\n5° ramp: {t_design:.2f} N·m", (5.0, t_design),
+    ax.annotate(f"v0.1 design case\n{RAMP_DESIGN:g}° ramp: {t_design:.2f} N·m", (RAMP_DESIGN, t_design),
                 xytext=(6.2, 0.85), fontsize=9, color=INK,
                 arrowprops=dict(arrowstyle="-", color=MUTED, lw=1))
 
@@ -113,7 +117,8 @@ def main() -> int:
 
     out = REPO / "assets" / "figures" / "torque_envelope.svg"
     out.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(out, format="svg", bbox_inches="tight", facecolor=SURFACE)
+    fig.savefig(out, format="svg", bbox_inches="tight", facecolor=SURFACE,
+                metadata={"Date": None})
     print(f"wrote {out.relative_to(REPO)}")
     if len(sys.argv) > 1 and sys.argv[1] == "--png":
         png = Path(sys.argv[2]) if len(sys.argv) > 2 else out.with_suffix(".png")

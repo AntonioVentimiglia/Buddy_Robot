@@ -31,6 +31,13 @@ contract — keep it consistent.
    live in `docs/analysis/`, one document per calculation domain; research docs
    and milestone reports *cite* them rather than restate them. The tone target:
    explaining the process, never presenting a number to be taken on faith.
+   **Mechanically**, each derivation is a marimo notebook (`docs/analysis/*.py`)
+   whose substituted numbers are computed from `design_params.yaml` +
+   the requirements yaml via `buddy_calcs` — explore live with
+   `marimo edit <notebook>.py`; `python3 tools/build.py` exports the committed
+   `.md` (a generated artifact) and regenerates figures, the URDF params, and
+   data files in the same pass. A derivation can never silently disagree with
+   the parameters again.
 4. **Physical evidence is captured the day it happens** in
    `assets/evidence/YYYY-MM-DD_slug/` (photos, videos, scope traces, test CSVs).
    Hardware states are unrepeatable — the bare chassis can't be re-photographed

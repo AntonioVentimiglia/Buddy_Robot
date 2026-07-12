@@ -56,7 +56,7 @@ lateral offset $y_w$.*
 
 *The envelope in one figure (shown at the final 96 mm wheel per the update
 below): the computed load curves stay below 2.8 N·m even at 20°, but the
-pivot-scrub band (shaded) sits at 2.29–3.06 N·m. Of the three candidate stall
+pivot-scrub band (shaded) sits at 2.29–3.05 N·m. Of the three candidate stall
 lines, only the selected motor clears the band.*
 (Regenerate: `python3 tools/figures/plot_torque_envelope.py` — the script
 imports the same functions the analysis uses, so figure and analysis cannot
@@ -105,7 +105,7 @@ The 0.06 m wheel radius above was the URDF placeholder in force when the motor
 decision was made. Wheels were sourced the same day: **96 mm goBILDA Hogback**
 traction wheels, whose crowned tread is purpose-designed to reduce skid-steer
 scrub. At r = 0.048 m every requirement relaxes — design case 1.47 → 1.18 N·m,
-pivot band 2.9–3.8 → 2.29–3.06 N·m — so the motor selected against the harsher
+pivot band 2.9–3.8 → 2.29–3.05 N·m — so the motor selected against the harsher
 placeholder now clears the worst-case pivot (μ = 0.8) with 22% stall margin
 instead of being marginal. The trade: ground clearance was formally amended
 0.05 → 0.038 m (still ~2× typical indoor thresholds). The envelope figure above

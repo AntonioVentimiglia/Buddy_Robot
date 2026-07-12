@@ -13,19 +13,19 @@ Ignore these for now: `buddy_navigation`, `buddy_perception`, `buddy_manipulatio
 
 ## Assumed v0.1 geometry
 
-All of these live in ONE file — `src/buddy_description/urdf/buddy_params.xacro`.
-Edit there and RViz, Gazebo physics, and the diff-drive plugin all update together.
+Geometry lives in ONE file — `design_params.yaml` at the repo root. Edit there,
+run `python3 tools/build.py`, and the generated `buddy_params.xacro` (DO NOT
+EDIT directly), the analysis docs, and the figures all update together.
 
 - Four-wheel differential / skid-steer layout.
-- Body box: 0.28 m long, 0.22 m wide, 0.10 m tall.
-- Wheel radius: 0.06 m, width 0.035 m.
+- Body box: 0.28 m long, 0.22 m wide, 0.10 m tall (chassis placeholder).
+- Wheel radius: 0.048 m (96 mm goBILDA Hogback, ADR-0004), width 0.035 m.
 - Wheelbase: 0.18 m (front-to-rear centers). Track width: 0.26 m (left-to-right centers).
-- Gross mass for torque calculations: start with 30 kg = 20 kg robot + 10 kg payload.
+- Gross mass for torque calculations: 20 kg design ceiling (requirements yaml).
 
-> Reality note: a 0.28 m body at 30 kg gross is physically very dense and is almost
-> certainly a placeholder that's too small. It's kept only because the sim and torque
-> defaults already used it. When you pick real chassis dimensions, change them in
-> `buddy_params.xacro` (the single source) — nothing else needs editing.
+> Reality note: the 0.28 m body box is a chassis placeholder. When real chassis
+> dimensions are chosen, change them in `design_params.yaml` and rebuild —
+> nothing else needs editing.
 
 ## Install the simulation dependencies on Ubuntu 24.04 + ROS 2 Jazzy
 

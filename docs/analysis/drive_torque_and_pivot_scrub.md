@@ -1,11 +1,12 @@
 ---
-title: "Analysis — Drive Torque and Pivot Scrub Derivations"
+title: Analysis — Drive Torque and Pivot Scrub Derivations
 date: 2026-07-11
 type: analysis
 tags: [mechanical]
 summary: Full derivations, symbol definitions, numeric substitutions, and validity limits for the drive-motor torque envelope.
 figures: [assets/figures/drive_fbd.svg]
 ---
+<!-- GENERATED from drive_torque_and_pivot_scrub.py by tools/build.py — edit the notebook (marimo edit docs/analysis/drive_torque_and_pivot_scrub.py) or design_params.yaml, then rebuild. -->
 
 # Drive Torque and Pivot Scrub — Derivations
 
@@ -13,31 +14,33 @@ This is the methods document behind
 [`motor_sizing_and_selection.md`](../research/hardware/motors_and_gearboxes/motor_sizing_and_selection.md)
 and milestone [M01](../portfolio/milestones/M01-drive-motor-selection.md). Every
 result is derived from first principles, substituted numerically so it can be
-checked by hand, and bounded by its stated limits of validity. The same
-equations are implemented in
-[`robot_ws/tools/torque_sweep.py`](../../robot_ws/tools/torque_sweep.py) and the
-figure scripts import those functions directly — prose, code, and figures share
-one source of math.
+checked by hand, and bounded by its stated limits of validity. **Every number in
+this document is computed live from `design_params.yaml` and the requirements
+yaml** (this page is exported from a marimo notebook — prose, code, figures, and
+the URDF share one parameter source and cannot disagree).
 
 ## 1. Notation
 
-| Symbol | Meaning | v0.1 value | Units |
+| Symbol | Meaning | Current value | Units |
 |---|---|---|---|
 | $m$ | gross robot mass (design ceiling) | 20 | kg |
 | $g$ | gravitational acceleration | 9.80665 | m/s² |
 | $\theta$ | ramp angle | 5 (v0.1), 0–20 swept | deg |
 | $a$ | commanded forward acceleration | 0.5 | m/s² |
 | $C_{rr}$ | rolling resistance coefficient | 0.05 (carpet, high end) | — |
-| $r$ | wheel radius | 0.048 (96 mm Hogback, ADR-0004) | m |
+| $r$ | wheel radius | 0.048 (goBILDA 3626-0014-0096 Hogback (96 mm, 50A)) | m |
 | $n$ | driven wheels (one motor each) | 4 | — |
 | $\eta$ | drivetrain efficiency | 0.75 | — |
-| $S$ | safety factor (applied to demand) | 2.0 | — |
-| $v$ | ground speed | 0.75 (teleop max) | m/s |
+| $S$ | safety factor (applied to demand) | 2 | — |
+| $v$ | ground speed (teleop max) | 0.75 | m/s |
 | $\mu$ | lateral scrub friction coefficient | 0.6–0.8 (carpet), ~0.4 (marble) | — |
-| $x_w,\ y_w$ | wheel contact offsets from chassis center (fore-aft, lateral) | 0.09, 0.13 | m |
+| $x_w,\ y_w$ | wheel contact offsets from chassis center | 0.09, 0.13 | m |
 
-Geometry values come from `buddy_params.xacro` (single source of truth);
-requirement values from `buddy_v0_1_requirements.yaml`.
+Design values come from `design_params.yaml` (single source of truth, which
+also generates `buddy_params.xacro`); requirement values from
+`buddy_v0_1_requirements.yaml`. Assumptions are justified and stress-tested in
+§7. (Assumption dict this run: crr=0.05, η=0.75,
+S=2.)
 
 ## 2. Straight-line tractive force
 
@@ -52,7 +55,8 @@ $$F = \underbrace{ma}_{\text{inertia}} + \underbrace{mg\sin\theta}_{\text{grade}
 - **Rolling resistance** $C_{rr}mg\cos\theta$: proportional to the normal load
   $mg\cos\theta$, which is why it shrinks slightly as the ramp steepens.
 
-Substituting the v0.1 design case ($m=20$, $a=0.5$, $\theta=5°$, $C_{rr}=0.05$):
+Substituting the v0.1 design case ($m=20$, $a=0.5$,
+$\theta=5°$, $C_{rr}=0.05$):
 
 $$F = 20(0.5) + 20(9.80665)\sin 5° + 0.05(20)(9.80665)\cos 5°$$
 $$F = 10.00 + 17.09 + 9.77 = 36.86\ \text{N}$$
@@ -66,7 +70,7 @@ demand (we inflate the requirement, never the motor's claimed capability):
 
 $$T = \frac{F\,r}{n}\cdot\frac{S}{\eta}$$
 
-$$T = \frac{36.86 \times 0.048}{4}\cdot\frac{2.0}{0.75} = 0.442 \times 2.667 = 1.18\ \text{N·m per motor}$$
+$$T = \frac{36.86 \times 0.048}{4}\cdot\frac{2}{0.75} = 0.442 \times 2.667 = 1.18\ \text{N·m per motor}$$
 
 Units check: $[\text{N}][\text{m}] = \text{N·m}$; $S$ and $\eta$ are
 dimensionless. ✓
@@ -82,13 +86,12 @@ not its no-load rating (brushed DC speed droops roughly linearly with torque).
 
 ## 5. Braking as an acceleration case
 
-Stopping from $v$ in distance $s$ (constant deceleration, from
-$v^2 = 2as$):
+Stopping from $v$ in distance $s$ (constant deceleration, from $v^2 = 2as$):
 
-$$a_{stop} = \frac{v^2}{2s} = \frac{0.75^2}{2(0.25)} = 1.13\ \text{m/s}^2$$
+$$a_{stop} = \frac{v^2}{2s} = \frac{0.75^2}{2(0.25)} = 1.12\ \text{m/s}^2$$
 
-Fed back into §2–3 in place of $a$, this gives 1.58 N·m — a brief transient,
-not a thermal (continuous) requirement.
+Fed back into §2–3 in place of $a$, this gives 1.58 N·m — a brief
+transient, not a thermal (continuous) requirement.
 
 ## 6. Pivot-in-place scrub — the requirement that actually sized the motors
 
@@ -103,9 +106,7 @@ Kinetic friction opposes each patch's sliding direction — i.e., acts
 split evenly ($N = mg/4$ per wheel), the total resisting yaw moment about the
 pivot center is:
 
-$$M = \sum_{i=1}^{4} \mu \frac{mg}{4} d = 4\,\mu\,\frac{mg}{4}\,d = \mu\, m g\, d$$
-
-$$M = 0.6\,(20)(9.80665)(0.158) = 18.6\ \text{N·m} \quad (\mu = 0.6)$$
+$$M = \sum_{i=1}^{4} \mu \frac{mg}{4} d = \mu\, m g\, d = 0.6\,(20)(9.80665)(0.158) = 18.6\ \text{N·m} \quad (\mu = 0.6)$$
 
 The drive wheels generate yaw moment through their *longitudinal* forces acting
 at the lateral offset $y_w$ (the fore-aft offset $x_w$ contributes no moment
@@ -116,10 +117,15 @@ $$M_{drive} = 4 F_{wheel}\, y_w \;\;\Rightarrow\;\; F_{wheel} = \frac{M}{4 y_w} 
 
 $$T_{pivot} = \frac{F_{wheel}\, r}{\eta} = \frac{35.8 \times 0.048}{0.75} = 2.29\ \text{N·m per motor} \quad (\mu = 0.6)$$
 
-Repeating for the $\mu$ range: **1.53 N·m** at $\mu=0.4$ (marble), **2.29 N·m**
-at $\mu=0.6$, **3.06 N·m** at $\mu=0.8$ (thick carpet). No safety factor is
-applied here — this is already a worst-case peak demand and is carried as a
-range; it sets the motor's **stall** requirement, not its continuous rating.
+Repeating for the $\mu$ range: **1.53 N·m** at
+$\mu=0.4$ (marble), **2.29 N·m** at
+$\mu=0.6$, **3.05 N·m** at
+$\mu=0.8$ (thick carpet). No safety factor is applied here —
+this is already a worst-case peak demand and is carried as a range; it sets the
+motor's **stall** requirement, not its continuous rating. The selected motor's
+stall is 3.73 N·m —
+**22% margin at the
+worst-case $\mu$**.
 
 ![Free-body diagrams](../../assets/figures/drive_fbd.svg)
 
@@ -130,14 +136,14 @@ lateral offset $y_w$. Regenerate: `python3 tools/figures/plot_drive_fbd.py`.*
 ## 7. Limits of validity — where these models stop being true
 
 1. **Rigid-body, quasi-static, even weight split.** No load transfer under
-   acceleration or on ramps; at 0.5 m/s² and 5° the shift is a few percent of
-   $mg$ — negligible for sizing, not for traction-limit analysis at higher
-   accelerations.
+   acceleration or on ramps; at the design accel and ramp the shift is a few
+   percent of $mg$ — negligible for sizing, not for traction-limit analysis at
+   higher accelerations.
 2. **Point-contact Coulomb friction.** Carpet actually deforms (pile plowing),
-   which behaves partly like added rolling resistance rather than pure
-   Coulomb sliding — this is why $\mu$ is carried as a range to be **measured
-   on the real floor before buying four motors** (single-motor drag test).
-   The selected wheel (Hogback, ADR-0004) has a crowned tread that shrinks the
+   which behaves partly like added rolling resistance rather than pure Coulomb
+   sliding — this is why $\mu$ is carried as a range to be **measured on the
+   real floor before buying four motors** (single-motor drag test). The
+   selected wheel (Hogback, ADR-0004) has a crowned tread that shrinks the
    contact patch during pivots specifically to reduce scrub; the model ignores
    this, which adds conservatism in the direction of safety.
 3. **Pivot about the geometric center.** True for symmetric commands and mass

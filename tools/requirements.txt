@@ -1,0 +1,5 @@
+# Python deps for the parametric build (tools/build.py, figures, notebooks)
+#   pip3 install --user -r tools/requirements.txt
+pyyaml
+matplotlib
+marimo

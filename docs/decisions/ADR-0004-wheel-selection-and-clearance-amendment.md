@@ -36,7 +36,7 @@ At r = 0.048 m the torque envelope improves everywhere it was tight
 | Quantity | @ 120 mm placeholder | @ 96 mm Hogback |
 |---|---|---|
 | Design-case torque (5° + accel, SF 2) | 1.47 N·m | 1.18 N·m |
-| Pivot @ μ = 0.8 vs 3.73 N·m stall | 3.82 (marginal) | 3.06 (22% margin) |
+| Pivot @ μ = 0.8 vs 3.73 N·m stall | 3.82 (marginal) | 3.05 (22% margin) |
 | Wheel RPM @ 0.75 m/s | 119 | 149 (motor: 223 no-load) |
 | Loaded top speed (est.) | ~1.1 m/s | ~0.9 m/s |
 

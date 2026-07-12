@@ -28,7 +28,7 @@ Structural changes should update `PROJECT_CONTEXT.md`.
 
 1. Read `PROJECT_CONTEXT.md`.
 2. Requirements are answered in `TODO/01_clarifications_needed.md` and `docs/requirements/buddy_v0_1_requirements.yaml`.
-3. Review `docs/system_model/frame_tree.md` and the robot model (`robot_ws/src/buddy_description/urdf/buddy.urdf.xacro`, dimensions in `buddy_params.xacro`).
+3. Review `docs/system_model/frame_tree.md` and the robot model (`robot_ws/src/buddy_description/urdf/buddy.urdf.xacro`; dimensions live in `design_params.yaml` — edit it and run `python3 tools/build.py`).
 4. Choose a ROS 2 + JetPack baseline in `docs/decisions/ADR-0001-ros2-jetpack-baseline.md`.
 5. Start simulation before buying major hardware.
 

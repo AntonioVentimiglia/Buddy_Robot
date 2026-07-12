@@ -20,11 +20,16 @@ from matplotlib.patches import FancyArrowPatch, Rectangle, Arc
 from matplotlib.transforms import Affine2D
 
 REPO = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO))
+from buddy_calcs import P  # noqa: E402
 
-# geometry from buddy_params.xacro
-WHEEL_X, WHEEL_Y = 0.09, 0.13
-CHASSIS_L, CHASSIS_W = 0.28, 0.22
-WHEEL_DIA, WHEEL_TH = 0.12, 0.035
+# geometry from design_params.yaml (single source of truth)
+WHEEL_X = P["wheels"]["x_offset_m"]
+WHEEL_Y = P["wheels"]["y_offset_m"]
+CHASSIS_L = P["chassis"]["length_m"]
+CHASSIS_W = P["chassis"]["width_m"]
+WHEEL_DIA = 2 * P["wheels"]["radius_m"]
+WHEEL_TH = P["wheels"]["width_m"]
 
 # palette (validated reference palette, light mode)
 SURFACE = "#fcfcfb"
@@ -153,6 +158,7 @@ def main() -> int:
         "font.family": "sans-serif",
         "font.sans-serif": ["Helvetica Neue", "Helvetica", "Arial", "DejaVu Sans"],
         "svg.fonttype": "none",
+        "svg.hashsalt": "buddy",
         "mathtext.fontset": "dejavusans",
     })
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10.6, 5.0), dpi=100)
@@ -168,7 +174,8 @@ def main() -> int:
 
     out = REPO / "assets" / "figures" / "drive_fbd.svg"
     out.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(out, format="svg", bbox_inches="tight", facecolor=SURFACE)
+    fig.savefig(out, format="svg", bbox_inches="tight", facecolor=SURFACE,
+                metadata={"Date": None})
     print(f"wrote {out.relative_to(REPO)}")
     if len(sys.argv) > 1 and sys.argv[1] == "--png":
         png = Path(sys.argv[2]) if len(sys.argv) > 2 else out.with_suffix(".png")

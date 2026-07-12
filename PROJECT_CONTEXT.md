@@ -23,8 +23,11 @@ assume a package does anything until you have opened it.
 | `buddy_firmware_interfaces` | Protocol design docs only (`docs/protocol_design.md`, schema draft). |
 | `buddy_navigation`, `buddy_perception`, `buddy_manipulation`, `buddy_mission`, `buddy_diagnostics`, `buddy_operator`, `buddy_tests` | **Deleted 2026-07-11.** They were empty scaffolds full of stub files that only added noise. Recreate each package (`ros2 pkg create`) when its build phase is actually reached; the intended responsibilities are listed in section 6. |
 
-**To start working right now:** read `robot_ws/SIMULATION_START_HERE.md`. Geometry
-is changed in exactly one file: `robot_ws/src/buddy_description/urdf/buddy_params.xacro`.
+**To start working right now:** read `robot_ws/SIMULATION_START_HERE.md`. Design
+values are changed in exactly one file: `design_params.yaml` at the repo root,
+followed by `python3 tools/build.py` (regenerates the URDF params file, analysis
+docs, figures, and CSV together). `buddy_params.xacro` is a **generated file** —
+never edit it directly.
 
 Buddy v0.1 is an indoor autonomous mobile base using:
 - Jetson Orin Nano Super
@@ -128,7 +131,7 @@ map
 Frame changes must update:
 
 - `docs/system_model/frame_tree.md`
-- `robot_ws/src/buddy_description/urdf/buddy_params.xacro` (dimensions) and the relevant macro file
+- `design_params.yaml` (dimensions — regenerates `buddy_params.xacro` via `tools/build.py`) and the relevant macro file
 - `robot_ws/src/buddy_description/config/frames.yaml`
 - `robot_ws/src/buddy_description/urdf/buddy.gazebo.xacro` (sim sensor frames)
 - Calibration notes
@@ -160,9 +163,19 @@ Packages:
   filename suffix. (The old `(_IP)` filename convention was removed 2026-07-11: it
   made paths hard to reference and silently broke any code that loaded a file whose
   name later changed.) A topic is "settled" when it has an ADR in `docs/decisions/`.
+- **Parametric build (single source of truth):** all design choices and
+  assumptions live in `design_params.yaml`; requirements live in
+  `docs/requirements/buddy_v0_1_requirements.yaml`; no value may exist in both.
+  `python3 tools/build.py` regenerates from them: `buddy_params.xacro`
+  (generated — never hand-edit), the analysis notebooks' markdown exports,
+  all figures, and the torque sweep CSV. `buddy_calcs/` is the shared loader +
+  equation module every consumer imports. Derivation documents are **marimo
+  notebooks** (`docs/analysis/*.py`, edit live with `marimo edit <file>`); their
+  committed `.md` exports are generated artifacts.
 - The robot model has exactly one entry point: `buddy.urdf.xacro`. All dimensions
-  live in `buddy_params.xacro`. There is no separate Gazebo SDF — the sim spawns
-  this URDF. Do not reintroduce a parallel model file.
+  flow from `design_params.yaml` through the generated `buddy_params.xacro`.
+  There is no separate Gazebo SDF — the sim spawns this URDF. Do not reintroduce
+  a parallel model file.
 - Folder-level context lives in `README.md` only where a folder has real content or a
   non-obvious convention. Empty scaffold folders intentionally have no README (the
   ~90 placeholder stubs were removed as noise).

@@ -7,14 +7,14 @@
 free-body diagrams, limits of validity) in
 [`docs/analysis/drive_torque_and_pivot_scrub.md`](../../../analysis/drive_torque_and_pivot_scrub.md)
 
-## 1. Inputs (from `docs/requirements/buddy_v0_1_requirements.yaml` and `buddy_params.xacro`)
+## 1. Inputs (from `docs/requirements/buddy_v0_1_requirements.yaml` and `design_params.yaml`)
 
 | Parameter | Value | Source |
 |---|---|---|
 | Gross design mass | 20 kg | requirements (`design_gross_mass_limit_kg`) |
-| Wheel radius | 0.048 m (96 mm goBILDA Hogback, ADR-0004; was 0.06 m placeholder during initial sizing) | `buddy_params.xacro` |
+| Wheel radius | 0.048 m (96 mm goBILDA Hogback, ADR-0004; was 0.06 m placeholder during initial sizing) | `design_params.yaml` |
 | Driven wheels | 4 (one motor each, paired L/R channels) | clarifications #11 |
-| Track / wheelbase | 0.26 m / 0.18 m | `buddy_params.xacro` |
+| Track / wheelbase | 0.26 m / 0.18 m | `design_params.yaml` |
 | v0.1 max speed (teleop) | 0.75 m/s → **149 wheel RPM** | requirements |
 | v0.1 autonomous speed | 0.25–0.50 m/s → 40–80 RPM | requirements |
 | v0.1 ramp | 5° | requirements (`ramp_angle_v0_1_deg`) |
@@ -29,7 +29,7 @@ free-body diagrams, limits of validity) in
 | Flat cruise (crr 0.05) | steady state | **0.16 Nm** | continuous (thermal) |
 | 5° ramp + 0.5 m/s² accel, SF 2.0 | design case | **1.18 Nm** | rated / short-duty target |
 | Emergency stop 0.75→0 in 0.25 m | transient | 1.58 Nm | brief peak |
-| **Pivot-in-place on carpet** (μ 0.6–0.8) | worst case | **2.29–3.06 Nm** | peak / near-stall |
+| **Pivot-in-place on carpet** (μ 0.6–0.8) | worst case | **2.29–3.05 Nm** | peak / near-stall |
 | Future goal: 2.5 m/s + 20° ramp | out of scope v0.1 | 2.76 Nm @ 497 RPM | see §5 |
 
 (Initial sizing used the 0.06 m URDF placeholder radius — those numbers were
@@ -105,9 +105,12 @@ This supersedes nothing — it implements conflict #1/#3 in `design_conflicts.md
 
 When any input changes (mass, wheel radius, surfaces, budget):
 
-1. Edit the parameter in `buddy_params.xacro` (geometry) or the requirements yaml.
-2. Re-run the `torque_sweep.py` command in §2 (add `--csv robot_ws/analysis/torque_sweep.csv`).
-3. Re-check the four selection targets in §2 against the shortlist.
+1. Edit the parameter in `design_params.yaml` (design choices/assumptions) or the
+   requirements yaml (requirements).
+2. Run `python3 tools/build.py` — regenerates the URDF params, the derivation
+   doc's substituted numbers, both figures, and the sweep CSV in one pass.
+3. Re-check the four selection targets in §2 against the shortlist (the numbers
+   in *this* file's tables are prose — update them from the rebuilt derivation
+   doc, or explore live with `marimo edit docs/analysis/drive_torque_and_pivot_scrub.py`).
 4. When a purchase is made: record it in the BOM (`docs/financials/Buddy_BOM.xlsx`),
-   write `docs/decisions/ADR-0003-drive-motor-selection.md`, and update
-   `PROJECT_CONTEXT.md` section 1 (hardware chosen).
+   update the ADR status, and update `PROJECT_CONTEXT.md` section 1 (hardware chosen).

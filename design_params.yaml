@@ -1,0 +1,45 @@
+# Buddy design parameters — SINGLE SOURCE OF TRUTH for chosen and assumed values.
+#
+# Split of responsibilities:
+#   docs/requirements/buddy_v0_1_requirements.yaml = what must be true (requirements)
+#   this file                                      = what we CHOSE or ASSUME to satisfy them
+# No value should live in both.
+#
+# After editing ANY value here:  python3 tools/build.py
+# That regenerates: buddy_params.xacro, docs/analysis/*.md (from marimo notebooks),
+# assets/figures/*.svg, robot_ws/analysis/torque_sweep.csv.
+
+chassis: # URDF placeholder box — revisit with chassis CAD
+  length_m: 0.28
+  width_m: 0.22
+  height_m: 0.10
+  mass_kg: 18.0 # body-only placeholder so gross ~ requirements mass limit
+
+wheels: # ADR-0004: goBILDA Hogback 96 mm + 8 mm REX hubs
+  part: "goBILDA 3626-0014-0096 Hogback (96 mm, 50A)"
+  radius_m: 0.048
+  width_m: 0.035 # nominal — verify by measurement on receipt
+  mass_kg: 0.2 # nominal — verify by measurement on receipt
+  x_offset_m: 0.09 # fore/aft distance from chassis center to axle
+  y_offset_m: 0.13 # lateral distance from center (track/2)
+  z_offset_m: -0.04 # axle relative to base_link center; base_center_z is DERIVED
+                    # as radius_m - z_offset_m so wheels always touch ground in sim
+
+drive_motor: # ADR-0003: goBILDA 5203 Yellow Jacket 26.9:1
+  part: "goBILDA 5203-2402-0027 (26.9:1, 223 RPM)"
+  count: 4
+  stall_torque_nm: 3.73
+  stall_current_a: 9.2
+  no_load_rpm: 223
+  encoder_ppr_output: 751.8
+  price_usd: 54.99
+
+assumptions: # estimates to be replaced by measurement — see analysis docs' limits sections
+  crr_carpet: 0.05 # rolling resistance, high end of published carpet range
+  drivetrain_efficiency: 0.75 # conservative: planetary gearbox + hub coupling
+  safety_factor: 2.0 # applied to torque DEMAND (never to motor capability)
+  accel_design_mps2: 0.5 # commanded forward acceleration, design case
+  scrub_mu: # lateral tire scrub friction for pivot-in-place
+    marble: 0.4
+    carpet_low: 0.6
+    carpet_high: 0.8
