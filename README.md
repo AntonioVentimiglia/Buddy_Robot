@@ -47,6 +47,7 @@ buddy_ros2_robot/
   TODO/                           Next steps, clarifications, milestone plans
   docs/                           Architecture, requirements, interfaces, power, safety, decisions
   docs/research/                  Research folders, created only when research starts
+  docs/portfolio/                 Engineering log + illustrated milestone reports (website source)
   robot_ws/                       ROS 2 workspace skeleton
   firmware/                       MCU firmware architecture and starter scaffolds
   devops/                         Jetson setup, containers, systemd, udev, OTA, networking

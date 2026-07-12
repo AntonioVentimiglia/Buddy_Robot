@@ -165,6 +165,13 @@ Packages:
   non-obvious convention. Empty scaffold folders intentionally have no README (the
   ~90 placeholder stubs were removed as noise).
 - Design decisions live in `docs/decisions/` as ADRs.
+- **Portfolio system** (`docs/portfolio/` — see its README): every working session
+  gets a dated engineering-log entry (`log/YYYY-MM.md`); every completed phase gets
+  an illustrated milestone report (`milestones/Mxx-*.md`); every figure is generated
+  by a script in `tools/figures/` (figures-as-code — no hand-made charts); physical
+  evidence (photos/traces/test data) is captured same-day in
+  `assets/evidence/YYYY-MM-DD_slug/`. The future project website is generated from
+  these docs, so their frontmatter/structure is a contract.
 - Hardware research lives in `docs/research/`, not scattered through ROS packages.
   Research folders are created **when research actually starts** — the old tree of
   ~19 empty README/notes template pairs was deleted 2026-07-11. Requirements live in
