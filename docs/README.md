@@ -4,9 +4,9 @@ This folder contains the design model for Buddy: requirements, system architectu
 
 Start here:
 
-1. `requirements/requirements(_IP).yaml`
-2. `system_model/architecture_overview.md`
-3. `system_model/frame_tree.md`
-4. `system_model/interface_contract.md`
-5. `hardware/hardware_scoring_matrix(_IP).md`
-7. `decisions/ADR-0001-ros2-jetpack-baseline(_IP).md`
+1. `requirements/buddy_v0_1_requirements.yaml`
+2. `requirements/design_conflicts.md`
+3. `system_model/architecture_overview.md`
+4. `system_model/frame_tree.md`
+5. `system_model/interface_contract.md`
+6. `decisions/ADR-0001-ros2-jetpack-baseline.md`

@@ -6,12 +6,11 @@
 
 ## Phase 0 - Requirements and assumptions
 
-- [ ] Fill `docs/requirements/requirements(_IP).yaml`.
-- [ ] Fill `docs/requirements/mission_profile(_IP).md`.
-- [ ] Decide indoor/outdoor/mixed operating environment.
-- [ ] Decide speed, acceleration, stopping distance, ramp angle, and runtime targets.
-- [ ] Estimate mass budget including 20-30% future growth.
-- [ ] Decide whether a robot arm is required for prototype v1.
+- [x] Fill `docs/requirements/buddy_v0_1_requirements.yaml` (canonical requirements file).
+- [x] Decide indoor/outdoor/mixed operating environment (indoor, carpet + marble).
+- [x] Decide speed, stopping distance, ramp angle, and runtime targets (see requirements yaml).
+- [x] Estimate mass budget including growth (20 kg gross design limit).
+- [x] Decide whether a robot arm is required for prototype v1 (no arm in v0.1).
 - [ ] Create first hardware budget range.
 - [ ] Create first safety envelope: people nearby, pets, supervised operation, speed limit.
 
@@ -20,7 +19,7 @@
 - [ ] Select JetPack version after verifying current NVIDIA support for Jetson Orin Nano Super.
 - [ ] Select ROS 2 baseline: Jazzy first unless a critical driver forces another distro.
 - [ ] Install ROS 2 on Jetson or Linux development machine.
-- [ ] Confirm `colcon build` works for package skeletons after incomplete `(_IP)` files are promoted or excluded.
+- [ ] Confirm `colcon build` works for package skeletons after stub files are completed or excluded.
 - [ ] Set up VS Code Remote SSH from Mac/Windows host.
 - [ ] Set up Foxglove/RViz visualization path.
 
@@ -42,10 +41,11 @@
 
 ## Phase 4 - Hardware research and purchasing gate
 
-- [ ] Complete motor torque worksheet.
-- [ ] Complete power budget and battery sizing.
-- [ ] Shortlist motors, motor drivers, encoders, drive MCU, battery/BMS, 2D LiDAR, RGB-D camera, IMU.
-- [ ] Score each candidate in `docs/hardware/hardware_scoring_matrix(_IP).md`.
+- [x] Complete motor torque worksheet (`docs/research/hardware/motors_and_gearboxes/motor_sizing_and_selection.md`).
+- [x] Shortlist + select motors — 4× goBILDA 5203 26.9:1 (ADR-0003). Purchase + BOM entry pending.
+- [ ] Complete power budget and battery sizing (`tools/calculators/battery_sizing.py`, blocked on motor decision).
+- [ ] Shortlist motor drivers (4 brushed ch, ≥10 A peak, current sense), drive MCU (STM32G474 pre-selected, confirm after drivers), battery/BMS, 2D LiDAR, RGB-D camera, IMU.
+- [ ] Score each hardware candidate (comparison table in each research doc, as in the motor sizing doc).
 - [ ] Reject any candidate with unclear power, mounting, modeling, communication, or safety behavior.
 
 ## Phase 5 - Electronics bench

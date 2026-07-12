@@ -27,18 +27,17 @@ Structural changes should update `PROJECT_CONTEXT.md`.
 ## How to use this repository first
 
 1. Read `PROJECT_CONTEXT.md`.
-2. Fill `TODO/01_clarifications_needed.md` and `docs/requirements/requirements(_IP).yaml`.
+2. Requirements are answered in `TODO/01_clarifications_needed.md` and `docs/requirements/buddy_v0_1_requirements.yaml`.
 3. Review `docs/system_model/frame_tree.md` and the robot model (`robot_ws/src/buddy_description/urdf/buddy.urdf.xacro`, dimensions in `buddy_params.xacro`).
-4. Choose a ROS 2 + JetPack baseline in `docs/decisions/ADR-0001-ros2-jetpack-baseline(_IP).md`.
+4. Choose a ROS 2 + JetPack baseline in `docs/decisions/ADR-0001-ros2-jetpack-baseline.md`.
 5. Start simulation before buying major hardware.
 
-## Naming rule for incomplete artifacts
+## Marking incomplete work
 
-Files ending in `(_IP)` are intentionally **in progress**. Use `(_IP)` only on
-standalone docs/notes — never on files referenced by path from working code (xacro
-includes, launch targets, rviz configs), because the marker silently breaks the
-reference. Mark those "WIP" with an in-file comment instead. When promoting a file,
-update `PROJECT_CONTEXT.md` and any TODO/launch references.
+Everything here is in progress — filenames don't say so. When a file is a draft or
+its values are unverified, put a one-line `WIP:` note at the top of the file
+explaining what's missing. Decisions get locked into ADRs under `docs/decisions/`
+when made; that's the signal a topic is settled, not a filename suffix.
 
 ## Repository map
 
@@ -47,7 +46,7 @@ buddy_ros2_robot/
   PROJECT_CONTEXT.md              Canonical AI/project context
   TODO/                           Next steps, clarifications, milestone plans
   docs/                           Architecture, requirements, interfaces, power, safety, decisions
-  research/                       Hardware/software research workspaces
+  docs/research/                  Research folders, created only when research starts
   robot_ws/                       ROS 2 workspace skeleton
   firmware/                       MCU firmware architecture and starter scaffolds
   devops/                         Jetson setup, containers, systemd, udev, OTA, networking

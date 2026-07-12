@@ -1,4 +1,4 @@
-#include "buddy_base/base_hardware_interface(_IP).hpp"
+#include "buddy_base/base_hardware_interface.hpp"
 
 namespace buddy_base {
 

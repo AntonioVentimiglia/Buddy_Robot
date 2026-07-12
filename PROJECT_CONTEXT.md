@@ -1,6 +1,6 @@
 # Buddy Project Context for AI Prompts
 
-**Last updated:** 2026-06-28
+**Last updated:** 2026-07-11
 
 > This is the single canonical context file. Paste it into any AI prompt to
 > orient it. The only other top-level doc you need is the runbook
@@ -19,8 +19,9 @@ assume a package does anything until you have opened it.
 | `buddy_simulation` | **Working.** `gazebo_lab.launch.py` spawns the URDF in Gazebo (diff drive + 2D LiDAR), no separate SDF. |
 | `tools` (`robot_ws/tools/torque_sweep.py`) | **Working.** Standalone torque/RPM sizing, no ROS needed. |
 | `buddy_base` | Skeleton. `ros2_control` hardware interface is a stub (transport TBD). |
-| `buddy_bringup` | Skeleton. Launch files still marked `(_IP)`. |
-| `buddy_navigation`, `buddy_perception`, `buddy_manipulation`, `buddy_mission`, `buddy_diagnostics`, `buddy_operator`, `buddy_firmware_interfaces`, `buddy_tests` | Empty scaffolds / placeholders. Ignore until reached. |
+| `buddy_bringup` | Skeleton. Launch files are stubs (marked `WIP:` in-file). |
+| `buddy_firmware_interfaces` | Protocol design docs only (`docs/protocol_design.md`, schema draft). |
+| `buddy_navigation`, `buddy_perception`, `buddy_manipulation`, `buddy_mission`, `buddy_diagnostics`, `buddy_operator`, `buddy_tests` | **Deleted 2026-07-11.** They were empty scaffolds full of stub files that only added noise. Recreate each package (`ros2 pkg create`) when its build phase is actually reached; the intended responsibilities are listed in section 6. |
 
 **To start working right now:** read `robot_ws/SIMULATION_START_HERE.md`. Geometry
 is changed in exactly one file: `robot_ws/src/buddy_description/urdf/buddy_params.xacro`.
@@ -46,8 +47,9 @@ Buddy v0.1 is an indoor autonomous mobile base using:
   - Drive style: **four-wheel differential drive** with left/right wheel groups.
   - Primary navigation sensor: **2D LiDAR**.
   - Primary vision sensor: **RGB-D camera**.
+  - Drive motors: **4× goBILDA 5203 Yellow Jacket 26.9:1** (proposed, ADR-0003; buy pending).
 - Major hardware still undecided:
-  - Motors, gearboxes, motor drivers, encoders.
+  - Motor drivers, encoders (goBILDA motors ship with encoders; drivers still open).
   - Drive MCU and bus protocol.
   - Battery chemistry/capacity, BMS, fuses, DC/DC converters.
   - Chassis dimensions, wheel diameter, tread width, suspension/casters/skid behavior.
@@ -132,7 +134,8 @@ Frame changes must update:
 ## 6. Package strategy
 
 ROS workspace path: `robot_ws/`. This is the **intended** package layout — see
-section 0 for which packages are actually built today.
+section 0 for which packages actually exist today (most placeholder packages were
+deleted 2026-07-11 and will be recreated when reached).
 
 Packages:
 
@@ -151,11 +154,10 @@ Packages:
 
 ## 7. Repository conventions
 
-- `(_IP)` marks an in-progress file, BUT only on standalone docs/notes — never on a
-  file that is referenced by path from working code (xacro includes, launch targets,
-  rviz configs). A `(_IP)` in a path that code loads silently breaks the reference,
-  which is exactly the bug that was just cleaned up. Mark such files "WIP" with an
-  in-file comment instead.
+- Draft/unverified files carry a one-line `WIP:` note at the top of the file, not a
+  filename suffix. (The old `(_IP)` filename convention was removed 2026-07-11: it
+  made paths hard to reference and silently broke any code that loaded a file whose
+  name later changed.) A topic is "settled" when it has an ADR in `docs/decisions/`.
 - The robot model has exactly one entry point: `buddy.urdf.xacro`. All dimensions
   live in `buddy_params.xacro`. There is no separate Gazebo SDF — the sim spawns
   this URDF. Do not reintroduce a parallel model file.
@@ -163,7 +165,11 @@ Packages:
   non-obvious convention. Empty scaffold folders intentionally have no README (the
   ~90 placeholder stubs were removed as noise).
 - Design decisions live in `docs/decisions/` as ADRs.
-- Hardware research lives in `research/`, not scattered through ROS packages.
+- Hardware research lives in `docs/research/`, not scattered through ROS packages.
+  Research folders are created **when research actually starts** — the old tree of
+  ~19 empty README/notes template pairs was deleted 2026-07-11. Requirements live in
+  `docs/requirements/buddy_v0_1_requirements.yaml` (single canonical file; the older
+  duplicate `requirements.yaml` and `mission_profile.md` were merged away).
 - Build/deploy automation lives in `devops/` and `tools/`.
 - Do not hard-code final hardware values until verified by measurement or selected part datasheets.
 

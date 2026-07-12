@@ -222,3 +222,5 @@ __marimo__/
 
 #  KiCAD
 .history
+# KiCAD lock files
+*.lck

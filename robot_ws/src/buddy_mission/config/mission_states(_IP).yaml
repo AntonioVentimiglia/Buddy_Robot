@@ -1,9 +1,0 @@
-states:
-  - BOOT
-  - SAFE_IDLE
-  - TELEOP
-  - MAPPING
-  - NAVIGATING
-  - PERCEPTION_TASK
-  - FAULT
-  - UPDATE
