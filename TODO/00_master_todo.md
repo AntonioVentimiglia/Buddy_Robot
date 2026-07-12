@@ -26,7 +26,7 @@
 ## Phase 2 - Robot model
 
 - [ ] Choose provisional chassis dimensions.
-- [ ] Choose provisional wheel diameter and track width.
+- [x] Wheel diameter locked: 96mm Hogback (ADR-0004). Track width still provisional.
 - [x] Frame tree, wheels, LiDAR/camera/IMU/arm placeholders modeled (`buddy.urdf.xacro`). Validate in RViz.
 - [x] Simple collision geometry present (boxes/cylinders).
 - [x] Inertial placeholders auto-computed from mass/dims in xacro. Replace with measured values later.
@@ -43,6 +43,7 @@
 
 - [x] Complete motor torque worksheet (`docs/research/hardware/motors_and_gearboxes/motor_sizing_and_selection.md`).
 - [x] Shortlist + select motors — 4× goBILDA 5203 26.9:1 (ADR-0003). Purchase + BOM entry pending.
+- [x] Select wheels — 4× goBILDA Hogback 96mm + 8mm REX hubs (ADR-0004; clearance requirement amended 0.05→0.038 m). Purchase + hub SKU verification pending.
 - [ ] Complete power budget and battery sizing (`tools/calculators/battery_sizing.py`, blocked on motor decision).
 - [ ] Shortlist motor drivers (4 brushed ch, ≥10 A peak, current sense), drive MCU (STM32G474 pre-selected, confirm after drivers), battery/BMS, 2D LiDAR, RGB-D camera, IMU.
 - [ ] Score each hardware candidate (comparison table in each research doc, as in the motor sizing doc).

@@ -28,7 +28,7 @@ one source of math.
 | $\theta$ | ramp angle | 5 (v0.1), 0–20 swept | deg |
 | $a$ | commanded forward acceleration | 0.5 | m/s² |
 | $C_{rr}$ | rolling resistance coefficient | 0.05 (carpet, high end) | — |
-| $r$ | wheel radius | 0.06 | m |
+| $r$ | wheel radius | 0.048 (96 mm Hogback, ADR-0004) | m |
 | $n$ | driven wheels (one motor each) | 4 | — |
 | $\eta$ | drivetrain efficiency | 0.75 | — |
 | $S$ | safety factor (applied to demand) | 2.0 | — |
@@ -66,7 +66,7 @@ demand (we inflate the requirement, never the motor's claimed capability):
 
 $$T = \frac{F\,r}{n}\cdot\frac{S}{\eta}$$
 
-$$T = \frac{36.86 \times 0.06}{4}\cdot\frac{2.0}{0.75} = 0.553 \times 2.667 = 1.47\ \text{N·m per motor}$$
+$$T = \frac{36.86 \times 0.048}{4}\cdot\frac{2.0}{0.75} = 0.442 \times 2.667 = 1.18\ \text{N·m per motor}$$
 
 Units check: $[\text{N}][\text{m}] = \text{N·m}$; $S$ and $\eta$ are
 dimensionless. ✓
@@ -75,7 +75,7 @@ dimensionless. ✓
 
 Rolling without slip, $v = \omega r$, converted to RPM:
 
-$$\text{RPM} = \frac{v}{2\pi r}\times 60 = \frac{0.75}{2\pi(0.06)}\times 60 = 119.4$$
+$$\text{RPM} = \frac{v}{2\pi r}\times 60 = \frac{0.75}{2\pi(0.048)}\times 60 = 149.2$$
 
 This is a *loaded* speed target — compare against a motor's speed under load,
 not its no-load rating (brushed DC speed droops roughly linearly with torque).
@@ -87,7 +87,7 @@ $v^2 = 2as$):
 
 $$a_{stop} = \frac{v^2}{2s} = \frac{0.75^2}{2(0.25)} = 1.13\ \text{m/s}^2$$
 
-Fed back into §2–3 in place of $a$, this gives 1.97 N·m — a brief transient,
+Fed back into §2–3 in place of $a$, this gives 1.58 N·m — a brief transient,
 not a thermal (continuous) requirement.
 
 ## 6. Pivot-in-place scrub — the requirement that actually sized the motors
@@ -114,10 +114,10 @@ all four contribute:
 
 $$M_{drive} = 4 F_{wheel}\, y_w \;\;\Rightarrow\;\; F_{wheel} = \frac{M}{4 y_w} = \frac{18.6}{4(0.13)} = 35.8\ \text{N}$$
 
-$$T_{pivot} = \frac{F_{wheel}\, r}{\eta} = \frac{35.8 \times 0.06}{0.75} = 2.86\ \text{N·m per motor} \quad (\mu = 0.6)$$
+$$T_{pivot} = \frac{F_{wheel}\, r}{\eta} = \frac{35.8 \times 0.048}{0.75} = 2.29\ \text{N·m per motor} \quad (\mu = 0.6)$$
 
-Repeating for the $\mu$ range: **1.91 N·m** at $\mu=0.4$ (marble), **2.86 N·m**
-at $\mu=0.6$, **3.82 N·m** at $\mu=0.8$ (thick carpet). No safety factor is
+Repeating for the $\mu$ range: **1.53 N·m** at $\mu=0.4$ (marble), **2.29 N·m**
+at $\mu=0.6$, **3.06 N·m** at $\mu=0.8$ (thick carpet). No safety factor is
 applied here — this is already a worst-case peak demand and is carried as a
 range; it sets the motor's **stall** requirement, not its continuous rating.
 
@@ -137,6 +137,9 @@ lateral offset $y_w$. Regenerate: `python3 tools/figures/plot_drive_fbd.py`.*
    which behaves partly like added rolling resistance rather than pure
    Coulomb sliding — this is why $\mu$ is carried as a range to be **measured
    on the real floor before buying four motors** (single-motor drag test).
+   The selected wheel (Hogback, ADR-0004) has a crowned tread that shrinks the
+   contact patch during pivots specifically to reduce scrub; the model ignores
+   this, which adds conservatism in the direction of safety.
 3. **Pivot about the geometric center.** True for symmetric commands and mass
    distribution; a payload shifting the CG moves the pivot point and
    redistributes normal loads.

@@ -16,7 +16,10 @@ geometry:
   target_footprint_width_m: 0.30
   allowed_growth_length_m: 0.45
   allowed_growth_width_m: 0.45
-  ground_clearance_m: 0.05
+  # Amended 2026-07-11 (ADR-0004): 0.05 was a round-number guess; 96mm wheels cap
+  # achievable clearance at ~0.038 m with the current axle mount, which still
+  # clears indoor thresholds/surface transitions (5-20mm) by ~2x.
+  ground_clearance_m: 0.038
 
 mobility:
   drive_type: four_wheel_differential_skid_steer

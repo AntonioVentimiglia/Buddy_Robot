@@ -24,7 +24,7 @@ from torque_sweep import torque_nm  # noqa: E402
 
 # v0.1 design parameters (single place; keep in sync with the sizing doc)
 MASS_KG = 20.0
-WHEEL_R = 0.06
+WHEEL_R = 0.048  # goBILDA Hogback 96mm (ADR-0004)
 DRIVEN = 4
 CRR = 0.05
 EFF = 0.75
@@ -67,13 +67,13 @@ def main() -> int:
 
     # Pivot-in-place requirement band (dominant constraint)
     ax.axhspan(piv_lo, piv_hi, color=BAND, zorder=1)
-    ax.text(0.4, (piv_lo + piv_hi) / 2, "pivot-in-place on carpet ($\\mu$ = 0.6–0.8)\npeak / stall requirement",
-            fontsize=9, color=INK, va="center", zorder=4)
+    ax.text(0.4, piv_hi + 0.08, "pivot-in-place on carpet ($\\mu$ = 0.6–0.8) — peak / stall requirement",
+            fontsize=9, color=INK, va="bottom", zorder=4)
 
     # Motor stall reference lines (identity by label, not color)
     for stall, name, label_x, ha in [
         (3.73, "goBILDA 5203 26.9:1 stall — selected", 20.0, "right"),
-        (2.65, "Pololu 37D 70:1 stall", 0.4, "left"),
+        (2.65, "Pololu 37D 70:1 stall", 10.4, "left"),
         (2.00, "Waveshare DDSM115 stall", 20.0, "right"),
     ]:
         emphasized = "selected" in name
@@ -100,7 +100,8 @@ def main() -> int:
     ax.set_ylim(0, 4.4)
     ax.set_xlabel("Ramp angle (deg)", fontsize=10, color=MUTED)
     ax.set_ylabel("Torque per wheel (N·m)", fontsize=10, color=MUTED)
-    ax.set_title("Buddy v0.1 per-wheel torque envelope — 20 kg, r = 0.06 m, 4 driven wheels",
+    ax.set_title(f"Buddy v0.1 per-wheel torque envelope — {MASS_KG:g} kg, "
+                 f"r = {WHEEL_R:g} m ({WHEEL_R*2000:g} mm Hogback), {DRIVEN} driven wheels",
                  fontsize=12, color=INK, pad=14, loc="left")
     ax.grid(True, color=GRID, linewidth=0.8, zorder=0)
     ax.tick_params(colors=MUTED, labelsize=9)

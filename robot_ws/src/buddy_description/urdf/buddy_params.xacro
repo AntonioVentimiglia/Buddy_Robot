@@ -15,13 +15,17 @@
   <xacro:property name="base_height" value="0.10"/>
   <xacro:property name="base_mass"   value="18.0"/>
 
-  <!-- base_link center height above ground (base_footprint -> base_link) -->
-  <xacro:property name="base_center_z" value="0.10"/>
+  <!-- base_link center height above ground (base_footprint -> base_link).
+       Constraint: base_center_z + wheel_z must equal wheel_radius (axle height),
+       or the wheels float/sink in sim. 0.088 - 0.04 = 0.048 ✓.
+       Ground clearance = base_center_z - base_height/2 = 0.038 m (ADR-0004). -->
+  <xacro:property name="base_center_z" value="0.088"/>
 
-  <!-- Wheels -->
-  <xacro:property name="wheel_radius" value="0.06"/>
+  <!-- Wheels: goBILDA Hogback traction wheel, 96mm dia, 50A (ADR-0004).
+       Width and mass are nominal — verify by measurement on receipt. -->
+  <xacro:property name="wheel_radius" value="0.048"/>
   <xacro:property name="wheel_width"  value="0.035"/>
-  <xacro:property name="wheel_mass"   value="0.8"/>
+  <xacro:property name="wheel_mass"   value="0.2"/>
   <xacro:property name="wheel_x"      value="0.09"/>   <!-- +/- from center, fore/aft -->
   <xacro:property name="wheel_y"      value="0.13"/>   <!-- +/- from center, left/right (track/2) -->
   <xacro:property name="wheel_z"      value="-0.04"/>  <!-- wheel center relative to base_link -->

@@ -48,11 +48,13 @@ Buddy v0.1 is an indoor autonomous mobile base using:
   - Primary navigation sensor: **2D LiDAR**.
   - Primary vision sensor: **RGB-D camera**.
   - Drive motors: **4× goBILDA 5203 Yellow Jacket 26.9:1** (proposed, ADR-0003; buy pending).
+  - Wheels: **4× goBILDA Hogback 96 mm + 8 mm REX hubs** (proposed, ADR-0004; buy pending.
+    Ground-clearance requirement amended 0.05 → 0.038 m as part of this decision).
 - Major hardware still undecided:
   - Motor drivers, encoders (goBILDA motors ship with encoders; drivers still open).
   - Drive MCU and bus protocol.
   - Battery chemistry/capacity, BMS, fuses, DC/DC converters.
-  - Chassis dimensions, wheel diameter, tread width, suspension/casters/skid behavior.
+  - Chassis dimensions, track width, suspension/skid behavior.
   - Exact 2D LiDAR model and RGB-D camera model.
   - IMU model and mounting.
   - Robot arm type, gripper, payload, mounting, and whether manipulation is an early or later milestone.
