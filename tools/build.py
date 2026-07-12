@@ -27,6 +27,7 @@ sys.path.insert(0, str(ROOT))
 
 import buddy_calcs  # noqa: E402
 from buddy_calcs import P, base_center_z, ground_clearance  # noqa: E402
+from buddy_calcs import power as buddy_power  # noqa: E402
 
 # Website frontmatter for exported analysis notebooks, keyed by notebook stem.
 FRONTMATTER = {
@@ -38,6 +39,16 @@ FRONTMATTER = {
         "summary": "Full derivations, symbol definitions, numeric substitutions, "
                    "and validity limits for the drive-motor torque envelope.",
         "figures": "[assets/figures/drive_fbd.svg]",
+    },
+    "power_budget_and_battery": {
+        "title": "Analysis — Power Budget and Battery Sizing",
+        "date": "2026-07-12",
+        "type": "analysis",
+        "tags": "[mechanical, electrical]",
+        "summary": "Why 4x 9.2 A stall is a designed ceiling, not a battery "
+                   "requirement — peak scenarios, protection chain, and capacity "
+                   "sizing with reserves for unchosen hardware.",
+        "figures": "[assets/figures/power_budget.svg]",
     },
 }
 
@@ -110,7 +121,7 @@ def export_notebook(nb_path: Path) -> Path:
 
 
 def main() -> int:
-    problems = buddy_calcs.validate()
+    problems = buddy_calcs.validate() + buddy_power.validate()
     if problems:
         for p in problems:
             print(f"VALIDATION FAILED: {p}", file=sys.stderr)

@@ -83,9 +83,9 @@ Consequences to carry forward:
   `docs/research/hardware/electronics/microcontrollers_and_bus/stm32_drive_controller_selection.md`.
   (If the DDSM115 path were chosen instead, the MCU would shrink to an RS485
   safety bridge — one more reason motors had to be decided first.)
-- **Battery:** 12 V class (3S–4S with regulation); worst-case pivot draw ≈ 4 × 9.2 A
-  stall — current limiting in the driver is mandatory; budget ~10 A continuous
-  drive rail in the power budget.
+- **Battery:** resolved by ADR-0005 (2026-07-12): 3S Li-ion ≥ 8 Ah with ≥ 40 A
+  BMS; driver current limit 8 A/motor caps the designed peak at 37 A. Full
+  analysis in `docs/analysis/power_budget_and_battery.md`.
 - **Budget:** $220 of the $300–600 v0.1 budget. This collides with LiDAR + RGB-D +
   battery costs — already logged in `docs/requirements/design_conflicts.md`
   (conflict #4). If the budget can't stretch, drop gross mass to ~10 kg and

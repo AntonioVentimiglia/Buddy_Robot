@@ -34,6 +34,37 @@ drive_motor: # ADR-0003: goBILDA 5203 Yellow Jacket 26.9:1
   encoder_ppr_output: 751.8
   price_usd: 54.99
 
+power: # ADR-0005: 3S Li-ion + BMS architecture; see docs/analysis/power_budget_and_battery.py
+  bus:
+    chemistry: "3S Li-ion with BMS"
+    v_nominal: 11.1
+    v_full: 12.6
+    v_cutoff: 9.0
+  driver_current_limit_a: 8.0 # per-motor cap set in the motor driver — turns the
+                              # stall fault into a designed ceiling (drivers must
+                              # support an adjustable limit; selection pending)
+  motor_no_load_current_a: 0.25 # estimate — measure on first purchased motor
+  # Allocations, not measurements. Unchosen hardware gets a RESERVE that becomes
+  # a hard selection constraint: a candidate exceeding its reserve triggers a
+  # budget re-run before purchase.
+  loads_w:
+    jetson_orin_nano: 30 # 25 W super mode + carrier board overhead
+    rgbd_camera_reserve: 5 # covers RealSense D435 (~2 W) up to OAK-D class (~5 W)
+    lidar_2d_reserve: 5 # covers LD19 (~1.5 W) up to RPLIDAR S-class (~4 W)
+    mcu_drivers_logic: 5 # NUCLEO-G474 + driver logic + encoders + E-stop circuit
+    expansion_reserve: 10 # fans, LEDs, future additions — unallocated headroom
+  duty_cycle: # normal-duty mission model for the 60 min runtime requirement
+    moving_fraction: 0.7 # fraction of mission spent driving
+    maneuver_power_factor: 1.5 # average driving power vs flat cruise (turns, accels)
+    jetson_average_w: 20 # typical between 15 W mode and 25 W super bursts
+  battery_sizing:
+    usable_fraction: 0.80 # Li-ion depth-of-discharge for cycle life
+    conversion_efficiency: 0.90 # DC-DC losses on regulated rails
+    drive_electrical_efficiency: 0.60 # motor + driver, mech power -> battery power
+  protection:
+    bms_min_continuous_a: 40 # must exceed worst designed peak (4x driver limit + system)
+    main_fuse_a: 50
+
 assumptions: # estimates to be replaced by measurement — see analysis docs' limits sections
   crr_carpet: 0.05 # rolling resistance, high end of published carpet range
   drivetrain_efficiency: 0.75 # conservative: planetary gearbox + hub coupling
