@@ -4,7 +4,7 @@ date: 2026-07-11
 type: milestone
 tags: [mechanical, process]
 summary: Torque-envelope analysis of a 20 kg indoor skid-steer base showing that carpet pivot scrub — not driving — sizes the motors, and the selection that followed.
-figures: [assets/figures/torque_envelope.svg]
+figures: [assets/figures/torque_envelope.svg, assets/figures/drive_fbd.svg]
 ---
 
 # M01 — Sizing and Selecting the Drive Motors
@@ -23,22 +23,34 @@ operation near people and pets.
 
 ## The analysis
 
-Straight-line torque is textbook: `F = ma + mg·sinθ + Crr·mg·cosθ`, split over
-four wheels, divided by drivetrain efficiency, times a safety factor
-(`robot_ws/tools/torque_sweep.py`). That gives **1.47 N·m per wheel** for the
-worst straight-line case (5° ramp + 0.5 m/s² acceleration, SF 2.0) at
-**119 wheel RPM** for 0.75 m/s.
+Full derivations — governing equations, symbol tables, numeric substitutions
+you can check by hand, and limits of validity — are in
+[`docs/analysis/drive_torque_and_pivot_scrub.md`](../../analysis/drive_torque_and_pivot_scrub.md).
+The two results that matter:
 
-The insight that actually sized the motors is not in the textbook formula: a
-skid-steer robot turning in place drags its tires sideways. Balancing the
-resisting yaw moment from tire scrub against the drive wheels' moment about the
-pivot center:
+**Straight-line** (Newton's second law along the ramp, free-body diagram in the
+analysis doc):
 
-- resisting moment `M = 4·μ·(mg/4)·d`, where `d = √(wheel_x² + wheel_y²) = 0.158 m`
-- per-wheel drive force `F = M / (4·wheel_y)`, torque `T = F·r/η`
+$$F = ma + mg\sin\theta + C_{rr}mg\cos\theta,\qquad T = \frac{F\,r}{n}\cdot\frac{S}{\eta}$$
 
-On carpet (μ ≈ 0.6–0.8) that is **2.9–3.8 N·m per wheel — roughly 2× the worst
-driving case**. Pivot turns, not driving, set the stall requirement.
+which gives **1.47 N·m per wheel** for the worst driving case (5° ramp +
+0.5 m/s² acceleration, SF 2.0) at **119 wheel RPM** for 0.75 m/s.
+
+**Pivot-in-place** — the insight that actually sized the motors. A skid-steer
+robot turning in place drags its tires sideways; balancing the resisting yaw
+moment from tire scrub against the moment the drive wheels can generate:
+
+$$\mu\,mg\,d = 4\,F_{wheel}\,y_w \;\Rightarrow\; T_{pivot} = \frac{F_{wheel}\,r}{\eta}$$
+
+with contact radius $d = \sqrt{x_w^2+y_w^2} = 0.158$ m. On carpet
+(μ ≈ 0.6–0.8) that is **2.9–3.8 N·m per wheel — roughly 2× the worst driving
+case**. Pivot turns, not driving, set the stall requirement.
+
+![Free-body diagrams](../../../assets/figures/drive_fbd.svg)
+
+*The two force models: ramp FBD (left) and the pivot moment balance (right) —
+friction acts tangentially at radius $d$, drive forces act longitudinally at
+lateral offset $y_w$.*
 
 ![Per-wheel torque envelope](../../../assets/figures/torque_envelope.svg)
 

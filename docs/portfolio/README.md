@@ -22,13 +22,22 @@ contract — keep it consistent.
 2. **Every calculation states its assumptions with justification and a
    sensitivity note** ("if μ is 0.8 instead of 0.6, the requirement is 3.8 N·m —
    still covered"). Interviewers attack assumptions, not arithmetic.
-3. **Physical evidence is captured the day it happens** in
+3. **Every calculation is presented as a derivation, not a result.** A reviewing
+   engineer must be able to check every number with a calculator: governing
+   equations from first principles (with a free-body or kinematic diagram where
+   forces/moments are involved), a symbol table with units and the values used,
+   the numeric substitution written out, a units check, and explicit **limits of
+   validity** (the conditions under which the model stops being true). Derivations
+   live in `docs/analysis/`, one document per calculation domain; research docs
+   and milestone reports *cite* them rather than restate them. The tone target:
+   explaining the process, never presenting a number to be taken on faith.
+4. **Physical evidence is captured the day it happens** in
    `assets/evidence/YYYY-MM-DD_slug/` (photos, videos, scope traces, test CSVs).
    Hardware states are unrepeatable — the bare chassis can't be re-photographed
    after it's wired.
-4. **Log entries are written same-day**, even if only three lines. Backfilled
+5. **Log entries are written same-day**, even if only three lines. Backfilled
    entries are marked as reconstructions.
-5. **Frontmatter on every log file and milestone report** (website generation
+6. **Frontmatter on every log file and milestone report** (website generation
    depends on it):
 
 ```yaml

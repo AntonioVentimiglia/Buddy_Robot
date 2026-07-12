@@ -172,6 +172,12 @@ Packages:
   evidence (photos/traces/test data) is captured same-day in
   `assets/evidence/YYYY-MM-DD_slug/`. The future project website is generated from
   these docs, so their frontmatter/structure is a contract.
+- **Calculations are derivations, not results** (`docs/analysis/`, one doc per
+  calculation domain): governing equations from first principles with an FBD where
+  forces are involved, symbol table with units, numeric substitution checkable by
+  hand, units check, and limits of validity. Research docs and milestones cite the
+  analysis doc rather than restating math. First instance:
+  `docs/analysis/drive_torque_and_pivot_scrub.md`.
 - Hardware research lives in `docs/research/`, not scattered through ROS packages.
   Research folders are created **when research actually starts** — the old tree of
   ~19 empty README/notes template pairs was deleted 2026-07-11. Requirements live in

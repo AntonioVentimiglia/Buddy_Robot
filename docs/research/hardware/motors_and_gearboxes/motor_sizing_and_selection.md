@@ -3,6 +3,9 @@
 **Last updated:** 2026-07-11
 **Status:** sizing complete, candidates shortlisted, purchase decision pending
 **Tool:** `robot_ws/tools/torque_sweep.py` (straight-line cases) + pivot math below
+**Derivations:** full first-principles treatment (symbol tables, substitutions,
+free-body diagrams, limits of validity) in
+[`docs/analysis/drive_torque_and_pivot_scrub.md`](../../../analysis/drive_torque_and_pivot_scrub.md)
 
 ## 1. Inputs (from `docs/requirements/buddy_v0_1_requirements.yaml` and `buddy_params.xacro`)
 
