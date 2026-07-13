@@ -1,5 +1,12 @@
 # Portfolio System
 
+**The website is live-generated:** `tools/site/build_site.py` (runs inside
+`python3 tools/build.py`) renders this folder + `docs/analysis/` + the ADRs into
+`site/` — engineering-clean light design matching the figures, KaTeX math,
+landing-page spec chips computed from `design_params.yaml`. View locally:
+`python3 -m http.server -d site 8137`. Publish decision deferred (portable
+relative paths; GitHub Pages-ready).
+
 This folder is the source material for the eventual project website and for
 defending Buddy's engineering decisions in interviews. The repo stays private;
 the website is **generated from these documents**, so their structure is a

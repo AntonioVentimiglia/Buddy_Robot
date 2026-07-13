@@ -142,6 +142,10 @@ def main() -> int:
     subprocess.run([sys.executable, str(ROOT / "robot_ws" / "tools" / "torque_sweep.py"),
                     "--csv", str(csv)], check=True, cwd=ROOT, capture_output=True)
     print(f"generated  {csv.relative_to(ROOT)}")
+
+    subprocess.run([sys.executable, str(ROOT / "tools" / "site" / "build_site.py")],
+                   check=True, cwd=ROOT, capture_output=True)
+    print("generated  site/ (view: python3 -m http.server -d site 8137)")
     print("build complete — review `git diff` for the effect of your parameter change")
     return 0
 

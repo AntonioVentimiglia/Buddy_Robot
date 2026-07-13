@@ -70,9 +70,9 @@ demand (we inflate the requirement, never the motor's claimed capability):
 
 $$T = \frac{F\,r}{n}\cdot\frac{S}{\eta}$$
 
-$$T = \frac{36.86 \times 0.048}{4}\cdot\frac{2}{0.75} = 0.442 \times 2.667 = 1.18\ \text{N}\cdot\text{m} \text{ per motor}$$
+$$T = \frac{36.86 \times 0.048}{4}\cdot\frac{2}{0.75} = 0.442 \times 2.667 = 1.18\ \text{N·m per motor}$$
 
-Units check: $[\text{N}][\text{m}] = \text{N}\cdot\text{m}$; $S$ and $\eta$ are
+Units check: $[\text{N}][\text{m}] = \text{N·m}$; $S$ and $\eta$ are
 dimensionless. ✓
 
 ## 4. Wheel speed
@@ -106,7 +106,7 @@ Kinetic friction opposes each patch's sliding direction — i.e., acts
 split evenly ($N = mg/4$ per wheel), the total resisting yaw moment about the
 pivot center is:
 
-$$M = \sum_{i=1}^{4} \mu \frac{mg}{4} d = \mu\, m g\, d = 0.6\,(20)(9.80665)(0.158) = 18.6\ \text{N}\cdot\text{m} \quad (\mu = 0.6)$$
+$$M = \sum_{i=1}^{4} \mu \frac{mg}{4} d = \mu\, m g\, d = 0.6\,(20)(9.80665)(0.158) = 18.6\ \text{N·m} \quad (\mu = 0.6)$$
 
 The drive wheels generate yaw moment through their *longitudinal* forces acting
 at the lateral offset $y_w$ (the fore-aft offset $x_w$ contributes no moment
@@ -115,7 +115,7 @@ all four contribute:
 
 $$M_{drive} = 4 F_{wheel}\, y_w \;\;\Rightarrow\;\; F_{wheel} = \frac{M}{4 y_w} = \frac{18.6}{4(0.13)} = 35.8\ \text{N}$$
 
-$$T_{pivot} = \frac{F_{wheel}\, r}{\eta} = \frac{35.8 \times 0.048}{0.75} = 2.29\ \text{N}\cdot\text{m} \text{ per motor} \quad (\mu = 0.6)$$
+$$T_{pivot} = \frac{F_{wheel}\, r}{\eta} = \frac{35.8 \times 0.048}{0.75} = 2.29\ \text{N·m per motor} \quad (\mu = 0.6)$$
 
 Repeating for the $\mu$ range: **1.53 N·m** at
 $\mu=0.4$ (marble), **2.29 N·m** at
