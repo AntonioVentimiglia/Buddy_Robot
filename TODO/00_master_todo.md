@@ -45,8 +45,10 @@
 - [x] Shortlist + select motors — 4× goBILDA 5203 26.9:1 (ADR-0003). Purchase + BOM entry pending.
 - [x] Select wheels — 4× goBILDA Hogback 96mm + 8mm REX hubs (ADR-0004; clearance requirement amended 0.05→0.038 m). Purchase + hub SKU verification pending.
 - [x] Complete power budget and battery sizing (`docs/analysis/power_budget_and_battery.md`, ADR-0005: 3S Li-ion ≥8 Ah, BMS ≥40 A, driver limit 8 A/motor). Battery SKU purchase pending.
-- [ ] Shortlist motor drivers — HARD requirements from ADR-0005: 4 brushed channels, 12 V, ≥10 A capable, adjustable ~8 A current limit (in-driver or via current-sense + MCU), telemetry preferred.
-- [ ] Shortlist drive MCU (STM32G474 pre-selected, confirm after drivers), 2D LiDAR (≤5 W reserve), RGB-D camera (≤5 W reserve), IMU.
+- [x] Shortlist motor drivers — 4× Pololu VNH5019 recommended (12 A/30 A, current sense → 8 A firmware limit on G474); alternates documented. Purchase pending.
+- [x] Confirm drive MCU: NUCLEO-G474RE (VNH5019 telemetry/PWM needs match the G474 exactly; dual-VNH5019 shield stacks on it for bench phase).
+- [ ] **BUY: work through `docs/financials/SHOPPING_LIST_v0_1.md` (~$540), then update BOM, flip ADR-0003/4/5 to Accepted, delete the list.**
+- [ ] Shortlist 2D LiDAR (≤5 W reserve), RGB-D camera (≤5 W reserve), IMU.
 - [ ] Score each hardware candidate (comparison table in each research doc, as in the motor sizing doc).
 - [ ] Reject any candidate with unclear power, mounting, modeling, communication, or safety behavior.
 

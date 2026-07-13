@@ -57,7 +57,7 @@ number instead of a physical accident.**
 
 Substituting the chosen limit $I_{lim} = 8$ A:
 
-$$T(8) = 3.73\,\frac{8 - 0.25}{9.2 - 0.25} = 3.23\ \text{N·m}$$
+$$T(8) = 3.73\,\frac{8 - 0.25}{9.2 - 0.25} = 3.23\ \text{N}\cdot\text{m}$$
 
 which exceeds the worst-case pivot demand (3.05 N·m at
 $\mu = 0.8$, from the [drive derivation](drive_torque_and_pivot_scrub.md)) —

@@ -56,10 +56,13 @@ Buddy v0.1 is an indoor autonomous mobile base using:
   - Power architecture: **3S Li-ion + BMS ≥ 40 A, ≥ 8 Ah, driver current limit
     8 A/motor, 50 A main fuse** (proposed, ADR-0005; battery SKU purchase pending.
     Camera/LiDAR carry ≤ 5 W reserved allocations as selection constraints).
+  - Motor drivers: **4× Pololu VNH5019** (recommended; 8 A firmware limit on the
+    G474 from current-sense — see `driver_selection.md`). Drive MCU confirmed:
+    **NUCLEO-G474RE**. Purchases pending: `docs/financials/SHOPPING_LIST_v0_1.md`.
 - Major hardware still undecided:
-  - Motor drivers (HARD req from ADR-0005: adjustable ~8 A/channel current limit).
-  - Drive MCU and bus protocol (STM32G474 pre-selected; confirm after drivers).
-  - Exact battery SKU, DC/DC converters.
+  - Exact battery SKU (spec locked by ADR-0005: 3S ≥ 8 Ah, BMS ≥ 40 A).
+  - Bus protocol MCU↔Jetson (USB serial vs CAN — decide during firmware bring-up).
+  - 2D LiDAR, RGB-D camera (≤ 5 W reserves each), IMU.
   - Chassis dimensions, track width, suspension/skid behavior.
   - Exact 2D LiDAR model and RGB-D camera model.
   - IMU model and mounting.
