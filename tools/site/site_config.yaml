@@ -1,0 +1,8 @@
+# Site identity — edit freely, then: python3 tools/build.py
+name: Antonio Ventimiglia
+role: Mechanical Engineer — Mechatronics
+links:
+  GitHub: https://github.com/AntonioVentimiglia
+  Email: mailto:ventimaj@icloud.com
+  # LinkedIn: https://www.linkedin.com/in/YOUR-HANDLE   # uncomment + fill in
+  # Resume: resume.pdf                                  # drop the file in site/ sources if wanted

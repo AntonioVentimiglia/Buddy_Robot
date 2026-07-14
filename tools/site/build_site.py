@@ -28,6 +28,10 @@ from buddy_calcs import power  # noqa: E402
 from buddy_calcs.drive import summary as drive_summary  # noqa: E402
 
 SITE = ROOT / "site"
+CFG = yaml.safe_load((ROOT / "tools" / "site" / "site_config.yaml").read_text())
+IDENTITY = " · ".join(
+    [f'<b>{CFG["name"]}</b>', CFG["role"]] +
+    [f'<a href="{u}">{k}</a>' for k, u in (CFG.get("links") or {}).items()])
 KATEX = "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist"
 
 CSS = """
@@ -94,6 +98,9 @@ article hr{border:none;border-top:1px solid var(--rule);margin:2rem 0}
 .katex-display{overflow-x:auto;padding:.2rem 0}
 footer{border-top:1px solid var(--rule);color:var(--faint);font-family:var(--mono);font-size:.72rem}
 footer .wrap{padding-top:1rem;padding-bottom:2.2rem}
+footer .who{font-family:var(--sans);font-size:.85rem;color:var(--muted);margin-bottom:.4rem}
+footer .who b{color:var(--ink)}
+footer a{border:none}
 @media (prefers-reduced-motion:no-preference){a{transition:color .12s ease}}
 """
 
@@ -143,8 +150,12 @@ def parse_frontmatter(path: Path) -> tuple[dict, str]:
 
 
 def page(title: str, body: str, here: str, depth: int = 0, math: bool = False) -> str:
-    rel = "../" * depth
-    links = [("index.html", "Overview", "home"), ("log.html", "Log", "log")]
+    rel = "../" * depth  # noqa - IDENTITY interpolated below
+    links = [("index.html", "Overview", "home"),
+             ("milestones/index.html", "Milestones", "milestones"),
+             ("analysis/index.html", "Analyses", "analysis"),
+             ("decisions/index.html", "Decisions", "decisions"),
+             ("log.html", "Log", "log")]
     nav = "".join(
         f'<a href="{rel}{href}" class="{"here" if key == here else ""}">{label}</a>'
         for href, label, key in links)
@@ -162,7 +173,8 @@ def page(title: str, body: str, here: str, depth: int = 0, math: bool = False) -
 <span class="eyebrow">autonomous mobile robot — engineering record</span>
 <nav>{nav}</nav></div></header>
 <main><div class="wrap">{body}</div></main>
-<footer><div class="wrap">Generated from the project repository by tools/site/build_site.py ·
+<footer><div class="wrap"><p class="who">{IDENTITY}</p>
+Generated from the project repository by tools/site/build_site.py ·
 figures and numbers regenerate from design_params.yaml</div></footer>
 </body></html>"""
 
@@ -251,15 +263,30 @@ def main() -> int:
     (SITE / "log.html").write_text(
         page("Engineering Log", f"<article>{log_html}</article>", "log", math=True))
 
-    def cards(items: list, section: str) -> str:
+    def cards(items: list, section: str, prefix: str = "") -> str:
         cs = ""
         for meta, _, f in sorted(items, key=lambda x: x[0].get("date", ""), reverse=True):
             figs = meta.get("figures", "")
             cs += (f'<div class="card"><span class="eyebrow">{meta.get("type", section)}</span>'
-                   f'<h3><a href="{section}/{f.stem}.html">{meta.get("title", f.stem)}</a></h3>'
+                   f'<h3><a href="{prefix}{section}/{f.stem}.html">{meta.get("title", f.stem)}</a></h3>'
                    f'<p>{meta.get("summary", "")}</p>'
                    f'<span class="meta">{meta.get("date", "")}</span></div>')
         return f'<div class="cards">{cs}</div>'
+
+    for section, items, blurb in [
+        ("milestones", milestones, "One illustrated report per completed phase."),
+        ("analysis", analyses, "Checkable derivations: equations, substitutions, limits of validity."),
+    ]:
+        body = (f'<span class="eyebrow">{section}</span><h1>{blurb}</h1>'
+                + cards(items, section, prefix="../").replace(f'href="../{section}/', 'href="'))
+        (SITE / section / "index.html").write_text(
+            page(section.capitalize(), body, section, depth=1))
+    dec_rows_local = "".join(r.replace('href="decisions/', 'href="') for r in adr_rows)
+    (SITE / "decisions" / "index.html").write_text(
+        page("Decisions", '<span class="eyebrow">decision record</span>'
+             '<h1>Architecture Decision Records</h1>'
+             f'<ul class="decisions" style="list-style:none;padding:0">{dec_rows_local}</ul>',
+             "decisions", depth=1))
 
     index_body = f"""
 <span class="eyebrow">project record · v0.1 design phase</span>
@@ -269,6 +296,7 @@ complete engineering record: every component is sized from first-principles deri
 that can be checked by hand, every figure regenerates from one parameter file, and every
 decision is written down with the conditions that would reverse it.</p>
 {spec_chips()}
+<p class="meta" style="margin-top:1rem">{IDENTITY}</p>
 <section class="block"><div class="sec-head"><h2>Milestones</h2>
 <span class="eyebrow">one illustrated report per phase</span></div>{cards(milestones, "milestones")}</section>
 <section class="block"><div class="sec-head"><h2>Analyses</h2>
