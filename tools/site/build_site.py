@@ -211,6 +211,15 @@ def main() -> int:
     for svg in (ROOT / "assets" / "figures").glob("*.svg"):
         shutil.copy2(svg, SITE / "figures" / svg.name)
 
+    # Static files that aren't generated (resume, favicon, ...) live in
+    # tools/site/static/ so they survive the shutil.rmtree(SITE) above, and
+    # get copied to the site root as-is.
+    static_dir = ROOT / "tools" / "site" / "static"
+    if static_dir.exists():
+        for f in static_dir.iterdir():
+            if f.is_file() and f.name != "README.md":
+                shutil.copy2(f, SITE / f.name)
+
     milestones = collect("*.md", ROOT / "docs" / "portfolio" / "milestones")
     analyses = collect("*.md", ROOT / "docs" / "analysis")
     logs = collect("*.md", ROOT / "docs" / "portfolio" / "log")

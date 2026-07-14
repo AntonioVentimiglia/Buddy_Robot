@@ -4,5 +4,5 @@ role: Mechanical Engineer — Mechatronics
 links:
   GitHub: https://github.com/AntonioVentimiglia
   Email: mailto:ventimaj@icloud.com
-  # LinkedIn: https://www.linkedin.com/in/YOUR-HANDLE   # uncomment + fill in
-  # Resume: resume.pdf                                  # drop the file in site/ sources if wanted
+  LinkedIn: https://www.linkedin.com/in/antonio-j-ventimiglia
+  Resume: resume.pdf   # put the actual file at tools/site/static/resume.pdf
