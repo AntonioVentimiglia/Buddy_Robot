@@ -71,10 +71,20 @@ def summary() -> SimpleNamespace:
     ah_expected = wh_expected / v
     ah_allocation = wh_allocation / v
 
+    # --- future dual 6-DOF arms provision (requirements: manipulation_future) ---
+    arms = pw["future_arms"]
+    peak_with_arms = peak_designed + arms["peak_current_a"]
+    p_avg_future = p_avg_allocation + arms["avg_power_w"]
+    wh_future = p_avg_future * runtime_h / denom
+    ah_future = wh_future / v
+
     # --- check the driver limit still permits the pivot ---
     t_available = torque_at_current_limit(i_lim, m["stall_torque_nm"], m["stall_current_a"], i0)
 
     return SimpleNamespace(
+        arms=dict(arms), peak_with_arms=peak_with_arms,
+        p_avg_future=p_avg_future, wh_future=wh_future, ah_future=ah_future,
+        ah_target=ah_future, wh_target=wh_future,
         v=v, i_lim=i_lim, i0=i0, system_w=system_w, system_a=system_a,
         loads=dict(loads), duty=dict(duty), sizing=dict(sizing),
         scen_motor=scen, scen_total=scen_total, peak_designed=peak_designed,
@@ -97,12 +107,12 @@ def validate() -> list[str]:
             f"driver current limit {s.i_lim} A only allows "
             f"{s.t_available_at_limit:.2f} N·m — below the worst pivot demand "
             f"{s.t_pivot_worst:.2f} N·m; raise the limit or accept slower pivots")
-    if s.bms_min_a < s.peak_designed:
+    if s.bms_min_a < s.peak_with_arms:
         problems.append(
-            f"BMS spec {s.bms_min_a} A is below the designed peak "
-            f"{s.peak_designed:.1f} A")
-    if s.fuse_a <= s.peak_designed:
+            f"BMS spec {s.bms_min_a} A is below the designed peak including the "
+            f"future arm branch {s.peak_with_arms:.1f} A")
+    if s.fuse_a <= s.peak_with_arms:
         problems.append(
-            f"main fuse {s.fuse_a} A would blow at the designed peak "
-            f"{s.peak_designed:.1f} A")
+            f"main fuse {s.fuse_a} A would blow at the designed peak including "
+            f"the future arm branch {s.peak_with_arms:.1f} A")
     return problems

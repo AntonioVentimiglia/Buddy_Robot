@@ -188,7 +188,7 @@ def spec_chips() -> str:
         ("motor stall", f"{d.motor_stall:g} N·m"),
         ("pivot demand", f"{d.t_pivot['carpet_high']:.2f} N·m @ μ0.8"),
         ("designed peak", f"{pw.peak_designed:.0f} A"),
-        ("battery", f"3S Li-ion ≥ {pw.ah_allocation:.0f} Ah"),
+        ("battery", f"3S Li-ion ≥ {pw.ah_target:.0f} Ah"),
         ("runtime req", f"{pw.runtime_h * 60:.0f} min"),
         ("compute", "Jetson Orin Nano"),
     ]

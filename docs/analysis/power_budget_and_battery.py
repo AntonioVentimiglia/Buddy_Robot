@@ -121,7 +121,7 @@ def _(m, mo, s):
 
 
 @app.cell(hide_code=True)
-def _(mo, s):
+def _(P, mo, s):
     _rows = "\n".join(
         f"    | {name} | {a - s.system_a:.1f} | {a:.1f} |"
         for name, a in s.scen_total.items()
@@ -139,6 +139,14 @@ def _(mo, s):
     unlimited-stall row exists only to size the fault protection; it is not an
     operating point.
 
+    A future version adds **dual 6-DOF arms** (requirements:
+    `manipulation_future`) on the same battery. Provisioned as documented
+    placeholders ({s.arms["joint_count"]} XM430-class joints, ≤4 loaded per arm
+    at once): +{s.arms["avg_power_w"]:g} W average, +{s.arms["peak_current_a"]:g} A
+    peak burst → **designed peak including arms: {s.peak_with_arms:.1f} A**. The
+    battery bought for v0.1 is sized against *this*, so it is not wasted when
+    the arms arrive.
+
     ![Power budget](../../assets/figures/power_budget.svg)
 
     *Left: peak bus current by scenario against the protection chain. Right:
@@ -149,10 +157,11 @@ def _(mo, s):
 
     Ordered so each layer only sees what the previous one failed to stop:
     driver limits ({s.i_lim:g} A/motor) → BMS overcurrent
-    (≥ {s.bms_min_a:g} A continuous, above the {s.peak_designed:.1f} A designed
-    peak) → main fuse ({s.fuse_a:g} A slow-blow, below wiring ampacity — wire the
-    bus for ≥ 50 A: 10 AWG) → E-stop interrupts motor power upstream of the
-    drivers per REQ_SAFE.
+    (≥ {s.bms_min_a:g} A continuous, above the {s.peak_with_arms:.1f} A designed
+    peak including the future arm branch) → main fuse ({s.fuse_a:g} A slow-blow,
+    below wiring ampacity — bus wiring 8 AWG or 2×10 AWG) → E-stop interrupts
+    motor power upstream of the drivers per REQ_SAFE. The future arm branch gets
+    its own {P["power"]["protection"]["arm_branch_fuse_a"]:g} A fuse off the bus.
     """
     )
     return
@@ -190,14 +199,21 @@ def _(R, mo, s):
 
     | Mission model | Energy | Capacity @ {s.v:g} V |
     |---|---|---|
-    | Expected | {s.wh_expected:.0f} Wh | {s.ah_expected:.1f} Ah |
-    | Allocation (guarantee) | {s.wh_allocation:.0f} Wh | {s.ah_allocation:.1f} Ah |
+    | v0.1 expected | {s.wh_expected:.0f} Wh | {s.ah_expected:.1f} Ah |
+    | v0.1 allocation (guarantee) | {s.wh_allocation:.0f} Wh | {s.ah_allocation:.1f} Ah |
+    | **Future allocation + dual arms** | **{s.wh_future:.0f} Wh** | **{s.ah_future:.1f} Ah** |
 
-    **Target: 3S Li-ion, ≥ {s.ah_allocation:.0f} Ah (≈ {s.wh_allocation:.0f} Wh),
-    BMS ≥ {s.bms_min_a:g} A continuous.** E.g. a 3S3P–3S4P pack of high-drain
-    21700 cells, or an equivalent prebuilt pack — $60–100 class, not exotic. The
-    C-rate demand is mild: {s.peak_designed:.1f} A peak on ≥ {s.ah_allocation:.0f} Ah
-    is ≈ {s.peak_designed / s.ah_allocation:.1f}C.
+    **Target: 3S Li-ion, ≥ {s.ah_target:.0f} Ah (≈ {s.wh_target:.0f} Wh),
+    BMS ≥ {s.bms_min_a:g} A continuous** — sized for the *future* row so the
+    v0.1 purchase carries the dual-arm version without replacement. E.g. a
+    3S4P–3S5P pack of high-drain 21700 cells or an equivalent prebuilt pack,
+    $100–140 class. The C-rate demand stays mild:
+    {s.peak_with_arms:.1f} A peak on ≥ {s.ah_target:.0f} Ah is
+    ≈ {s.peak_with_arms / s.ah_target:.1f}C. In v0.1 (no arms) the same pack
+    simply runs longer: ≈ {(s.wh_target * s.sizing["usable_fraction"] * s.sizing["conversion_efficiency"] / s.p_avg_expected) * 60:.0f} min
+    at expected load. Mass cost ≈ 0.6–0.8 kg over the small pack — absorbed by
+    the 20 kg design ceiling (the torque envelope already uses the ceiling, so
+    no drive re-sizing is triggered).
 
     ## 7. Limits of validity
 
@@ -213,6 +229,11 @@ def _(R, mo, s):
     5. **Voltage sag** under the designed peak briefly lowers available motor
        torque (T ∝ V at fixed PWM); the Jetson is isolated behind a regulated
        buck so sag cannot brown out compute.
+    6. **The arm provision is a placeholder, not a design.** 12 XM430-class
+       joints at the stated duty is an order-of-magnitude allocation; when arms
+       are actually selected, replace `power.future_arms` in
+       `design_params.yaml` with real servo specs and rebuild — the battery
+       target, protection chain, and this document update together.
 
     ## 8. Verification plan
 

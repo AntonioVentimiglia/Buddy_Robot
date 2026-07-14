@@ -53,8 +53,9 @@ Buddy v0.1 is an indoor autonomous mobile base using:
   - Drive motors: **4× goBILDA 5203 Yellow Jacket 26.9:1** (proposed, ADR-0003; buy pending).
   - Wheels: **4× goBILDA Hogback 96 mm + 8 mm REX hubs** (proposed, ADR-0004; buy pending.
     Ground-clearance requirement amended 0.05 → 0.038 m as part of this decision).
-  - Power architecture: **3S Li-ion + BMS ≥ 40 A, ≥ 8 Ah, driver current limit
-    8 A/motor, 50 A main fuse** (proposed, ADR-0005; battery SKU purchase pending.
+  - Power architecture: **3S Li-ion + BMS ≥ 50 A, ≥ 14 Ah, driver current limit
+    8 A/motor, 60 A main fuse** (proposed, ADR-0005 as amended 2026-07-14: battery
+    sized for the future dual 6-DOF arm version so the v0.1 purchase isn't wasted.
     Camera/LiDAR carry ≤ 5 W reserved allocations as selection constraints).
   - Motor drivers: **4× Pololu VNH5019** (recommended; 8 A firmware limit on the
     G474 from current-sense — see `driver_selection.md`). Drive MCU confirmed:

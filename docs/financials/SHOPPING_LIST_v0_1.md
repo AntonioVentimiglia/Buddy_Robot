@@ -25,20 +25,20 @@
 
 | ✔ | Item | Qty | Unit | Ext. | Link / note |
 |---|---|---|---|---|---|
-| ☐ | 3S Li-ion pack, **≥ 8 Ah (≈ 92 Wh), BMS ≥ 40 A continuous** | 1 | $60–100 | ~$80 | verify the BMS continuous rating explicitly — most cheap "12 V" packs are 10–15 A and will trip on pivots |
+| ☐ | 3S Li-ion pack, **≥ 14 Ah (≈ 155 Wh), BMS ≥ 50 A continuous** (ADR-0005 amendment: sized for future dual 6-DOF arms so the v0.1 purchase isn't wasted) | 1 | $100–140 | ~$120 | verify the BMS continuous rating explicitly — most cheap "12 V" packs are 10–15 A and will trip on pivots |
 | ☐ | Li-ion charger for 3S pack (matched to pack/BMS) | 1 | ~$20 | ~$20 | |
 | ☐ | 12 V regulated buck ≥ 5 A for Jetson (e.g. Pololu D24V50F12-class) | 1 | ~$30 | ~$30 | isolates compute from motor sag |
 | ☐ | 5 V buck ≥ 3 A (LiDAR / logic rail) | 1 | ~$10 | ~$10 | |
-| ☐ | 50 A slow-blow fuse (MIDI/ANL) + holder | 1 | ~$12 | ~$12 | |
-| ☐ | XT60 connector pairs, 10 AWG silicone wire (red/black, ~2 m each) | — | ~$20 | ~$20 | bus wiring sized above fuse |
+| ☐ | 60 A slow-blow fuse (MIDI/ANL) + holder (ADR-0005 amendment) | 1 | ~$12 | ~$12 | |
+| ☐ | XT60 connector pairs, 8 AWG silicone wire for the bus (~2 m each color) + 10 AWG branch wire | — | ~$28 | ~$28 | bus wiring ampacity must exceed the 60 A fuse |
 | ☐ | E-stop mushroom switch + motor-power relay/contactor (~40 A) | 1 | ~$25 | ~$25 | REQ_SAFE_001: E-stop interrupts motor power |
 | ☐ | Misc: inline fuse for logic rail, heat shrink, standoffs, JST leads | — | ~$15 | ~$15 | |
 
 ## Totals
 
 - Drivetrain: **~$292**
-- Electronics + power: **~$249** (excl. optional bench shield)
-- **Grand total: ~$540** against the $300–600 budget (excl. Jetson, already owned)
+- Electronics + power: **~$297** (excl. optional bench shield; battery re-sized 2026-07-14 for future dual arms, +$40, wiring +$8)
+- **Grand total: ~$590** against the $300–600 budget (excl. Jetson, already owned)
   — top of band, as flagged in `design_conflicts.md` #4. Trim options: BTS7960
   drivers (−$65), smaller battery accepting <60 min allocation-guaranteed runtime
   (−$20), defer E-stop contactor to bench-supply phase (not recommended past bench).

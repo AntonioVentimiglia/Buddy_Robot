@@ -39,6 +39,11 @@ mass:
   future_payload_goal_kg: 10
   payload_v0_1_test_kg: 0-2
 
+manipulation_future:
+  # Not built in v0.1, but v0.1 purchases must not preclude it (esp. battery).
+  dual_6dof_arms_planned: true
+  arms_share_main_battery: true
+
 sensors:
   lidar_2d_required: true
   rgbd_camera_required: true

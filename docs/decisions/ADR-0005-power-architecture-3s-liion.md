@@ -2,6 +2,7 @@
 
 - Status: Proposed
 - Date: 2026-07-12
+- Amended: 2026-07-14 (future dual-arm provision — see bottom section)
 
 ## Context
 
@@ -59,5 +60,25 @@ allocations** that become hard selection constraints.
 
 - Measure motor no-load current (shifts the torque-at-limit margin).
 - Select driver (validates that an 8 A limit is actually settable).
-- Select battery SKU meeting ≥ 8 Ah / ≥ 40 A BMS; verify BMS trip behavior on
-  the bench before first rolling drive.
+- Select battery SKU meeting the (amended) ≥ 14 Ah / ≥ 50 A BMS spec; verify
+  BMS trip behavior on the bench before first rolling drive.
+
+## Amendment 2026-07-14 — future dual-arm provision
+
+The robot's roadmap adds **two 6-DOF arms** in a later version, sharing the
+main battery (requirements: `manipulation_future`). Buying an 8 Ah pack for
+v0.1 would waste that money when the arms arrive, so the battery spec is
+re-sized against the future load while everything else in this ADR stands:
+
+- Arm provision (documented placeholder, XM430-class): 12 joints, **+45 W
+  average** at manipulation duty, **+10 A peak** burst — refine in
+  `design_params.yaml → power.future_arms` when arms are actually selected.
+- Designed peak becomes **47 A** (37 A drive+system + 10 A arms) → **BMS ≥ 50 A
+  continuous**, **main fuse 50 → 60 A slow-blow**, bus wiring 8 AWG (or
+  2×10 AWG). Future arm branch separately fused at 15 A.
+- Battery capacity: future allocation 111 W avg × 60 min → **≥ 14 Ah
+  (≈ 155 Wh), $100–140 class** (was ≥ 8 Ah). C-rate stays mild (≈ 3.4C).
+  In v0.1 the same pack simply runs ~90+ min at expected load.
+- Mass cost ≈ 0.6–0.8 kg — absorbed by the 20 kg design ceiling already used in
+  the torque envelope; no drive re-sizing is triggered.
+- The build validator now checks BMS and fuse against the arms-inclusive peak.

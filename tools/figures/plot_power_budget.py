@@ -31,14 +31,15 @@ GRID = "#e1e0d9"
 AXIS = "#c3c2b7"
 BLUE = "#2a78d6"      # designed operating scenarios
 CRITICAL = "#d03b3b"  # fault scenario (status critical — never an operating point)
-STACK = ["#2a78d6", "#1baf7a", "#eda100", "#4a3aa7", "#e87ba4", "#898781"]
+STACK = ["#2a78d6", "#1baf7a", "#eda100", "#4a3aa7", "#e87ba4", "#898781", "#eb6834"]
 
 
 def peak_panel(ax, s):
     names = ["flat\ncruise", "ramp +\naccel", "pivot\nbreakaway",
-             "stall,\ndriver-limited", "stall,\nUNLIMITED\n(fault)"]
-    vals = list(s.scen_total.values())
-    colors = [BLUE] * 4 + [CRITICAL]
+             "stall,\ndriver-limited", "+ future\ndual arms", "stall,\nUNLIMITED\n(fault)"]
+    scen = list(s.scen_total.values())
+    vals = scen[:4] + [s.peak_with_arms] + [scen[4]]
+    colors = [BLUE] * 4 + ["#4a3aa7"] + [CRITICAL]
     bars = ax.bar(names, vals, color=colors, width=0.62, zorder=3)
     for b, v in zip(bars, vals):
         ax.text(b.get_x() + b.get_width() / 2, v + 0.7, f"{v:.0f} A",
@@ -74,6 +75,15 @@ def energy_panel(ax, s):
             ("MCU", s.loads["mcu_drivers_logic"]),
             ("expansion*", s.loads["expansion_reserve"]),
         ],
+        f"+ dual arms\n({s.wh_future:.0f} Wh -> {s.ah_future:.1f} Ah)": [
+            ("drive", s.p_drive_avg),
+            ("Jetson", s.loads["jetson_orin_nano"]),
+            ("camera*", s.loads["rgbd_camera_reserve"]),
+            ("LiDAR*", s.loads["lidar_2d_reserve"]),
+            ("MCU", s.loads["mcu_drivers_logic"]),
+            ("expansion*", s.loads["expansion_reserve"]),
+            ("arms*", s.arms["avg_power_w"]),
+        ],
     }
     for xi, (model, parts) in enumerate(models.items()):
         bottom = 0.0
@@ -87,7 +97,7 @@ def energy_panel(ax, s):
         ax.text(xi, bottom + 1.2, f"{bottom:.0f} W avg", ha="center", fontsize=10,
                 color=INK, fontweight="bold", zorder=4)
 
-    ax.set_ylim(0, s.p_avg_allocation * 1.22)
+    ax.set_ylim(0, s.p_avg_future * 1.22)
     ax.set_ylabel("Average power (W)", fontsize=10, color=MUTED)
     ax.set_title(f"Mission average power -> battery for {s.runtime_h * 60:.0f} min",
                  fontsize=11, color=INK, loc="left")

@@ -61,9 +61,17 @@ power: # ADR-0005: 3S Li-ion + BMS architecture; see docs/analysis/power_budget_
     usable_fraction: 0.80 # Li-ion depth-of-discharge for cycle life
     conversion_efficiency: 0.90 # DC-DC losses on regulated rails
     drive_electrical_efficiency: 0.60 # motor + driver, mech power -> battery power
+  future_arms: # dual 6-DOF arms planned for a later version (requirements yaml:
+               # manipulation_future). Not built in v0.1, but the battery bought
+               # now must carry them. Assumptions are XM430-class placeholders —
+               # refine at arm selection, then re-run the build.
+    joint_count: 12
+    avg_power_w: 45 # both arms, manipulation duty (<=4 joints loaded per arm at once)
+    peak_current_a: 10 # both arms aggressive simultaneous lift, transient
   protection:
-    bms_min_continuous_a: 40 # must exceed worst designed peak (4x driver limit + system)
-    main_fuse_a: 50
+    bms_min_continuous_a: 50 # must exceed designed peak INCLUDING future arm branch
+    main_fuse_a: 60 # slow-blow; bus wiring 8 AWG (or 2x10 AWG) to stay above fuse
+    arm_branch_fuse_a: 15 # future arm branch gets its own fuse off the bus
 
 assumptions: # estimates to be replaced by measurement — see analysis docs' limits sections
   crr_carpet: 0.05 # rolling resistance, high end of published carpet range
