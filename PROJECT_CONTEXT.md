@@ -18,9 +18,10 @@ assume a package does anything until you have opened it.
 | `buddy_description` | **Working.** Single URDF entry `buddy.urdf.xacro`; geometry in `buddy_params.xacro`; loads in RViz. |
 | `buddy_simulation` | **Working.** `gazebo_lab.launch.py` spawns the URDF in Gazebo (diff drive + 2D LiDAR), no separate SDF. |
 | `tools` (`robot_ws/tools/torque_sweep.py`) | **Working.** Standalone torque/RPM sizing, no ROS needed. |
-| `buddy_base` | Skeleton. `ros2_control` hardware interface is a stub (transport TBD). |
+| `buddy_base` | Skeleton. `ros2_control` hardware interface is a stub (transport now decided: USB serial, ADR-0006 — bridge node is the next software task, developed against `mock_mcu.py`). |
 | `buddy_bringup` | Skeleton. Launch files are stubs (marked `WIP:` in-file). |
-| `buddy_firmware_interfaces` | Protocol design docs only (`docs/protocol_design.md`, schema draft). |
+| `buddy_firmware_interfaces` | **Working (host-tested).** Drive protocol v1 spec + Python implementation + mock MCU (`python/`); golden-vector cross-checked against the C implementation. Run all tests: `tools/run_protocol_tests.sh`. |
+| `firmware/drive_mcu` (not a ROS pkg) | **Compiles** for NUCLEO-G474RE via PlatformIO (16 kB flash): pure-C safety state machine (host-tested), HAL layer per `docs/pin_map.md`, constants generated from `design_params.yaml` (`include/buddy_config.h`). Velocity PID + mid-pulse current sampling are bench-phase TODOs. |
 | `buddy_navigation`, `buddy_perception`, `buddy_manipulation`, `buddy_mission`, `buddy_diagnostics`, `buddy_operator`, `buddy_tests` | **Deleted 2026-07-11.** They were empty scaffolds full of stub files that only added noise. Recreate each package (`ros2 pkg create`) when its build phase is actually reached; the intended responsibilities are listed in section 6. |
 
 **To start working right now:** read `robot_ws/SIMULATION_START_HERE.md`. Design
@@ -60,9 +61,10 @@ Buddy v0.1 is an indoor autonomous mobile base using:
   - Motor drivers: **4× Pololu VNH5019** (recommended; 8 A firmware limit on the
     G474 from current-sense — see `driver_selection.md`). Drive MCU confirmed:
     **NUCLEO-G474RE**. Purchases pending: `docs/financials/SHOPPING_LIST_v0_1.md`.
+  - MCU↔Jetson bus: **USB serial via ST-LINK VCP** (ADR-0006; CAN-FD reserved
+    for the arm era). Drive protocol v1 specified + implemented + host-tested.
 - Major hardware still undecided:
-  - Exact battery SKU (spec locked by ADR-0005: 3S ≥ 8 Ah, BMS ≥ 40 A).
-  - Bus protocol MCU↔Jetson (USB serial vs CAN — decide during firmware bring-up).
+  - Exact battery SKU (spec locked by amended ADR-0005: 3S ≥ 14 Ah, BMS ≥ 50 A).
   - 2D LiDAR, RGB-D camera (≤ 5 W reserves each), IMU.
   - Chassis dimensions, track width, suspension/skid behavior.
   - Exact 2D LiDAR model and RGB-D camera model.

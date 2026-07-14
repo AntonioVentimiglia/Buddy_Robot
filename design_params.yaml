@@ -73,6 +73,14 @@ power: # ADR-0005: 3S Li-ion + BMS architecture; see docs/analysis/power_budget_
     main_fuse_a: 60 # slow-blow; bus wiring 8 AWG (or 2x10 AWG) to stay above fuse
     arm_branch_fuse_a: 15 # future arm branch gets its own fuse off the bus
 
+firmware: # drive MCU runtime constants; tools/build.py generates
+          # firmware/drive_mcu/include/buddy_config.h from this section
+          # (velocity limit and current limit are pulled from requirements/power)
+  watchdog_ms: 200 # REQ_SAFE_002 initial placeholder
+  telemetry_hz: 100
+  control_hz: 1000
+  pwm_hz: 20000 # VNH5019 max, ultrasonic
+
 assumptions: # estimates to be replaced by measurement — see analysis docs' limits sections
   crr_carpet: 0.05 # rolling resistance, high end of published carpet range
   drivetrain_efficiency: 0.75 # conservative: planetary gearbox + hub coupling

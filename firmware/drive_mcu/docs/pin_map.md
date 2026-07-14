@@ -1,11 +1,64 @@
-# Drive MCU Pin Map
+# Drive MCU Pin Map — NUCLEO-G474RE (STM32G474RET6, LQFP64)
 
-| Signal | MCU pin | Direction | Voltage | Notes |
+**Date:** 2026-07-14 · **Status:** paper assignment for the 4-carrier rolling-base
+wiring; verify against the Nucleo-64 user manual at bench bring-up.
+Mirrored in code as [`include/pins.h`](../include/pins.h) — change both together.
+Wheel index order everywhere: **0 = LF, 1 = LR, 2 = RF, 3 = RR** (matches the
+protocol's CMD_VEL order).
+
+## Encoders — hardware quadrature timers (TIM encoder mode)
+
+| Wheel | Timer | CH1 (A) | CH2 (B) | Notes |
 |---|---|---|---|---|
-| E-stop input | TBD | input | TBD | Hardware safety path should not depend only on this input |
-| Motor enable | TBD | output | TBD | Drives enable line or safety relay input |
-| Left front encoder A/B | TBD | input | TBD | Quadrature |
-| Left rear encoder A/B | TBD | input | TBD | Quadrature |
-| Right front encoder A/B | TBD | input | TBD | Quadrature |
-| Right rear encoder A/B | TBD | input | TBD | Quadrature |
-| CAN TX/RX or serial | TBD | bus | TBD | Select bus later |
+| LF | TIM2 | PA0 | PA1 | 32-bit counter |
+| LR | TIM3 | PA6 | PA7 | |
+| RF | TIM4 | PB6 | PB7 | |
+| RR | TIM8 | PC6 | PC7 | |
+
+Encoder supply 3.3 V (goBILDA encoder accepts 3.3–5 V); timer input filter
+enabled (IC1F/IC2F) against brush noise; twisted pairs, routed away from motor
+leads.
+
+## Motor drivers — 4× Pololu VNH5019 carriers
+
+| Wheel | PWM (TIM1) | INA | INB | EN/DIAG (fault in, pull-up) | CS (ADC1) |
+|---|---|---|---|---|---|
+| LF | PA8 (CH1) | PB0 | PB1 | PC10 | PC0 (IN6) |
+| LR | PA9 (CH2) | PB2 | PB10 | PC11 | PC1 (IN7) |
+| RF | PA10 (CH3) | PB4 | PB5 | PC12 | PC2 (IN8) |
+| RR | PA11 (CH4) | PB13 | PB14 | PD2 | PC3 (IN9) |
+
+- TIM1 at 20 kHz (170 MHz / 8500) — ultrasonic, ~13-bit duty resolution.
+- ADC1 regular sequence of the four CS channels, hardware-triggered by TIM1
+  update so sampling lands mid-PWM-pulse (CS is only valid while driving);
+  firmware chops PWM above the 8 A limit (ADR-0005).
+- EN/DIAG is bidirectional on the carrier; used here as fault input with pull-up.
+
+## Safety, power sense, misc
+
+| Signal | Pin | Direction | Notes |
+|---|---|---|---|
+| E-stop chain state | PB12 | input, ext. pull-down | **Reporting only** — the physical E-stop interrupts motor power upstream of the drivers regardless of firmware |
+| Vbat sense | PC4 (ADC2_IN5) | analog in | via 10:1 divider (12.6 V max → 1.26 V) |
+| Status LED | PA5 (LD2) | output | state-machine heartbeat pattern |
+| User button | PC13 (B1) | input | bench convenience: ARM request without host |
+| VCP UART | PA2/PA3 (USART2) | bus | wired on-board to STLINK-V3E → Jetson USB ([ADR-0006](../../../docs/decisions/ADR-0006-mcu-jetson-bus-usb-serial.md)); 921600-8N1 |
+| SWD | PA13/PA14 | debug | reserved; PB3 (SWO) left unused |
+
+## Power
+
+Nucleo powered from the robot's **5 V rail via E5V** (JP3 in E5V position) so
+the MCU survives Jetson reboots; USB remains data-only. 3.3 V for encoders from
+the Nucleo LDO (4 encoders ≪ its budget).
+
+## Conflicts checked
+
+PA2/PA3 reserved for VCP; PB3/PA13/PA14 debug pins untouched; PA5 is LD2 (used
+as intended); no timer channel is double-booked (TIM2/3/4/8 encoder, TIM1 PWM).
+Several signals (PC10–PC12, PD2, PB13/PB14) are on the **morpho headers only** —
+fine for the harness, but note it when planning the bench jig.
+
+> Bench phase note: the first bench loop may instead stack the dual-VNH5019
+> Arduino *shield* on the Nucleo, which imposes Pololu's shield pinout — that
+> temporary mapping is documented by Pololu; **this file is the rolling-base
+> 4-carrier harness.**

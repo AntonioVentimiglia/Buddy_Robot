@@ -52,6 +52,18 @@
 - [ ] Score each hardware candidate (comparison table in each research doc, as in the motor sizing doc).
 - [ ] Reject any candidate with unclear power, mounting, modeling, communication, or safety behavior.
 
+## Phase 4.5 - Pre-bench software (done while parts ship)
+
+- [x] Decide MCU↔Jetson bus: USB serial via ST-LINK VCP (ADR-0006; CAN-FD reserved).
+- [x] Drive protocol v1: wire spec + C and Python implementations, golden-vector
+  cross-checked; mock MCU with state machine + watchdog (`tools/run_protocol_tests.sh`).
+- [x] Pin map for NUCLEO-G474RE (4× encoder timers, TIM1 PWM, CS ADC, faults, E-stop).
+- [x] Firmware skeleton compiles (PlatformIO, 16 kB): host-tested safety state
+  machine, HAL layer, constants generated from `design_params.yaml`.
+- [ ] Jetson-side bridge node (`buddy_base`): develop against `mock_mcu.py` pty
+  — next software task; rclpy wrapper is thin around the tested protocol lib.
+- [ ] Velocity PID + mid-pulse current sampling (bench phase, needs motors).
+
 ## Phase 5 - Electronics bench
 
 - [ ] Build bench drive loop: MCU + motor driver + one motor + encoder.

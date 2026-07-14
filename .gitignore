@@ -225,3 +225,6 @@ __marimo__/
 # KiCAD lock files
 *.lck
 site/.git
+
+# PlatformIO build artifacts
+.pio/
