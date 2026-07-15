@@ -63,12 +63,13 @@ Buddy v0.1 is an indoor autonomous mobile base using:
     **NUCLEO-G474RE**. Purchases pending: `docs/financials/SHOPPING_LIST_v0_1.md`.
   - MCU↔Jetson bus: **USB serial via ST-LINK VCP** (ADR-0006; CAN-FD reserved
     for the arm era). Drive protocol v1 specified + implemented + host-tested.
+  - Sensors (proposed, ADR-0007, phased): **LD19 2D LiDAR + BNO086 IMU** with
+    the current order; **OAK-D Lite RGB-D** selected but deferred to the
+    perception phase. Reserves hold (0.9 W / 4.5 W vs ≤ 5 W each).
 - Major hardware still undecided:
   - Exact battery SKU (spec locked by amended ADR-0005: 3S ≥ 14 Ah, BMS ≥ 50 A).
-  - 2D LiDAR, RGB-D camera (≤ 5 W reserves each), IMU.
   - Chassis dimensions, track width, suspension/skid behavior.
-  - Exact 2D LiDAR model and RGB-D camera model.
-  - IMU model and mounting.
+  - IMU/sensor mounting positions (extrinsics at assembly).
   - Robot arm type, gripper, payload, mounting, and whether manipulation is an early or later milestone.
 
 ## 2. Architectural north star

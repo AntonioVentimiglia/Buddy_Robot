@@ -47,7 +47,18 @@
 
 Jetson Orin Nano Super (flashed, running), bench power supply, adapters/HDMI/storage.
 
-## Deferred (blocked or later phase)
+## Sensors — Phase A (add to this order; ADR-0007)
 
-2D LiDAR (≤ 5 W reserve), RGB-D camera (≤ 5 W reserve), IMU, chassis material —
-sensor selection is the next research task after drive electronics are proven.
+| ✔ | Item | Qty | Unit | Ext. | Link / note |
+|---|---|---|---|---|---|
+| ☐ | LDROBOT LD19 / D300 2D LiDAR kit | 1 | ~$70 | ~$70 | ToF 12 m, 0.9 W; `ldlidar` ROS 2 driver |
+| ☐ | BNO085/BNO086 IMU breakout (Adafruit/SparkFun) | 1 | ~$25 | ~$25 | on-chip fusion; Jetson 40-pin I²C |
+
+**Running grand total with Phase A: ~$685** — past the $300–600 band per
+ADR-0007's explicit budget extension.
+
+## Deferred (selected, buy when the phase is reached)
+
+- **OAK-D Lite RGB-D camera (~$130–150, ADR-0007)** — buy when perception work
+  starts; nothing in TODO Phases 5–7 needs it.
+- Chassis material (goBILDA channel) — layout study happens with parts in hand.

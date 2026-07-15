@@ -48,7 +48,7 @@
 - [x] Shortlist motor drivers — 4× Pololu VNH5019 recommended (12 A/30 A, current sense → 8 A firmware limit on G474); alternates documented. Purchase pending.
 - [x] Confirm drive MCU: NUCLEO-G474RE (VNH5019 telemetry/PWM needs match the G474 exactly; dual-VNH5019 shield stacks on it for bench phase).
 - [ ] **BUY: work through `docs/financials/SHOPPING_LIST_v0_1.md` (~$540), then update BOM, flip ADR-0003/4/5 to Accepted, delete the list.**
-- [ ] Shortlist 2D LiDAR (≤5 W reserve), RGB-D camera (≤5 W reserve), IMU.
+- [x] Select sensors (ADR-0007, phased): LD19 LiDAR + BNO086 IMU now (+$90); OAK-D Lite selected, deferred to perception phase. Reserves hold — no power amendment.
 - [ ] Score each hardware candidate (comparison table in each research doc, as in the motor sizing doc).
 - [ ] Reject any candidate with unclear power, mounting, modeling, communication, or safety behavior.
 
@@ -60,8 +60,7 @@
 - [x] Pin map for NUCLEO-G474RE (4× encoder timers, TIM1 PWM, CS ADC, faults, E-stop).
 - [x] Firmware skeleton compiles (PlatformIO, 16 kB): host-tested safety state
   machine, HAL layer, constants generated from `design_params.yaml`.
-- [ ] Jetson-side bridge node (`buddy_base`): develop against `mock_mcu.py` pty
-  — next software task; rclpy wrapper is thin around the tested protocol lib.
+- [x] Jetson-side bridge node (`buddy_base`): core host-tested (13 tests incl. end-to-end vs mock MCU); thin rclpy shell + real base.launch.py ready for the Jetson.
 - [ ] Velocity PID + mid-pulse current sampling (bench phase, needs motors).
 
 ## Phase 5 - Electronics bench
