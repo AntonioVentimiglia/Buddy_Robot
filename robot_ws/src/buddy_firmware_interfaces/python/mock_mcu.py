@@ -25,7 +25,8 @@ VEL_LIMIT_MMPS = 750  # firmware clamp = teleop max from requirements
 
 
 class MockMcu:
-    def __init__(self):
+    def __init__(self, clock=time.monotonic):
+        self.now = clock  # injectable clock so tests can drive simulated time
         self.state = bp.STATE_BOOT
         self.fault_bits = 0
         self.estop = 0
@@ -76,7 +77,7 @@ class MockMcu:
         vals = struct.unpack("<4h", f.payload)
         self.target = [max(-VEL_LIMIT_MMPS, min(VEL_LIMIT_MMPS, v)) for v in vals]
         self.cmd_seq_echo = f.seq
-        self.last_cmd_time = time.monotonic()
+        self.last_cmd_time = self.now()
 
     def _stop(self, new_state: int) -> None:
         self.target = [0, 0, 0, 0]
@@ -97,7 +98,7 @@ class MockMcu:
     def tick(self, dt: float) -> None:
         # watchdog (REQ_SAFE_002)
         if (self.state == bp.STATE_ACTIVE and self.last_cmd_time is not None
-                and time.monotonic() - self.last_cmd_time > bp.WATCHDOG_TIMEOUT_S):
+                and self.now() - self.last_cmd_time > bp.WATCHDOG_TIMEOUT_S):
             self.fault_bits |= bp.FAULT_CMD_TIMEOUT
             self._stop(bp.STATE_SAFE_IDLE)
             self.tx += bp.encode(bp.T_FAULT_EVT, self._next_seq(),

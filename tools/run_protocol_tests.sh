@@ -27,5 +27,11 @@ echo "== Python protocol tests =="
 echo "== Mock MCU self-test =="
 (cd robot_ws/src/buddy_firmware_interfaces/python && python3 mock_mcu.py --selftest)
 
+echo "== BaseCore unit tests (kinematics + odometry) =="
+(cd robot_ws/src/buddy_base/test && python3 test_base_core.py)
+
+echo "== Drive stack integration (BaseCore <-> wire <-> mock MCU) =="
+(cd robot_ws/src/buddy_base/test && python3 test_integration_mock.py)
+
 echo
-echo "ALL HOST-SIDE FIRMWARE TESTS PASSED"
+echo "ALL HOST-SIDE DRIVE STACK TESTS PASSED"

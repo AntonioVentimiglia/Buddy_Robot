@@ -1,16 +1,22 @@
 <?xml version="1.0"?>
 <package format="3">
   <name>buddy_base</name>
-  <version>0.0.1</version>
-  <description>Buddy base hardware interface and bridge skeleton.</description>
-  <maintainer email="todo@example.com">Buddy Robot Project</maintainer>
+  <version>0.1.0</version>
+  <description>Buddy base bridge node: /cmd_vel to drive-MCU protocol (ADR-0006)
+    and telemetry back to /odom, /joint_states, /battery_state. Core logic is
+    host-tested against the mock MCU; this package is the thin ROS shell.
+    Build the workspace with --symlink-install (shared protocol lib is
+    resolved in-repo).</description>
+  <maintainer email="ventimaj@icloud.com">Antonio Ventimiglia</maintainer>
   <license>MIT</license>
-  <buildtool_depend>ament_cmake</buildtool_depend>
   <exec_depend>rclpy</exec_depend>
-  <exec_depend>rclcpp</exec_depend>
-  <exec_depend>robot_state_publisher</exec_depend>
-  <exec_depend>xacro</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>python3-serial</exec_depend>
+  <test_depend>python3-pytest</test_depend>
   <export>
-    <build_type>ament_cmake</build_type>
+    <build_type>ament_python</build_type>
   </export>
 </package>
