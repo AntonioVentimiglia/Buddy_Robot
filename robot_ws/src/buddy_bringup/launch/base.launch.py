@@ -13,8 +13,9 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     return LaunchDescription([
-        DeclareLaunchArgument("port", default_value="/dev/ttyACM0",
-                              description="Serial device: real MCU or mock pty"),
+        DeclareLaunchArgument("port", default_value="/dev/buddy_drive_mcu",
+                              description="Serial device: udev name for the real "
+                                          "MCU (falls back: /dev/ttyACM0) or mock pty"),
         DeclareLaunchArgument("auto_arm", default_value="false",
                               description="Request ARM automatically (bench only)"),
         Node(

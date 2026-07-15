@@ -1,3 +1,5 @@
-# Replace idVendor/idProduct/serial with real values from `udevadm info`.
-SUBSYSTEM=="tty", ATTRS{idVendor}=="1234", ATTRS{idProduct}=="5678", SYMLINK+="buddy_drive_mcu", MODE="0660", GROUP="dialout"
-SUBSYSTEM=="tty", ATTRS{idVendor}=="1234", ATTRS{idProduct}=="5679", SYMLINK+="buddy_power_mcu", MODE="0660", GROUP="dialout"
+# Stable device names for Buddy hardware. Installed by devops/jetson/setup_ros2_jazzy.sh.
+# ST-LINK V3 VCP (NUCLEO-G474RE drive MCU, ADR-0006): ST vendor 0483, STLINK-V3 product 374e.
+# Verify on the Jetson with: udevadm info -a -n /dev/ttyACM0 | grep -E 'idVendor|idProduct|serial'
+# If a second ST-LINK ever joins the bus, pin each by ATTRS{serial}=="...".
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374e", SYMLINK+="buddy_drive_mcu", MODE="0660", GROUP="dialout"

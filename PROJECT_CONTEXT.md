@@ -18,8 +18,8 @@ assume a package does anything until you have opened it.
 | `buddy_description` | **Working.** Single URDF entry `buddy.urdf.xacro`; geometry in `buddy_params.xacro`; loads in RViz. |
 | `buddy_simulation` | **Working.** `gazebo_lab.launch.py` spawns the URDF in Gazebo (diff drive + 2D LiDAR), no separate SDF. |
 | `tools` (`robot_ws/tools/torque_sweep.py`) | **Working.** Standalone torque/RPM sizing, no ROS needed. |
-| `buddy_base` | Skeleton. `ros2_control` hardware interface is a stub (transport now decided: USB serial, ADR-0006 — bridge node is the next software task, developed against `mock_mcu.py`). |
-| `buddy_bringup` | Skeleton. Launch files are stubs (marked `WIP:` in-file). |
+| `buddy_base` | **Working (host-tested).** ament_python bridge: `base_core.py` (kinematics/odometry/clamping, no ROS, 13 tests incl. end-to-end vs the mock MCU) + thin rclpy `bridge_node`. Custom bridge, not ros2_control (README explains). Untested on the Jetson until ROS 2 is installed there. |
+| `buddy_bringup` | Skeleton, except `base.launch.py` (real — launches the bridge vs MCU or mock). Other launch files are stubs. |
 | `buddy_firmware_interfaces` | **Working (host-tested).** Drive protocol v1 spec + Python implementation + mock MCU (`python/`); golden-vector cross-checked against the C implementation. Run all tests: `tools/run_protocol_tests.sh`. |
 | `firmware/drive_mcu` (not a ROS pkg) | **Compiles** for NUCLEO-G474RE via PlatformIO (16 kB flash): pure-C safety state machine (host-tested), HAL layer per `docs/pin_map.md`, constants generated from `design_params.yaml` (`include/buddy_config.h`). Velocity PID + mid-pulse current sampling are bench-phase TODOs. |
 | `buddy_navigation`, `buddy_perception`, `buddy_manipulation`, `buddy_mission`, `buddy_diagnostics`, `buddy_operator`, `buddy_tests` | **Deleted 2026-07-11.** They were empty scaffolds full of stub files that only added noise. Recreate each package (`ros2 pkg create`) when its build phase is actually reached; the intended responsibilities are listed in section 6. |
