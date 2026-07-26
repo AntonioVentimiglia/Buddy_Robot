@@ -103,7 +103,7 @@ CONFIG_H_TEMPLATE = """/* ============================ GENERATED FILE ==========
 #define BUDDY_CONTROL_HZ {control:d}
 #define BUDDY_PWM_HZ {pwm:d}
 #define BUDDY_WHEEL_RADIUS_UM {wheel_um:d}   /* micrometers, integer-exact */
-#define BUDDY_ENC_COUNTS_PER_REV {cpr:d}     /* 4x quadrature edges at output */
+#define BUDDY_ENC_COUNTS_PER_REV {cpr:d}     /* 4x-decoded counts at output shaft */
 
 #endif /* BUDDY_CONFIG_H */
 """
@@ -119,7 +119,7 @@ def generate_firmware_config(reqs: dict) -> Path:
         watchdog=fw["watchdog_ms"], telem=fw["telemetry_hz"],
         control=fw["control_hz"], pwm=fw["pwm_hz"],
         wheel_um=round(P["wheels"]["radius_m"] * 1e6),
-        cpr=round(P["drive_motor"]["encoder_ppr_output"] * 4),
+        cpr=round(P["drive_motor"]["encoder_counts_per_rev_output"]),
     ))
     return out
 

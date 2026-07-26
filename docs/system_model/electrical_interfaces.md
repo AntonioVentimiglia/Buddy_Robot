@@ -7,7 +7,7 @@ Purchases are proceeding on the assumption these parts interface as intended.
 This document checks that assumption signal-by-signal, with the numbers.
 Sources: [VNH5019 carrier page](https://www.pololu.com/product/1451) (logic ≥ 2.1 V = high,
 PWM ≤ 20 kHz, CS ≈ 140 mV/A), goBILDA 5203 product spec (3.3–5 V encoder,
-751.8 PPR at output), ST NUCLEO-G474RE / STM32G474 datasheets, Jetson Orin Nano
+753.2 counts/rev at output — datasheet), ST NUCLEO-G474RE / STM32G474 datasheets, Jetson Orin Nano
 dev kit carrier spec (9–20 V input, USB-A host ports).
 
 ## 1. Motor ↔ Driver (power)
@@ -40,8 +40,8 @@ motor-control-oriented part).
 |---|---|---|---|
 | Supply | goBILDA encoder 3.3–5 V | run at 3.3 V from Nucleo | ✔ no level shifting anywhere |
 | Channels | 4 motors × quadrature A/B | TIM2, TIM3, TIM4, TIM8 in hardware encoder mode | ✔ four true hardware decoders |
-| Count rate | 751.8 PPR × 4 edges = 3007 counts/rev; at 223 RPM ≈ 11.2 kcounts/s per wheel | hardware timers count to tens of MHz | ✔ ~3 orders of magnitude margin |
-| Wiring | 6-pin JST per motor (pwr, gnd, A, B) | GPIO with input filtering enabled | ✔ enable timer input filter vs brush noise |
+| Count rate | **753.2 counts/rev** at the output shaft (goBILDA's "PPR" is already 4x-decoded — see harness doc); at 223 RPM ≈ 2.8 kcounts/s per wheel | hardware timers count to tens of MHz | ✔ ~4 orders of magnitude margin |
+| Wiring | **4-pos JST XH [FH-MC]** on the motor (VCC, GND, A, B) | mates with goBILDA breakout cable to 2.54 mm headers | ✔ see [`wiring_harness.md`](wiring_harness.md) |
 
 ## 4. MCU ↔ Jetson (command/telemetry + power)
 

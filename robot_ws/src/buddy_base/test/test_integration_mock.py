@@ -21,7 +21,7 @@ from buddy_base.base_core import BaseCore, BaseParams  # noqa: E402
 from mock_mcu import MockMcu  # noqa: E402
 
 PARAMS = BaseParams(wheel_radius_m=0.048, track_m=0.26,
-                    counts_per_rev=3007.2, vel_limit_mmps=750)
+                    counts_per_rev=753.2, vel_limit_mmps=750)
 DT = 0.01  # 100 Hz sim tick
 
 

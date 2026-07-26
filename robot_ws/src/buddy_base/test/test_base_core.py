@@ -12,7 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from buddy_base.base_core import BaseCore, BaseParams  # noqa: E402
 
 PARAMS = BaseParams(wheel_radius_m=0.048, track_m=0.26,
-                    counts_per_rev=3007.2, vel_limit_mmps=750)
+                    counts_per_rev=753.2, vel_limit_mmps=750)
 
 
 def make_telem(counts, estop=0, state=4):

@@ -21,6 +21,21 @@
 | ☐ | NUCLEO-G474RE (drive MCU dev board) | 1 | ~$27 | ~$27 | ST/Mouser/DigiKey (STM32 selection doc) |
 | ☐ | *(optional, bench phase)* Pololu Dual VNH5019 Arduino shield — stacks directly on the Nucleo for the first bench loop | 1 | $49.95 | — | [product](https://www.pololu.com/product/2507) — skip if going straight to 4 carriers |
 
+## Harness — motor cabling (NEW 2026-07-16; was missed, see `wiring_harness.md`)
+
+Motor ships with 470 mm power leads (3.5 mm bullet, **FH-MC**) and a 4-pos
+JST XH **FH-MC** encoder socket. Everything below is the **MH-FC** mating half.
+Motor power goes to the **driver**, encoder goes to the **Nucleo** — never mix.
+
+| ✔ | Item | Qty | Unit | Ext. | Link / note |
+|---|---|---|---|---|---|
+| ☐ | goBILDA Encoder Breakout Cable (4-Pos JST XH [MH-FC] → 4 × 1-Pos TJC8 [MH-FC], 300 mm) | 4 | $3.99 | ~$16 | [product](https://www.gobilda.com/encoder-breakout-cable-4-pos-jst-xh-mh-fc-to-4-x-1-pos-tjc8-mh-fc-300mm-length/) — **breakout**, not straight-through: our encoder pins aren't adjacent. ⚠ check whether a cable ships with the motor |
+| ☐ | 3.5 mm bullet connectors, female-contact (MH-FC), set incl. heat-shrink | 8 | — | ~$12 | RC/hobby standard; motor-to-driver pigtails |
+| ☐ | 16 AWG silicone wire, ~2 m red + 2 m black | — | ~$14 | ~$14 | motor↔driver runs at the 8 A design limit |
+| ☐ | *(optional)* 5 mm screw terminal blocks for VNH5019 outputs | 4 | ~$1.5 | ~$6 | swap a motor without a soldering iron |
+| ☐ | USB-A → micro-B cable (Nucleo ST-LINK ↔ Jetson) | 1 | ~$8 | ~$8 | ⚠ confirm the Nucleo's USB connector type on arrival |
+| ☐ | *(if Nucleo mounts far from motors)* Encoder cable extension, 4-Pos JST XH, 300 mm | 0–4 | $2.99 | — | [product](https://www.gobilda.com/encoder-cable-extension-4-pos-jst-xh-300mm-length/) — decide at chassis layout |
+
 ## Power (ADR-0005)
 
 | ✔ | Item | Qty | Unit | Ext. | Link / note |
@@ -37,8 +52,9 @@
 ## Totals
 
 - Drivetrain: **~$292**
+- Harness/cabling: **~$56** (added 2026-07-16 — previously missed)
 - Electronics + power: **~$297** (excl. optional bench shield; battery re-sized 2026-07-14 for future dual arms, +$40, wiring +$8)
-- **Grand total: ~$590** against the $300–600 budget (excl. Jetson, already owned)
+- **Grand total: ~$646** against the $300–600 budget (excl. Jetson, already owned)
   — top of band, as flagged in `design_conflicts.md` #4. Trim options: BTS7960
   drivers (−$65), smaller battery accepting <60 min allocation-guaranteed runtime
   (−$20), defer E-stop contactor to bench-supply phase (not recommended past bench).
@@ -54,7 +70,7 @@ Jetson Orin Nano Super (flashed, running), bench power supply, adapters/HDMI/sto
 | ☐ | LDROBOT LD19 / D300 2D LiDAR kit | 1 | ~$70 | ~$70 | ToF 12 m, 0.9 W; `ldlidar` ROS 2 driver |
 | ☐ | BNO085/BNO086 IMU breakout (Adafruit/SparkFun) | 1 | ~$25 | ~$25 | on-chip fusion; Jetson 40-pin I²C |
 
-**Running grand total with Phase A: ~$685** — past the $300–600 band per
+**Running grand total with Phase A: ~$741** — past the $300–600 band per
 ADR-0007's explicit budget extension.
 
 ## Deferred (selected, buy when the phase is reached)

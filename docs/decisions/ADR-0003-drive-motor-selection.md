@@ -25,6 +25,14 @@ and Waveshare DDSM115 hub servos.
 Use **4× goBILDA 5203 Yellow Jacket planetary gearmotors, 26.9:1 (223 RPM, 3.73 Nm
 stall, 751.8 PPR output encoder, $54.99 each)**.
 
+> **Correction 2026-07-16 (datasheet received):** the encoder figure above came
+> from the vendor's web page. The spec sheet gives **753.2 counts per output
+> revolution**, and — critically — goBILDA's "pulses" are *already* 4x-decoded
+> (28 pulses = 7 quadrature cycles at the encoder shaft). Code that multiplied
+> by 4 again was fixed; see the log entry and `wiring_harness.md`. Motor
+> selection is unaffected: no-load current 0.25 A is confirmed exactly as
+> assumed in ADR-0005.
+
 It is the only candidate that clears the carpet-pivot stall requirement with margin
 while also meeting the speed and encoder targets. The Pololu 37D's 2.65 Nm stall is
 below the pivot requirement; the JGB37-520 has inconsistent vendor specs and QC

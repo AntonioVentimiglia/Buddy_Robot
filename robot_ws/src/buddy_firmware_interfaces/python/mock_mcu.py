@@ -107,7 +107,7 @@ class MockMcu:
         # first-order wheel model (tau = 100 ms), integrate position
         for i in range(4):
             self.vel[i] += (self.target[i] - self.vel[i]) * min(1.0, dt / 0.1)
-            self.pos[i] += self.vel[i] * dt * 9.97  # ticks/mm (3007 cpr / 301.6 mm)
+            self.pos[i] += self.vel[i] * dt * 2.497  # counts/mm (753.2 cpr / 301.6 mm)
         self.tx += bp.encode_telemetry(self._next_seq(), self.telemetry())
 
     def telemetry(self) -> bp.Telemetry:

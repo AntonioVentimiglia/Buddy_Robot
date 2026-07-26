@@ -31,7 +31,13 @@ drive_motor: # ADR-0003: goBILDA 5203 Yellow Jacket 26.9:1
   stall_torque_nm: 3.73
   stall_current_a: 9.2
   no_load_rpm: 223
-  encoder_ppr_output: 751.8
+  # Datasheet (5203-2402-0027_spec_sheet.pdf): "Encoder Shaft: 28 Pulses per
+  # Rotation (7 Cycles)" -> 28/7 = 4 pulses per quadrature cycle, i.e. goBILDA's
+  # "pulses" ARE already 4x-decoded counts. Output = 28 x 26.9 = 753.2.
+  # Do NOT multiply by 4 again (that bug shipped once; the name now says counts).
+  # NOTE: the datasheet's companion "(134.4 Cycles)" line is a vendor error -
+  # 134.4 = 7 x 19.2 belongs to the 19.2:1 motor. Verify empirically at bench.
+  encoder_counts_per_rev_output: 753.2
   price_usd: 54.99
 
 power: # ADR-0005: 3S Li-ion + BMS architecture; see docs/analysis/power_budget_and_battery.py
@@ -43,7 +49,7 @@ power: # ADR-0005: 3S Li-ion + BMS architecture; see docs/analysis/power_budget_
   driver_current_limit_a: 8.0 # per-motor cap set in the motor driver — turns the
                               # stall fault into a designed ceiling (drivers must
                               # support an adjustable limit; selection pending)
-  motor_no_load_current_a: 0.25 # estimate — measure on first purchased motor
+  motor_no_load_current_a: 0.25 # CONFIRMED by datasheet (No-Load Current @ 12VDC)
   # Allocations, not measurements. Unchosen hardware gets a RESERVE that becomes
   # a hard selection constraint: a candidate exceeding its reserve triggers a
   # budget re-run before purchase.

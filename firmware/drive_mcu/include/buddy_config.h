@@ -12,6 +12,6 @@
 #define BUDDY_CONTROL_HZ 1000
 #define BUDDY_PWM_HZ 20000
 #define BUDDY_WHEEL_RADIUS_UM 48000   /* micrometers, integer-exact */
-#define BUDDY_ENC_COUNTS_PER_REV 3007     /* 4x quadrature edges at output */
+#define BUDDY_ENC_COUNTS_PER_REV 753     /* 4x-decoded counts at output shaft */
 
 #endif /* BUDDY_CONFIG_H */

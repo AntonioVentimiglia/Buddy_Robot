@@ -29,7 +29,8 @@ import buddy_protocol as bp  # noqa: E402
 class BaseParams:
     wheel_radius_m: float
     track_m: float                 # left-right wheel center distance
-    counts_per_rev: float          # 4x quadrature counts at the output shaft
+    counts_per_rev: float          # 4x-decoded counts per output-shaft rev
+                                   # (goBILDA "PPR" is already 4x - do not scale)
     vel_limit_mmps: int            # firmware clamp mirror (for local clamping)
     cmd_resend_hz: float = 20.0    # keep-alive rate vs the 200 ms MCU watchdog
     cmd_vel_timeout_s: float = 0.5 # ROS-side silence -> command zeros
@@ -140,7 +141,7 @@ def params_from_design(repo_root: Path) -> BaseParams:
     return BaseParams(
         wheel_radius_m=P["wheels"]["radius_m"],
         track_m=2.0 * P["wheels"]["y_offset_m"],
-        counts_per_rev=P["drive_motor"]["encoder_ppr_output"] * 4,
+        counts_per_rev=P["drive_motor"]["encoder_counts_per_rev_output"],
         vel_limit_mmps=round(
             R["mobility"]["teleop_commissioning_max_mps"] * 1000),
     )
