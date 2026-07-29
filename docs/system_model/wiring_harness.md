@@ -4,7 +4,9 @@
 sheet + vendor pages; two items flagged "verify at purchase"
 **Companion docs:** [`electrical_interfaces.md`](electrical_interfaces.md) (does it
 interface?) · [`pin_map.md`](../../firmware/drive_mcu/docs/pin_map.md) (which pin?) ·
-`electronics/KiCAD/drive_mcu_wiring/` (the drawing)
+[`interconnect.svg`](../../assets/figures/interconnect.svg) (the picture, with the
+pin table) · `electronics/KiCAD/drive_mcu_wiring/` + `system_wiring/` (the
+schematics) · [`system_integration.md`](system_integration.md) (index to all of it)
 
 This document exists because "the parts interface correctly" and "I have the
 cables to connect them" are different claims. The first was verified earlier;

@@ -31,15 +31,12 @@ CHASSIS_W = P["chassis"]["width_m"]
 WHEEL_DIA = 2 * P["wheels"]["radius_m"]
 WHEEL_TH = P["wheels"]["width_m"]
 
-# palette (validated reference palette, light mode)
-SURFACE = "#fcfcfb"
-INK = "#0b0b0b"
-MUTED = "#898781"
-AXIS = "#c3c2b7"
-BAND = "#f0efec"
-BLUE = "#2a78d6"   # drive/tractive forces
-RED = "#e34948"    # resisting forces (friction, rolling resistance)
-VIOLET = "#4a3aa7" # weight/normal pair
+# palette — one definition for every Buddy figure (tools/figures/palette.py)
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from palette import AXIS, BAND, INK, MPL_SANS, MUTED, SURFACE  # noqa: E402
+from palette import BLUE  # drive/tractive forces                  # noqa: E402
+from palette import RESIST as RED  # resisting forces (friction, rolling res.)
+from palette import PURPLE as VIOLET  # weight/normal pair          # noqa: E402
 
 
 def arrow(ax, xy0, xy1, color, lw=2.0, style="-|>", ls="solid", zorder=6):
@@ -156,7 +153,7 @@ def pivot_panel(ax):
 def main() -> int:
     plt.rcParams.update({
         "font.family": "sans-serif",
-        "font.sans-serif": ["Helvetica Neue", "Helvetica", "Arial", "DejaVu Sans"],
+        "font.sans-serif": MPL_SANS,
         "svg.fonttype": "none",
         "svg.hashsalt": "buddy",
         "mathtext.fontset": "dejavusans",

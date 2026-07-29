@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1340" height="1064" viewBox="0 0 1340 1064" role="img" aria-label="Buddy power one-line — pack, protection chain, and every rail">
+  <rect width="1340" height="1064" fill="#fcfcfb"/>
+  <marker id="arw-1baf7a" markerWidth="9" markerHeight="8" refX="8.4" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0.6,0.6 L8.4,4 L0.6,7.4 Z" fill="#1baf7a"/></marker>
+  <marker id="arws-1baf7a" markerWidth="9" markerHeight="8" refX="0.6" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M8.4,0.6 L0.6,4 L8.4,7.4 Z" fill="#1baf7a"/></marker>
+  <marker id="arw-4a3aa7" markerWidth="9" markerHeight="8" refX="8.4" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0.6,0.6 L8.4,4 L0.6,7.4 Z" fill="#4a3aa7"/></marker>
+  <marker id="arws-4a3aa7" markerWidth="9" markerHeight="8" refX="0.6" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M8.4,0.6 L0.6,4 L8.4,7.4 Z" fill="#4a3aa7"/></marker>
+  <marker id="arw-d03b3b" markerWidth="9" markerHeight="8" refX="8.4" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0.6,0.6 L8.4,4 L0.6,7.4 Z" fill="#d03b3b"/></marker>
+  <marker id="arws-d03b3b" markerWidth="9" markerHeight="8" refX="0.6" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M8.4,0.6 L0.6,4 L8.4,7.4 Z" fill="#d03b3b"/></marker>
+  <text x="28" y="31.25" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="15" font-weight="700" fill="#0b0b0b" text-anchor="start">Buddy power one-line — pack, protection chain, and every rail</text>
+  <text x="28" y="50.78" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.8" font-weight="400" fill="#898781" text-anchor="start">Ratings from design_params.yaml via buddy_calcs.power — the same numbers the build validator enforces · green = power, red = protection, purple = provisioned for a later version</text>
+  <rect x="430" y="104" width="870" height="200" rx="9" fill="none" stroke="#d03b3b" stroke-width="1.1" opacity="0.9" stroke-dasharray="6 5"/>
+  <text x="443" y="122.675" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10.5" font-weight="600" fill="#d03b3b" text-anchor="start" letter-spacing="0.7">protection chain — each stage must act before the one behind it</text>
+  <path d="M 198,208 L 198,244" fill="none" stroke="#1baf7a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-1baf7a)"/>
+  <path d="M 198,320 L 198,356" fill="none" stroke="#1baf7a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-1baf7a)"/>
+  <path d="M 198,444 L 198,916" fill="none" stroke="#1baf7a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="168.3" y="457.81" width="59.4" height="16.38" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="198" y="469.675" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10.5" font-weight="500" fill="#1baf7a" text-anchor="middle">+12V_BUS</text>
+  <path d="M 644,189 L 674,189" fill="none" stroke="#d03b3b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-d03b3b)"/>
+  <path d="M 864,189 L 894,189" fill="none" stroke="#d03b3b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-d03b3b)"/>
+  <path d="M 1084,189 L 1114,189" fill="none" stroke="#d03b3b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-d03b3b)"/>
+  <path d="M 198,532 L 430,532" fill="none" stroke="#1baf7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-1baf7a)"/>
+  <path d="M 730,532 L 790,532" fill="none" stroke="#1baf7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-1baf7a)"/>
+  <path d="M 198,660 L 430,660" fill="none" stroke="#1baf7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-1baf7a)"/>
+  <path d="M 730,660 L 790,660" fill="none" stroke="#1baf7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-1baf7a)"/>
+  <path d="M 198,788 L 430,788" fill="none" stroke="#1baf7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-1baf7a)"/>
+  <path d="M 730,788 L 790,788" fill="none" stroke="#1baf7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-1baf7a)"/>
+  <path d="M 198,900 L 430,900" fill="none" stroke="#4a3aa7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 4" marker-end="url(#arw-4a3aa7)"/>
+  <path d="M 730,900 L 790,900" fill="none" stroke="#4a3aa7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 4" marker-end="url(#arw-4a3aa7)"/>
+  <rect x="48" y="104" width="300" height="104" rx="5" fill="#fcfcfb" stroke="#898781" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <rect x="49.5" y="105.5" width="3" height="101" rx="1.5" fill="#1baf7a" opacity="0.45"/>
+  <text x="200" y="141.675" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">3S Li-ion pack + BMS</text>
+  <text x="200" y="155.225" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">9–12.6 V (11.1 V nominal)</text>
+  <text x="200" y="167.58" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">≥ 14 Ah (≈ 155 Wh)</text>
+  <text x="200" y="179.78" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">BMS ≥ 50 A continuous</text>
+  <rect x="48" y="244" width="300" height="76" rx="5" fill="#fcfcfb" stroke="#898781" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <rect x="49.5" y="245.5" width="3" height="73" rx="1.5" fill="#d03b3b" opacity="0.45"/>
+  <text x="200" y="279.875" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">main fuse 60 A</text>
+  <text x="200" y="293.425" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">slow-blow MIDI/ANL</text>
+  <rect x="48" y="356" width="300" height="88" rx="5" fill="#fcfcfb" stroke="#898781" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <rect x="49.5" y="357.5" width="3" height="85" rx="1.5" fill="#d03b3b" opacity="0.45"/>
+  <text x="200" y="391.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">E-stop contactor</text>
+  <text x="200" y="405.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">mushroom switch, ~40 A</text>
+  <text x="200" y="417.68" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">opens the motor bus in hardware</text>
+  <rect x="454" y="152" width="190" height="74" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="455.5" y="153.5" width="3" height="71" rx="1.5" fill="#d03b3b"/>
+  <text x="551" y="186.875" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">driver limit 8 A / motor</text>
+  <text x="551" y="200.425" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">firmware chop</text>
+  <rect x="674" y="152" width="190" height="74" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="675.5" y="153.5" width="3" height="71" rx="1.5" fill="#d03b3b"/>
+  <text x="771" y="186.875" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">BMS ≥ 50 A</text>
+  <text x="771" y="200.425" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">pack protection</text>
+  <rect x="894" y="152" width="190" height="74" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="895.5" y="153.5" width="3" height="71" rx="1.5" fill="#d03b3b"/>
+  <text x="991" y="186.875" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">fuse 60 A</text>
+  <text x="991" y="200.425" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">slow-blow</text>
+  <rect x="1114" y="152" width="190" height="74" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="1115.5" y="153.5" width="3" height="71" rx="1.5" fill="#d03b3b"/>
+  <text x="1211" y="186.875" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">E-stop</text>
+  <text x="1211" y="200.425" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">contactor</text>
+  <text x="454" y="261.43" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="start">Sized against the 47 A designed peak including the future arm branch — not against the 37 A unlimited-stall fault, which the driver current limit makes unreachable.</text>
+  <text x="454" y="274.93" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="start">Stall current is a fault condition, not an operating point. See power_budget.svg and ADR-0005.</text>
+  <rect x="430" y="486" width="300" height="92" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="431.5" y="487.5" width="3" height="89" rx="1.5" fill="#1baf7a"/>
+  <text x="582" y="523.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">12 V buck</text>
+  <text x="582" y="537.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">≥ 5 A regulated</text>
+  <text x="582" y="549.68" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">isolates compute from motor sag</text>
+  <rect x="790" y="486" width="510" height="92" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="791.5" y="487.5" width="3" height="89" rx="1.5" fill="#1baf7a"/>
+  <text x="1047" y="517.675" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">Jetson Orin Nano Super</text>
+  <text x="1047" y="531.225" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">30 W allocation · 20 W typical</text>
+  <text x="1047" y="543.58" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">dev-kit input 9–20 V, so even the raw bus is in-window</text>
+  <text x="1047" y="555.78" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">also supplies the LD19 over USB (5 W reserve, 0.9 W actual)</text>
+  <rect x="430" y="598" width="300" height="124" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="431.5" y="599.5" width="3" height="121" rx="1.5" fill="#1baf7a"/>
+  <text x="582" y="651.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">5 V buck</text>
+  <text x="582" y="665.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">≥ 3 A</text>
+  <text x="582" y="677.68" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">logic rail</text>
+  <rect x="790" y="598" width="510" height="124" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="791.5" y="599.5" width="3" height="121" rx="1.5" fill="#1baf7a"/>
+  <text x="1047" y="639.575" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">NUCLEO-G474RE via E5V (JP3 = E5V)</text>
+  <text x="1047" y="653.125" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">5 W allocation for MCU + driver logic + encoders</text>
+  <text x="1047" y="665.48" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">the MCU stays alive through a Jetson reboot — USB stays data-only</text>
+  <text x="1047" y="677.68" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">+3V3 from the Nucleo LDO feeds encoders ×4, VNH5019 logic, BNO086</text>
+  <text x="1047" y="689.88" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">3.3 V everywhere means no level shifters anywhere in the robot</text>
+  <rect x="430" y="742" width="300" height="92" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="431.5" y="743.5" width="3" height="89" rx="1.5" fill="#1baf7a"/>
+  <text x="582" y="779.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">no converter</text>
+  <text x="582" y="793.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">raw, unregulated bus</text>
+  <text x="582" y="805.68" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">9.0–12.6 V straight to the drivers</text>
+  <rect x="790" y="742" width="510" height="92" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="791.5" y="743.5" width="3" height="89" rx="1.5" fill="#1baf7a"/>
+  <text x="1047" y="773.675" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">VNH5019 ×4 → goBILDA 5203 ×4</text>
+  <text x="1047" y="787.225" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">8 A per motor firmware limit (device rating 12 A continuous / 30 A peak)</text>
+  <text x="1047" y="799.58" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">VNH5019 operating range 5.5–24 V covers the whole discharge curve</text>
+  <text x="1047" y="811.78" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">motor return GND_PWR stars at the battery, never through the logic ground</text>
+  <rect x="430" y="854" width="300" height="92" rx="5" fill="#fcfcfb" stroke="#898781" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <rect x="431.5" y="855.5" width="3" height="89" rx="1.5" fill="#4a3aa7" opacity="0.45"/>
+  <text x="582" y="891.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">branch fuse</text>
+  <text x="582" y="905.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">15 A</text>
+  <text x="582" y="917.68" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">own protection</text>
+  <rect x="790" y="854" width="510" height="92" rx="5" fill="#fcfcfb" stroke="#898781" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <rect x="791.5" y="855.5" width="3" height="89" rx="1.5" fill="#4a3aa7" opacity="0.45"/>
+  <text x="1047" y="891.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">dual 6-DOF arms — a later version</text>
+  <text x="1047" y="905.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">+45 W average, +10 A peak (XM430-class placeholder)</text>
+  <text x="1047" y="917.68" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">the battery and bus are bought now at this size so the arms cost no rework</text>
+  <text x="48" y="975.85" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="11" font-weight="600" fill="#d03b3b" text-anchor="start">The one rule this diagram exists to make unmissable:</text>
+  <text x="48" y="997.43" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="start">motor power reaches the MOTORS through the DRIVERS and never touches the microcontroller. The Nucleo only ever sees logic signals to the driver and four low-current encoder wires.</text>
+  <text x="48" y="1010.93" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="start">Everything on the +12V_BUS is downstream of the E-stop contactor, so the E-stop removes motion whatever the firmware is doing — the ESTOP_STATE pin is reporting only.</text>
+  <text x="48" y="1039.33" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="600" fill="#898781" text-anchor="start" letter-spacing="1.1">SOURCES</text>
+  <text x="112" y="1039.39" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.7" font-weight="400" fill="#898781" text-anchor="start">ADR-0005 (power architecture) · power_budget_and_battery.md · wiring_harness.md · electrical_interfaces.md</text>
+</svg>

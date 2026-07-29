@@ -17,9 +17,11 @@ import sys
 import tempfile
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from kicad_sch import require_kicad_cli  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[2]
 SCH = ROOT / "electronics" / "KiCAD" / "drive_mcu_wiring" / "drive_mcu_wiring.kicad_sch"
-KICAD_CLI = "/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli"
 
 WHEELS = ["LF", "LR", "RF", "RR"]
 PWM_PINFN = {"LF": "PA8 TIM1_CH1", "LR": "PA9 TIM1_CH2",
@@ -40,10 +42,10 @@ MOT_REF = {"LF": "M1", "LR": "M2", "RF": "M3", "RR": "M4"}
 def netlist() -> dict[str, set]:
     with tempfile.TemporaryDirectory() as td:
         out = Path(td) / "n.xml"
-        subprocess.run([KICAD_CLI, "sch", "export", "netlist",
+        subprocess.run([require_kicad_cli(), "sch", "export", "netlist",
                         "--format", "kicadxml", "-o", str(out), str(SCH)],
                        check=True, capture_output=True)
-        xml = out.read_text()
+        xml = out.read_text(encoding="utf-8")
     nets: dict[str, set] = {}
     for m in re.finditer(r'<net code="\d+" name="([^"]+)"[^>]*>(.*?)</net>',
                          xml, re.S):

@@ -37,15 +37,11 @@ MU_HI = P["assumptions"]["scrub_mu"]["carpet_high"]
 STALL_SELECTED = P["drive_motor"]["stall_torque_nm"]
 RAMP_DESIGN = R["mobility"]["ramp_angle_v0_1_deg"]
 
-# Palette (validated reference palette, light mode)
-SURFACE = "#fcfcfb"
-INK = "#0b0b0b"
-MUTED = "#898781"
-GRID = "#e1e0d9"
-AXIS = "#c3c2b7"
-SERIES_1 = "#2a78d6"  # blue: climb + accel (design case)
-SERIES_2 = "#1baf7a"  # aqua: steady climb (sub-3:1 on light -> direct-labeled)
-BAND = "#f0efec"      # neutral requirement band
+# Palette — one definition for every Buddy figure (tools/figures/palette.py)
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from palette import AXIS, BAND, GRID, INK, MPL_SANS, MUTED, SURFACE  # noqa: E402
+from palette import BLUE as SERIES_1  # climb + accel (design case)  # noqa: E402
+from palette import GREEN as SERIES_2  # steady climb (direct-labeled)
 
 
 def pivot_torque(mu: float) -> float:
@@ -61,7 +57,7 @@ def main() -> int:
 
     plt.rcParams.update({
         "font.family": "sans-serif",
-        "font.sans-serif": ["Helvetica Neue", "Helvetica", "Arial", "DejaVu Sans"],
+        "font.sans-serif": MPL_SANS,
         "svg.fonttype": "none",
         "svg.hashsalt": "buddy",
     })

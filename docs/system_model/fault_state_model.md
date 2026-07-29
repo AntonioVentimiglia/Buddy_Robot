@@ -1,5 +1,12 @@
 # Fault State Model
 
+> Drawn as [`assets/figures/fault_state_machine.svg`](../../assets/figures/fault_state_machine.svg)
+> (see [`system_integration.md`](system_integration.md)). The authoritative state
+> and fault-bit values are in
+> [`drive_protocol.md`](../../firmware/shared_protocol/drive_protocol.md); this
+> page is the system-level view, which includes fault sources that live on the
+> Jetson rather than the MCU.
+
 ## States
 
 ```text

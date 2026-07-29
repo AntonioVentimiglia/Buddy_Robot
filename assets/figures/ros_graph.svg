@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1340" height="928" viewBox="0 0 1340 928" role="img" aria-label="Buddy ROS 2 graph — information flow and the hardware boundary">
+  <rect width="1340" height="928" fill="#fcfcfb"/>
+  <marker id="arw-2a78d6" markerWidth="9" markerHeight="8" refX="8.4" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0.6,0.6 L8.4,4 L0.6,7.4 Z" fill="#2a78d6"/></marker>
+  <marker id="arws-2a78d6" markerWidth="9" markerHeight="8" refX="0.6" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M8.4,0.6 L0.6,4 L8.4,7.4 Z" fill="#2a78d6"/></marker>
+  <marker id="arw-898781" markerWidth="9" markerHeight="8" refX="8.4" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0.6,0.6 L8.4,4 L0.6,7.4 Z" fill="#898781"/></marker>
+  <marker id="arws-898781" markerWidth="9" markerHeight="8" refX="0.6" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M8.4,0.6 L0.6,4 L8.4,7.4 Z" fill="#898781"/></marker>
+  <marker id="arw-d03b3b" markerWidth="9" markerHeight="8" refX="8.4" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0.6,0.6 L8.4,4 L0.6,7.4 Z" fill="#d03b3b"/></marker>
+  <marker id="arws-d03b3b" markerWidth="9" markerHeight="8" refX="0.6" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M8.4,0.6 L0.6,4 L8.4,7.4 Z" fill="#d03b3b"/></marker>
+  <text x="28" y="31.25" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="15" font-weight="700" fill="#0b0b0b" text-anchor="start">Buddy ROS 2 graph — information flow and the hardware boundary</text>
+  <text x="28" y="50.78" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.8" font-weight="400" fill="#898781" text-anchor="start">Generated from docs/system_model/integration_map.yaml · solid = working and host-tested today, dashed = planned or deferred · the bottom band is outside ROS 2 entirely</text>
+  <rect x="44" y="72" width="1046" height="116" rx="9" fill="none" stroke="#898781" stroke-width="1.1" opacity="0.9" stroke-dasharray="6 5"/>
+  <text x="57" y="90.675" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10.5" font-weight="600" fill="#898781" text-anchor="start" letter-spacing="0.7">operator / dev host</text>
+  <rect x="44" y="218" width="1046" height="116" rx="9" fill="none" stroke="#898781" stroke-width="1.1" opacity="0.9" stroke-dasharray="6 5"/>
+  <text x="57" y="236.675" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10.5" font-weight="600" fill="#898781" text-anchor="start" letter-spacing="0.7">autonomy</text>
+  <rect x="44" y="394" width="1046" height="116" rx="9" fill="none" stroke="#898781" stroke-width="1.1" opacity="0.9" stroke-dasharray="6 5"/>
+  <text x="57" y="412.675" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10.5" font-weight="600" fill="#898781" text-anchor="start" letter-spacing="0.7">state estimation</text>
+  <rect x="44" y="544" width="1046" height="116" rx="9" fill="none" stroke="#898781" stroke-width="1.1" opacity="0.9" stroke-dasharray="6 5"/>
+  <text x="57" y="562.675" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10.5" font-weight="600" fill="#898781" text-anchor="start" letter-spacing="0.7">hardware-facing ROS nodes</text>
+  <rect x="44" y="694" width="1046" height="116" rx="9" fill="none" stroke="#898781" stroke-width="1.1" opacity="0.9" stroke-dasharray="6 5"/>
+  <text x="57" y="712.675" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10.5" font-weight="600" fill="#898781" text-anchor="start" letter-spacing="0.7">hardware — outside ROS 2</text>
+  <path d="M 288,139 L 295,139 Q 302,139 302,146 L 302,520 Q 302,527 295,527 L 112.6,527 Q 105.6,527 105.6,534 L 105.6,574" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-2a78d6)"/>
+  <rect x="348.7" y="519.59" width="54.6" height="14.82" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="376" y="530.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="500" fill="#2a78d6" text-anchor="middle">/cmd_vel</text>
+  <path d="M 320,307.2 L 41,307.2 Q 34,307.2 34,314.2 L 34,589.2 Q 34,596.2 41,596.2 L 60,596.2" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 4" marker-end="url(#arw-2a78d6)"/>
+  <rect x="48.7" y="519.59" width="54.6" height="14.82" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="76" y="530.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="500" fill="#2a78d6" text-anchor="middle">/cmd_vel</text>
+  <path d="M 185.4,574 L 185.4,532.7 Q 185.4,527 179.7,527 L 179.7,527 Q 174,527 174,521.3 L 174,498" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-2a78d6)"/>
+  <rect x="132.45" y="502.59" width="83.1" height="14.82" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="174" y="513.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="500" fill="#2a78d6" text-anchor="middle">/joint_states</text>
+  <path d="M 253.8,574 L 253.8,551 Q 253.8,544 260.8,544 L 370,544 Q 377,544 377,537 L 377,498" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-2a78d6)"/>
+  <rect x="345.25" y="536.59" width="37.5" height="14.82" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="364" y="547.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="500" fill="#2a78d6" text-anchor="middle">/odom</text>
+  <path d="M 185.4,648 L 194.959,670 Q 198,677 205,677 L 1115,677 Q 1122,677 1122,670 L 1122,295.7 Q 1122,288.7 1115,288.7 L 1068,288.7" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-2a78d6)"/>
+  <rect x="1077.6" y="342.59" width="88.8" height="14.82" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="1122" y="353.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="500" fill="#2a78d6" text-anchor="middle">/battery_state</text>
+  <path d="M 434,574 L 434,543 Q 434,536 441,536 L 484,536 Q 491,536 491,529 L 491,498" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 4" marker-end="url(#arw-2a78d6)"/>
+  <rect x="403.85" y="519.59" width="60.3" height="14.82" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="434" y="530.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="500" fill="#2a78d6" text-anchor="middle">/imu/data</text>
+  <path d="M 694,574 L 694,322" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 4" marker-end="url(#arw-2a78d6)"/>
+  <rect x="675.25" y="519.59" width="37.5" height="14.82" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="694" y="530.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="500" fill="#2a78d6" text-anchor="middle">/scan</text>
+  <path d="M 808,596.2 L 1083,596.2 Q 1090,596.2 1090,589.2 L 1090,385 Q 1090,378 1083,378 L 520.8,378 Q 513.8,378 513.8,371 L 513.8,322" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 4" marker-end="url(#arw-2a78d6)"/>
+  <rect x="835.65" y="370.59" width="128.7" height="14.82" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="900" y="381.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="500" fill="#2a78d6" text-anchor="middle">/scan → local costmap</text>
+  <path d="M 434,424 L 434,322" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 4" marker-end="url(#arw-2a78d6)"/>
+  <rect x="420.95" y="342.59" width="26.1" height="14.82" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="434" y="353.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="500" fill="#2a78d6" text-anchor="middle">/tf</text>
+  <path d="M 174,424 L 174,357 Q 174,350 181,350 L 354.04,350 Q 361.04,350 361.04,343 L 361.04,322" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-2a78d6)"/>
+  <rect x="215" y="342.59" width="66" height="14.82" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="248" y="353.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="500" fill="#2a78d6" text-anchor="middle">/tf_static</text>
+  <path d="M 580,285 L 548,285" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 4" marker-end="url(#arw-2a78d6)"/>
+  <path d="M 101.04,648 L 101.04,724" fill="none" stroke="#d03b3b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-d03b3b)" marker-start="url(#arws-d03b3b)"/>
+  <rect x="112.99" y="669.59" width="140.1" height="14.82" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="183.04" y="680.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="500" fill="#d03b3b" text-anchor="middle">USB · drive protocol v1</text>
+  <path d="M 434,724 L 434,648" fill="none" stroke="#898781" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 4" marker-end="url(#arw-898781)"/>
+  <rect x="395.3" y="669.59" width="77.4" height="14.82" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="434" y="680.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="500" fill="#898781" text-anchor="middle">I²C · 40-pin</text>
+  <path d="M 694,724 L 694,648" fill="none" stroke="#898781" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 4" marker-end="url(#arw-898781)"/>
+  <rect x="641.05" y="669.59" width="105.9" height="14.82" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="694" y="680.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="500" fill="#898781" text-anchor="middle">USB · UART 230400</text>
+  <path d="M 954,724 L 954,648" fill="none" stroke="#898781" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 4" marker-end="url(#arw-898781)"/>
+  <rect x="929.55" y="669.59" width="48.9" height="14.82" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="954" y="680.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="500" fill="#898781" text-anchor="middle">USB 3.0</text>
+  <rect x="60" y="102" width="228" height="74" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="61.5" y="103.5" width="3" height="71" rx="1.5" fill="#2a78d6"/>
+  <text x="176" y="136.875" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">teleop_twist_keyboard</text>
+  <text x="176" y="150.425" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">commissioning input</text>
+  <rect x="320" y="248" width="228" height="74" rx="5" fill="#fcfcfb" stroke="#898781" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <rect x="321.5" y="249.5" width="3" height="71" rx="1.5" fill="#eda100" opacity="0.45"/>
+  <text x="436" y="282.875" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">Nav2 stack</text>
+  <text x="436" y="296.425" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">planning + control</text>
+  <rect x="580" y="248" width="228" height="74" rx="5" fill="#fcfcfb" stroke="#898781" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <rect x="581.5" y="249.5" width="3" height="71" rx="1.5" fill="#eda100" opacity="0.45"/>
+  <text x="696" y="282.875" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">slam_toolbox</text>
+  <text x="696" y="296.425" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">map building, pose</text>
+  <rect x="840" y="248" width="228" height="74" rx="5" fill="#fcfcfb" stroke="#898781" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <rect x="841.5" y="249.5" width="3" height="71" rx="1.5" fill="#eda100" opacity="0.45"/>
+  <text x="956" y="282.875" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">diagnostic_aggregator</text>
+  <text x="956" y="296.425" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">health rollup</text>
+  <rect x="60" y="424" width="228" height="74" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="61.5" y="425.5" width="3" height="71" rx="1.5" fill="#2a78d6"/>
+  <text x="176" y="458.875" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">robot_state_publisher</text>
+  <text x="176" y="472.425" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">URDF → transforms</text>
+  <rect x="320" y="424" width="228" height="74" rx="5" fill="#fcfcfb" stroke="#898781" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <rect x="321.5" y="425.5" width="3" height="71" rx="1.5" fill="#eda100" opacity="0.45"/>
+  <text x="436" y="458.875" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">ekf_filter_node</text>
+  <text x="436" y="472.425" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">wheel odom + IMU fusion</text>
+  <rect x="60" y="574" width="228" height="74" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="61.5" y="575.5" width="3" height="71" rx="1.5" fill="#2a78d6"/>
+  <text x="176" y="608.875" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">buddy_base_bridge</text>
+  <text x="176" y="622.425" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">the ROS ↔ MCU boundary</text>
+  <rect x="320" y="574" width="228" height="74" rx="5" fill="#fcfcfb" stroke="#898781" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <rect x="321.5" y="575.5" width="3" height="71" rx="1.5" fill="#eda100" opacity="0.45"/>
+  <text x="436" y="608.875" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">bno08x driver</text>
+  <text x="436" y="622.425" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">BNO086 driver</text>
+  <rect x="580" y="574" width="228" height="74" rx="5" fill="#fcfcfb" stroke="#898781" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <rect x="581.5" y="575.5" width="3" height="71" rx="1.5" fill="#eda100" opacity="0.45"/>
+  <text x="696" y="608.875" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">ldlidar_node</text>
+  <text x="696" y="622.425" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">LD19 driver</text>
+  <rect x="840" y="574" width="228" height="74" rx="5" fill="#fcfcfb" stroke="#898781" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <rect x="841.5" y="575.5" width="3" height="71" rx="1.5" fill="#4a3aa7" opacity="0.45"/>
+  <text x="956" y="608.875" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">depthai node</text>
+  <text x="956" y="622.425" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">OAK-D Lite driver</text>
+  <rect x="60" y="724" width="228" height="74" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="61.5" y="725.5" width="3" height="71" rx="1.5" fill="#d03b3b"/>
+  <text x="176" y="758.875" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">NUCLEO-G474RE</text>
+  <text x="176" y="772.425" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">watchdog · current limit</text>
+  <rect x="320" y="724" width="228" height="74" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="321.5" y="725.5" width="3" height="71" rx="1.5" fill="#898781"/>
+  <text x="436" y="758.875" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">BNO086 breakout</text>
+  <text x="436" y="772.425" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">on-chip fusion</text>
+  <rect x="580" y="724" width="228" height="74" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="581.5" y="725.5" width="3" height="71" rx="1.5" fill="#898781"/>
+  <text x="696" y="758.875" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">LDROBOT LD19</text>
+  <text x="696" y="772.425" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">360° ToF, 12 m</text>
+  <rect x="840" y="724" width="228" height="74" rx="5" fill="#fcfcfb" stroke="#898781" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <rect x="841.5" y="725.5" width="3" height="71" rx="1.5" fill="#898781" opacity="0.45"/>
+  <text x="956" y="758.875" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">OAK-D Lite</text>
+  <text x="956" y="772.425" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">deferred (ADR-0007)</text>
+  <text x="1148" y="99.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="600" fill="#898781" text-anchor="start" letter-spacing="1.1">LEGEND</text>
+  <path d="M 1148,122 L 1168,122" stroke="#2a78d6" stroke-width="2.2" stroke-linecap="round"/>
+  <text x="1175" y="125.43" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="start">working today</text>
+  <path d="M 1148,140 L 1168,140" stroke="#eda100" stroke-width="2.2" stroke-linecap="round"/>
+  <text x="1175" y="143.43" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="start">planned</text>
+  <path d="M 1148,158 L 1168,158" stroke="#4a3aa7" stroke-width="2.2" stroke-linecap="round"/>
+  <text x="1175" y="161.43" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="start">deferred</text>
+  <path d="M 1148,176 L 1168,176" stroke="#d03b3b" stroke-width="2.2" stroke-linecap="round"/>
+  <text x="1175" y="179.43" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="start">safety-owning path</text>
+  <path d="M 1148,194 L 1168,194" stroke="#898781" stroke-width="2.2" stroke-linecap="round"/>
+  <text x="1175" y="197.43" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="start">non-ROS transport</text>
+  <text x="48" y="841.85" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="11" font-weight="600" fill="#d03b3b" text-anchor="start">The Jetson asks for motion; it never owns motor safety.</text>
+  <text x="48" y="861.395" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.7" font-weight="400" fill="#898781" text-anchor="start">Below the boundary the MCU stops the wheels on a stale command (200 ms watchdog), an E-stop, or a driver fault — with ROS 2 absent, crashed, or still booting. Telemetry returns at 100 Hz.</text>
+  <text x="48" y="876.395" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.7" font-weight="400" fill="#898781" text-anchor="start">The bridge runs identically against the real MCU (/dev/buddy_drive_mcu) and against mock_mcu.py's pty, which is why 13 host tests cover the drive stack with no hardware present.</text>
+  <text x="48" y="891.395" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.7" font-weight="400" fill="#898781" text-anchor="start">/diagnostics is published by every hardware-facing node once those nodes exist; those edges are omitted to keep the graph readable. Message types and QoS: docs/system_model/interface_contract.md.</text>
+</svg>

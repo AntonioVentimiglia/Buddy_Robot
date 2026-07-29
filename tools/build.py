@@ -4,12 +4,18 @@
     python3 tools/build.py
 
 Steps:
-  1. Validate derived geometry against the requirements yaml (fails loudly).
+  1. Validate derived geometry against the requirements yaml, and check the
+     integration map against the pin map, the protocol spec and the bridge
+     node (both fail loudly).
   2. Generate robot_ws/src/buddy_description/urdf/buddy_params.xacro.
   3. Execute marimo notebooks in docs/analysis/ and export each to markdown
      (same basename, .md) with website frontmatter.
-  4. Regenerate figures (tools/figures/*.py).
+  4. Regenerate figures (tools/figures/plot_*.py) — quantitative figures via
+     matplotlib, integration diagrams via tools/figures/blockdiagram.py, each
+     one layout-audited before it is written.
   5. Regenerate robot_ws/analysis/torque_sweep.csv.
+  6. Regenerate both KiCAD schematics and export their PDFs (skipped when
+     kicad-cli is not installed).
 
 Everything generated is committed to git so the repo always shows current,
 rendered documents and diffs of numbers become visible history.
@@ -24,10 +30,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "tools"))
 
 import buddy_calcs  # noqa: E402
 from buddy_calcs import P, base_center_z, ground_clearance  # noqa: E402
 from buddy_calcs import power as buddy_power  # noqa: E402
+import check_integration_map  # noqa: E402
 
 # Website frontmatter for exported analysis notebooks, keyed by notebook stem.
 FRONTMATTER = {
@@ -120,14 +128,15 @@ def generate_firmware_config(reqs: dict) -> Path:
         control=fw["control_hz"], pwm=fw["pwm_hz"],
         wheel_um=round(P["wheels"]["radius_m"] * 1e6),
         cpr=round(P["drive_motor"]["encoder_counts_per_rev_output"]),
-    ))
+    ), encoding="utf-8", newline="\n")
     return out
 
 
 def generate_xacro() -> Path:
     out = ROOT / "robot_ws" / "src" / "buddy_description" / "urdf" / "buddy_params.xacro"
     out.write_text(XACRO_TEMPLATE.format(
-        c=P["chassis"], w=P["wheels"], bcz=base_center_z(), clearance=ground_clearance()))
+        c=P["chassis"], w=P["wheels"], bcz=base_center_z(),
+        clearance=ground_clearance()), encoding="utf-8", newline="\n")
     return out
 
 
@@ -147,27 +156,33 @@ def export_notebook(nb_path: Path) -> Path:
 
     fm = FRONTMATTER.get(nb_path.stem, {"title": nb_path.stem, "type": "analysis"})
     fm_lines = "\n".join(f"{k}: {v}" for k, v in fm.items())
+    # as_posix(): the banner is a shell command a reader copies, and it is
+    # committed — it must not pick up backslashes when the build runs on Windows.
     banner = (f"<!-- GENERATED from {nb_path.name} by tools/build.py — edit the "
-              f"notebook (marimo edit {nb_path.relative_to(ROOT)}) or "
+              f"notebook (marimo edit {nb_path.relative_to(ROOT).as_posix()}) or "
               f"design_params.yaml, then rebuild. -->")
     out_path = nb_path.with_suffix(".md")
-    out_path.write_text(f"---\n{fm_lines}\n---\n{banner}\n\n{body}\n")
+    out_path.write_text(f"---\n{fm_lines}\n---\n{banner}\n\n{body}\n",
+                        encoding="utf-8", newline="\n")
     return out_path
 
 
 def main() -> int:
-    problems = buddy_calcs.validate() + buddy_power.validate()
+    problems = (buddy_calcs.validate() + buddy_power.validate()
+                + check_integration_map.problems())
     if problems:
         for p in problems:
             print(f"VALIDATION FAILED: {p}", file=sys.stderr)
         return 1
-    print(f"validation ok (ground clearance {ground_clearance():.3f} m)")
+    print(f"validation ok (ground clearance {ground_clearance():.3f} m; "
+          f"integration map agrees with pin map, protocol and bridge node)")
 
     print(f"generated  {generate_xacro().relative_to(ROOT)}")
 
     import yaml as _yaml
     reqs = _yaml.safe_load(
-        (ROOT / "docs" / "requirements" / "buddy_v0_1_requirements.yaml").read_text())
+        (ROOT / "docs" / "requirements" / "buddy_v0_1_requirements.yaml")
+        .read_text(encoding="utf-8"))
     print(f"generated  {generate_firmware_config(reqs).relative_to(ROOT)}")
 
     for nb in sorted((ROOT / "docs" / "analysis").glob("*.py")):
@@ -182,6 +197,15 @@ def main() -> int:
     subprocess.run([sys.executable, str(ROOT / "robot_ws" / "tools" / "torque_sweep.py"),
                     "--csv", str(csv)], check=True, cwd=ROOT, capture_output=True)
     print(f"generated  {csv.relative_to(ROOT)}")
+
+    # Schematics are generated artifacts too. Their electrical connectivity is
+    # asserted separately (check_drive_wiring.py / check_system_wiring.py) —
+    # run those after changing a harness; they need kicad-cli.
+    for gen in ("gen_drive_wiring.py", "gen_system_wiring.py",
+                "render_schematics.py"):
+        r = subprocess.run([sys.executable, str(ROOT / "tools" / "kicad" / gen)],
+                           check=True, cwd=ROOT, capture_output=True, text=True)
+        print(f"schematic  {r.stdout.strip().splitlines()[-1]}")
 
     subprocess.run([sys.executable, str(ROOT / "tools" / "site" / "build_site.py")],
                    check=True, cwd=ROOT, capture_output=True)

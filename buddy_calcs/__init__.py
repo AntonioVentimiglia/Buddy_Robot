@@ -23,8 +23,8 @@ REQUIREMENTS_FILE = ROOT / "docs" / "requirements" / "buddy_v0_1_requirements.ya
 
 def load() -> tuple[dict, dict]:
     """Reload both YAML sources from disk."""
-    params = yaml.safe_load(PARAMS_FILE.read_text())
-    reqs = yaml.safe_load(REQUIREMENTS_FILE.read_text())
+    params = yaml.safe_load(PARAMS_FILE.read_text(encoding="utf-8"))
+    reqs = yaml.safe_load(REQUIREMENTS_FILE.read_text(encoding="utf-8"))
     return params, reqs
 
 

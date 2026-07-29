@@ -23,15 +23,13 @@ REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO))
 from buddy_calcs import power  # noqa: E402
 
-# palette (validated reference palette, light mode)
-SURFACE = "#fcfcfb"
-INK = "#0b0b0b"
-MUTED = "#898781"
-GRID = "#e1e0d9"
-AXIS = "#c3c2b7"
-BLUE = "#2a78d6"      # designed operating scenarios
-CRITICAL = "#d03b3b"  # fault scenario (status critical — never an operating point)
-STACK = ["#2a78d6", "#1baf7a", "#eda100", "#4a3aa7", "#e87ba4", "#898781", "#eb6834"]
+# palette — one definition for every Buddy figure (tools/figures/palette.py).
+# BLUE = designed operating scenarios; CRITICAL = fault scenario (status red,
+# never an operating point); STACK = the fixed categorical order.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from palette import (  # noqa: E402
+    AXIS, BLUE, CRITICAL, GRID, INK, MPL_SANS, MUTED, PURPLE, STACK, SURFACE,
+)
 
 
 def peak_panel(ax, s):
@@ -39,7 +37,7 @@ def peak_panel(ax, s):
              "stall,\ndriver-limited", "+ future\ndual arms", "stall,\nUNLIMITED\n(fault)"]
     scen = list(s.scen_total.values())
     vals = scen[:4] + [s.peak_with_arms] + [scen[4]]
-    colors = [BLUE] * 4 + ["#4a3aa7"] + [CRITICAL]
+    colors = [BLUE] * 4 + [PURPLE] + [CRITICAL]
     bars = ax.bar(names, vals, color=colors, width=0.62, zorder=3)
     for b, v in zip(bars, vals):
         ax.text(b.get_x() + b.get_width() / 2, v + 0.7, f"{v:.0f} A",
@@ -111,7 +109,7 @@ def main() -> int:
     s = power.summary()
     plt.rcParams.update({
         "font.family": "sans-serif",
-        "font.sans-serif": ["Helvetica Neue", "Helvetica", "Arial", "DejaVu Sans"],
+        "font.sans-serif": MPL_SANS,
         "svg.fonttype": "none",
         "svg.hashsalt": "buddy",
     })

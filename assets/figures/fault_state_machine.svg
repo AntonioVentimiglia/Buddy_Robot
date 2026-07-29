@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1340" height="812" viewBox="0 0 1340 812" role="img" aria-label="Drive MCU safety state machine — the only state that moves the robot">
+  <rect width="1340" height="812" fill="#fcfcfb"/>
+  <marker id="arw-1baf7a" markerWidth="9" markerHeight="8" refX="8.4" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0.6,0.6 L8.4,4 L0.6,7.4 Z" fill="#1baf7a"/></marker>
+  <marker id="arws-1baf7a" markerWidth="9" markerHeight="8" refX="0.6" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M8.4,0.6 L0.6,4 L8.4,7.4 Z" fill="#1baf7a"/></marker>
+  <marker id="arw-2a78d6" markerWidth="9" markerHeight="8" refX="8.4" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0.6,0.6 L8.4,4 L0.6,7.4 Z" fill="#2a78d6"/></marker>
+  <marker id="arws-2a78d6" markerWidth="9" markerHeight="8" refX="0.6" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M8.4,0.6 L0.6,4 L8.4,7.4 Z" fill="#2a78d6"/></marker>
+  <marker id="arw-d03b3b" markerWidth="9" markerHeight="8" refX="8.4" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0.6,0.6 L8.4,4 L0.6,7.4 Z" fill="#d03b3b"/></marker>
+  <marker id="arws-d03b3b" markerWidth="9" markerHeight="8" refX="0.6" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M8.4,0.6 L0.6,4 L8.4,7.4 Z" fill="#d03b3b"/></marker>
+  <text x="28" y="31.25" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="15" font-weight="700" fill="#0b0b0b" text-anchor="start">Drive MCU safety state machine — the only state that moves the robot</text>
+  <text x="28" y="50.78" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.8" font-weight="400" fill="#898781" text-anchor="start">States, transitions and fault bits read from the integration map, machine-checked against firmware/shared_protocol/drive_protocol.md on every build</text>
+  <path d="M 230,204 L 280,204" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-2a78d6)"/>
+  <rect x="211.02" y="132.668" width="87.96" height="14.664" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="255" y="143.29" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.4" font-weight="500" fill="#2a78d6" text-anchor="middle">reset complete</text>
+  <path d="M 470,204 L 520,204" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-2a78d6)"/>
+  <rect x="451.02" y="132.668" width="87.96" height="14.664" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="495" y="143.29" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.4" font-weight="500" fill="#2a78d6" text-anchor="middle">self-test pass</text>
+  <path d="M 710,204 L 760,204" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-2a78d6)"/>
+  <rect x="693.84" y="132.668" width="82.32" height="14.664" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="735" y="143.29" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.4" font-weight="500" fill="#2a78d6" text-anchor="middle">CMD_MODE(ARM)</text>
+  <path d="M 930,204 L 970,204" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-2a78d6)"/>
+  <rect x="891.92" y="132.668" width="116.16" height="14.664" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="950" y="143.29" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.4" font-weight="500" fill="#2a78d6" text-anchor="middle">first valid CMD_VEL</text>
+  <path d="M 1065,158 L 1065,119 Q 1065,112 1058,112 L 663.8,112 Q 656.8,112 656.8,119 L 656.8,158" fill="none" stroke="#d03b3b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-d03b3b)"/>
+  <rect x="738.08" y="104.668" width="183.84" height="14.664" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="830" y="115.29" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.4" font-weight="500" fill="#d03b3b" text-anchor="middle">watchdog: no CMD_VEL for 200 ms</text>
+  <path d="M 375,250 L 375,323 Q 375,330 382,330 L 551,330 Q 558,330 558,337 L 558,408" fill="none" stroke="#d03b3b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-d03b3b)"/>
+  <path d="M 845,250 L 845,323 Q 845,330 838,330 L 644.8,330 Q 637.8,330 637.8,337 L 637.8,408" fill="none" stroke="#d03b3b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-d03b3b)"/>
+  <path d="M 1065,250 L 1065,323 Q 1065,330 1058,330 L 688.5,330 Q 681.5,330 681.5,337 L 681.5,408" fill="none" stroke="#d03b3b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-d03b3b)"/>
+  <rect x="322.56" y="322.668" width="104.88" height="14.664" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="375" y="333.29" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.4" font-weight="500" fill="#d03b3b" text-anchor="middle">any fault bit set</text>
+  <path d="M 710,454 L 763,454 Q 770,454 770,447 L 770,379 Q 770,372 763,372 L 574.5,372 Q 567.5,372 567.5,365 L 567.5,250" fill="none" stroke="#1baf7a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-1baf7a)"/>
+  <rect x="551.16" y="364.668" width="217.68" height="14.664" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="660" y="375.29" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.4" font-weight="500" fill="#1baf7a" text-anchor="middle">CMD_MODE(CLEAR) and the cause is gone</text>
+  <rect x="60" y="158" width="170" height="92" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="61.5" y="159.5" width="3" height="89" rx="1.5" fill="#2a78d6"/>
+  <text x="147" y="195.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">BOOT</text>
+  <text x="147" y="209.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">state 0</text>
+  <text x="147" y="221.68" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">power-on</text>
+  <rect x="280" y="158" width="190" height="92" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="281.5" y="159.5" width="3" height="89" rx="1.5" fill="#2a78d6"/>
+  <text x="377" y="195.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">SELF_TEST</text>
+  <text x="377" y="209.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">state 1</text>
+  <text x="377" y="221.68" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">peripherals + pin checks</text>
+  <rect x="520" y="158" width="190" height="92" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="521.5" y="159.5" width="3" height="89" rx="1.5" fill="#2a78d6"/>
+  <text x="617" y="195.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">SAFE_IDLE</text>
+  <text x="617" y="209.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">state 2</text>
+  <text x="617" y="221.68" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">motors off</text>
+  <rect x="760" y="158" width="170" height="92" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="761.5" y="159.5" width="3" height="89" rx="1.5" fill="#2a78d6"/>
+  <text x="847" y="195.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">ARMED</text>
+  <text x="847" y="209.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">state 3</text>
+  <text x="847" y="221.68" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">enabled</text>
+  <rect x="970" y="158" width="190" height="92" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="971.5" y="159.5" width="3" height="89" rx="1.5" fill="#1baf7a"/>
+  <text x="1067" y="189.675" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">ACTIVE</text>
+  <text x="1067" y="203.225" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">state 4</text>
+  <text x="1067" y="215.58" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">the only state that produces</text>
+  <text x="1067" y="227.78" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">motion</text>
+  <rect x="520" y="408" width="190" height="92" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="521.5" y="409.5" width="3" height="89" rx="1.5" fill="#d03b3b"/>
+  <text x="617" y="445.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">FAULT</text>
+  <text x="617" y="459.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">state 5</text>
+  <text x="617" y="471.68" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">latched</text>
+  <rect x="60" y="408" width="190" height="92" rx="5" fill="#fcfcfb" stroke="#898781" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <rect x="61.5" y="409.5" width="3" height="89" rx="1.5" fill="#898781" opacity="0.45"/>
+  <text x="157" y="445.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">UPDATE</text>
+  <text x="157" y="459.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">state 6</text>
+  <text x="157" y="471.68" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">firmware update</text>
+  <text x="60" y="521.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.5" font-weight="400" fill="#898781" text-anchor="start">reserved in the protocol; no transition implemented yet</text>
+  <text x="60" y="551.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="600" fill="#898781" text-anchor="start" letter-spacing="1.1">FAULT BITS — TELEMETRY OFFSET 1, UINT16 BITMASK</text>
+  <text x="60" y="581.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="600" fill="#0b0b0b" text-anchor="start">0x0001</text>
+  <text x="138" y="581.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#d03b3b" text-anchor="start">ESTOP</text>
+  <text x="310" y="581.5" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10" font-weight="400" fill="#898781" text-anchor="start">E-stop chain open</text>
+  <text x="60" y="607.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="600" fill="#0b0b0b" text-anchor="start">0x0002</text>
+  <text x="138" y="607.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#d03b3b" text-anchor="start">CMD_TIMEOUT</text>
+  <text x="310" y="607.5" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10" font-weight="400" fill="#898781" text-anchor="start">no CMD_VEL within the watchdog</text>
+  <text x="60" y="633.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="600" fill="#0b0b0b" text-anchor="start">0x0004</text>
+  <text x="138" y="633.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#d03b3b" text-anchor="start">DRIVER_FAULT</text>
+  <text x="310" y="633.5" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10" font-weight="400" fill="#898781" text-anchor="start">VNH5019 EN/DIAG low</text>
+  <text x="60" y="659.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="600" fill="#0b0b0b" text-anchor="start">0x0008</text>
+  <text x="138" y="659.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#d03b3b" text-anchor="start">OVERCURRENT</text>
+  <text x="310" y="659.5" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10" font-weight="400" fill="#898781" text-anchor="start">CS above the driver limit</text>
+  <text x="700" y="581.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="600" fill="#0b0b0b" text-anchor="start">0x0010</text>
+  <text x="778" y="581.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#d03b3b" text-anchor="start">ENCODER_FAULT</text>
+  <text x="950" y="581.5" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10" font-weight="400" fill="#898781" text-anchor="start">no counts while commanded</text>
+  <text x="700" y="607.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="600" fill="#0b0b0b" text-anchor="start">0x0020</text>
+  <text x="778" y="607.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#d03b3b" text-anchor="start">UNDERVOLT</text>
+  <text x="950" y="607.5" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10" font-weight="400" fill="#898781" text-anchor="start">Vbat below cutoff</text>
+  <text x="700" y="633.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="600" fill="#0b0b0b" text-anchor="start">0x0040</text>
+  <text x="778" y="633.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#d03b3b" text-anchor="start">OVERTEMP</text>
+  <text x="950" y="633.5" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10" font-weight="400" fill="#898781" text-anchor="start">driver/motor thermal</text>
+  <text x="700" y="659.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="600" fill="#0b0b0b" text-anchor="start">0x8000</text>
+  <text x="778" y="659.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#d03b3b" text-anchor="start">INTERNAL</text>
+  <text x="950" y="659.5" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10" font-weight="400" fill="#898781" text-anchor="start">firmware assertion</text>
+  <text x="60" y="709.85" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="11" font-weight="600" fill="#d03b3b" text-anchor="start">Two properties this machine exists to guarantee:</text>
+  <text x="60" y="731.395" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.7" font-weight="400" fill="#898781" text-anchor="start">releasing the E-stop does not restart motion — recovery needs an explicit CMD_MODE(CLEAR) and then an explicit ARM, and the robot cannot be armed straight out of FAULT.</text>
+  <text x="60" y="744.895" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.7" font-weight="400" fill="#898781" text-anchor="start">Both are asserted in the C host tests (19 checks) before any of this runs on hardware. E-stop dominance is physical as well as logical: the contactor removes motor power upstream of the drivers.</text>
+  <text x="60" y="791.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="600" fill="#898781" text-anchor="start" letter-spacing="1.1">SOURCES</text>
+  <text x="124" y="791.395" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.7" font-weight="400" fill="#898781" text-anchor="start">drive_protocol.md · firmware/drive_mcu/src/state_machine.c · fault_state_model.md · REQ_SAFE_001 / REQ_SAFE_002</text>
+</svg>

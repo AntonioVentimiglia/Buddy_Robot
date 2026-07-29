@@ -1,5 +1,10 @@
 # Architecture Overview
 
+> **Looking for the drawings?** [`system_integration.md`](system_integration.md)
+> indexes the six generated integration figures — ROS graph, control/safety loop,
+> power one-line, interconnect, state machine, startup — plus both KiCAD sheets.
+> This page states the layer responsibilities those figures illustrate.
+
 Buddy uses ROS 2 for high-level integration and a dedicated MCU layer for low-level control and safety.
 
 ```text

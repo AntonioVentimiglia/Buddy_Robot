@@ -1,6 +1,7 @@
 {
   "version": "0.0.1",
   "configurations": [
-    { "name": "site", "runtimeExecutable": "python3", "runtimeArgs": ["-m", "http.server", "-d", "site", "8137"], "port": 8137 }
+    { "name": "site", "runtimeExecutable": "python", "runtimeArgs": ["-m", "http.server", "-d", "site", "8137"], "port": 8137 },
+    { "name": "figures", "runtimeExecutable": "python", "runtimeArgs": ["-m", "http.server", "-d", "assets/figures", "8138"], "port": 8138 }
   ]
 }

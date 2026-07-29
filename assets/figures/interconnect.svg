@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1000" viewBox="0 0 1400 1000" role="img" aria-label="Buddy interconnect — what plugs into what, and which pin it lands on">
+  <rect width="1400" height="1000" fill="#fcfcfb"/>
+  <marker id="arw-1baf7a" markerWidth="9" markerHeight="8" refX="8.4" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0.6,0.6 L8.4,4 L0.6,7.4 Z" fill="#1baf7a"/></marker>
+  <marker id="arws-1baf7a" markerWidth="9" markerHeight="8" refX="0.6" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M8.4,0.6 L0.6,4 L8.4,7.4 Z" fill="#1baf7a"/></marker>
+  <marker id="arw-2a78d6" markerWidth="9" markerHeight="8" refX="8.4" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0.6,0.6 L8.4,4 L0.6,7.4 Z" fill="#2a78d6"/></marker>
+  <marker id="arws-2a78d6" markerWidth="9" markerHeight="8" refX="0.6" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M8.4,0.6 L0.6,4 L8.4,7.4 Z" fill="#2a78d6"/></marker>
+  <marker id="arw-4a3aa7" markerWidth="9" markerHeight="8" refX="8.4" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0.6,0.6 L8.4,4 L0.6,7.4 Z" fill="#4a3aa7"/></marker>
+  <marker id="arws-4a3aa7" markerWidth="9" markerHeight="8" refX="0.6" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M8.4,0.6 L0.6,4 L8.4,7.4 Z" fill="#4a3aa7"/></marker>
+  <marker id="arw-e87ba4" markerWidth="9" markerHeight="8" refX="8.4" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0.6,0.6 L8.4,4 L0.6,7.4 Z" fill="#e87ba4"/></marker>
+  <marker id="arws-e87ba4" markerWidth="9" markerHeight="8" refX="0.6" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M8.4,0.6 L0.6,4 L8.4,7.4 Z" fill="#e87ba4"/></marker>
+  <text x="28" y="31.25" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="15" font-weight="700" fill="#0b0b0b" text-anchor="start">Buddy interconnect — what plugs into what, and which pin it lands on</text>
+  <text x="28" y="50.78" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.8" font-weight="400" fill="#898781" text-anchor="start">Pin table parsed from firmware/drive_mcu/docs/pin_map.md; connectors and cables from the integration map · blue = logic, green = power, pink = sensing</text>
+  <path d="M 44,480 L 1356,480" stroke="#898781" stroke-width="1" stroke-dasharray="4 4"/>
+  <path d="M 44,554 L 1070,554" stroke="#898781" stroke-width="1"/>
+  <path d="M 44,587 L 1070,587" stroke="#898781" stroke-width="0.6"/>
+  <path d="M 44,613 L 1070,613" stroke="#898781" stroke-width="0.6"/>
+  <path d="M 44,639 L 1070,639" stroke="#898781" stroke-width="0.6"/>
+  <path d="M 44,665 L 1070,665" stroke="#898781" stroke-width="0.6"/>
+  <path d="M 294,150 L 350.5,150 Q 354,150 354,153.5 L 354,153.5 Q 354,157 357.5,157 L 414,157" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-2a78d6)" marker-start="url(#arws-2a78d6)"/>
+  <rect x="341.04" y="130.668" width="25.92" height="14.664" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="354" y="141.29" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.4" font-weight="500" fill="#2a78d6" text-anchor="middle">USB</text>
+  <path d="M 684,150 L 741.2,150 Q 744,150 744,147.2 L 744,147.2 Q 744,144.4 746.8,144.4 L 804,144.4" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-2a78d6)"/>
+  <rect x="716.94" y="137.668" width="54.12" height="14.664" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="744" y="148.29" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.4" font-weight="500" fill="#2a78d6" text-anchor="middle">logic ×4</text>
+  <path d="M 1034,149.6 L 1124,149.6" fill="none" stroke="#1baf7a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-1baf7a)"/>
+  <rect x="1060.4" y="135.668" width="37.2" height="14.664" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="1079" y="146.29" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.4" font-weight="500" fill="#1baf7a" text-anchor="middle">power</text>
+  <path d="M 1240,212 L 1240,275 Q 1240,282 1233,282 L 610,282 Q 603,282 603,275 L 603,248" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-2a78d6)"/>
+  <rect x="805.26" y="274.668" width="189.48" height="14.664" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="900" y="285.29" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.4" font-weight="500" fill="#2a78d6" text-anchor="middle">4-pos JST XH breakout → 4 × TJC8</text>
+  <path d="M 804,346 L 767,346 Q 760,346 760,339 L 760,329 Q 760,322 753,322 L 201,322 Q 194,322 194,315 L 194,228" fill="none" stroke="#e87ba4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 4" marker-end="url(#arw-e87ba4)"/>
+  <rect x="441.92" y="314.668" width="116.16" height="14.664" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="500" y="325.29" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.4" font-weight="500" fill="#e87ba4" text-anchor="middle">USB-A · UART 230400</text>
+  <path d="M 804,456 L 747,456 Q 740,456 740,449 L 740,389 Q 740,382 733,382 L 256,382 Q 249,382 249,375 L 249,228" fill="none" stroke="#e87ba4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 4" marker-end="url(#arw-e87ba4)"/>
+  <rect x="436.28" y="374.668" width="127.44" height="14.664" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="500" y="385.29" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.4" font-weight="500" fill="#e87ba4" text-anchor="middle">I²C · 40-pin pins 3/5</text>
+  <path d="M 1124,346 L 1034,346" fill="none" stroke="#4a3aa7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 4" marker-end="url(#arw-4a3aa7)"/>
+  <rect x="1054.76" y="338.668" width="48.48" height="14.664" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="1079" y="349.29" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.4" font-weight="500" fill="#4a3aa7" text-anchor="middle">USB 3.0</text>
+  <rect x="44" y="108" width="250" height="120" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="45.5" y="109.5" width="3" height="117" rx="1.5" fill="#2a78d6"/>
+  <text x="171" y="159.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">Jetson Orin Nano Super</text>
+  <text x="171" y="173.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">ROS 2 Jazzy · Ubuntu</text>
+  <text x="171" y="185.68" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">USB-A ×4 host · 40-pin header</text>
+  <rect x="414" y="108" width="270" height="140" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="415.5" y="109.5" width="3" height="137" rx="1.5" fill="#d03b3b"/>
+  <text x="551" y="157.575" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">NUCLEO-G474RE</text>
+  <text x="551" y="171.125" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">drive MCU · STM32G474RET6</text>
+  <text x="551" y="183.48" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">ST-LINK V3E → USB micro-B</text>
+  <text x="551" y="195.68" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">morpho headers carry every</text>
+  <text x="551" y="207.88" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">driver and encoder signal</text>
+  <rect x="804" y="108" width="230" height="104" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="805.5" y="109.5" width="3" height="101" rx="1.5" fill="#1baf7a"/>
+  <text x="921" y="151.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">VNH5019 ×4</text>
+  <text x="921" y="165.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">one carrier per wheel</text>
+  <text x="921" y="177.68" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">OUT A / OUT B → motor</text>
+  <rect x="1124" y="108" width="232" height="104" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="1125.5" y="109.5" width="3" height="101" rx="1.5" fill="#1baf7a"/>
+  <text x="1242" y="157.875" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">goBILDA 5203 ×4</text>
+  <text x="1242" y="171.425" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">motor + quadrature encoder</text>
+  <rect x="804" y="300" width="230" height="92" rx="5" fill="#fcfcfb" stroke="#898781" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <rect x="805.5" y="301.5" width="3" height="89" rx="1.5" fill="#e87ba4" opacity="0.45"/>
+  <text x="921" y="337.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">LDROBOT LD19</text>
+  <text x="921" y="351.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">2D LiDAR · 12 m ToF</text>
+  <text x="921" y="363.68" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">USB adapter (D300 kit)</text>
+  <rect x="804" y="410" width="230" height="92" rx="5" fill="#fcfcfb" stroke="#898781" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <rect x="805.5" y="411.5" width="3" height="89" rx="1.5" fill="#e87ba4" opacity="0.45"/>
+  <text x="921" y="447.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">BNO086 breakout</text>
+  <text x="921" y="461.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">IMU · on-chip fusion</text>
+  <text x="921" y="473.68" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">I²C, 3.3 V</text>
+  <rect x="1124" y="300" width="232" height="92" rx="5" fill="#fcfcfb" stroke="#898781" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <rect x="1125.5" y="301.5" width="3" height="89" rx="1.5" fill="#4a3aa7" opacity="0.45"/>
+  <text x="1242" y="337.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">OAK-D Lite</text>
+  <text x="1242" y="351.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">RGB-D — deferred</text>
+  <text x="1242" y="363.68" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">USB 3.0</text>
+  <text x="44" y="465.78" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.8" font-weight="600" fill="#d03b3b" text-anchor="start">Motor power goes to the DRIVER; the encoder goes to the MCU. The motor's 8 A power leads never touch a microcontroller pin.</text>
+  <text x="44" y="515.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="600" fill="#898781" text-anchor="start" letter-spacing="1.1">DRIVE HARNESS PIN ASSIGNMENT — PARSED FROM PIN_MAP.MD</text>
+  <text x="44" y="545.29" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.4" font-weight="600" fill="#898781" text-anchor="start" letter-spacing="0.5">wheel</text>
+  <text x="134" y="545.29" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.4" font-weight="600" fill="#898781" text-anchor="start" letter-spacing="0.5">timer</text>
+  <text x="232" y="545.29" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.4" font-weight="600" fill="#898781" text-anchor="start" letter-spacing="0.5">ENC A</text>
+  <text x="326" y="545.29" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.4" font-weight="600" fill="#898781" text-anchor="start" letter-spacing="0.5">ENC B</text>
+  <text x="432" y="545.29" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.4" font-weight="600" fill="#898781" text-anchor="start" letter-spacing="0.5">PWM</text>
+  <text x="556" y="545.29" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.4" font-weight="600" fill="#898781" text-anchor="start" letter-spacing="0.5">INA</text>
+  <text x="652" y="545.29" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.4" font-weight="600" fill="#898781" text-anchor="start" letter-spacing="0.5">INB</text>
+  <text x="752" y="545.29" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.4" font-weight="600" fill="#898781" text-anchor="start" letter-spacing="0.5">EN/DIAG</text>
+  <text x="872" y="545.29" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.4" font-weight="600" fill="#898781" text-anchor="start" letter-spacing="0.5">CS</text>
+  <text x="992" y="545.29" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.4" font-weight="600" fill="#898781" text-anchor="start" letter-spacing="0.5">nets</text>
+  <text x="44" y="577.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="600" fill="#0b0b0b" text-anchor="start">LF</text>
+  <text x="134" y="577.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">TIM2</text>
+  <text x="232" y="577.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PA0</text>
+  <text x="326" y="577.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PA1</text>
+  <text x="432" y="577.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PA8 (CH1)</text>
+  <text x="556" y="577.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PB0</text>
+  <text x="652" y="577.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PB1</text>
+  <text x="752" y="577.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PC10</text>
+  <text x="872" y="577.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PC0 (IN6)</text>
+  <text x="992" y="577.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">LF_*</text>
+  <text x="44" y="603.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="600" fill="#0b0b0b" text-anchor="start">LR</text>
+  <text x="134" y="603.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">TIM3</text>
+  <text x="232" y="603.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PA6</text>
+  <text x="326" y="603.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PA7</text>
+  <text x="432" y="603.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PA9 (CH2)</text>
+  <text x="556" y="603.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PB2</text>
+  <text x="652" y="603.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PB10</text>
+  <text x="752" y="603.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PC11</text>
+  <text x="872" y="603.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PC1 (IN7)</text>
+  <text x="992" y="603.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">LR_*</text>
+  <text x="44" y="629.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="600" fill="#0b0b0b" text-anchor="start">RF</text>
+  <text x="134" y="629.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">TIM4</text>
+  <text x="232" y="629.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PB6</text>
+  <text x="326" y="629.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PB7</text>
+  <text x="432" y="629.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PA10 (CH3)</text>
+  <text x="556" y="629.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PB4</text>
+  <text x="652" y="629.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PB5</text>
+  <text x="752" y="629.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PC12</text>
+  <text x="872" y="629.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PC2 (IN8)</text>
+  <text x="992" y="629.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">RF_*</text>
+  <text x="44" y="655.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="600" fill="#0b0b0b" text-anchor="start">RR</text>
+  <text x="134" y="655.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">TIM8</text>
+  <text x="232" y="655.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PC6</text>
+  <text x="326" y="655.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PC7</text>
+  <text x="432" y="655.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PA11 (CH4)</text>
+  <text x="556" y="655.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PB13</text>
+  <text x="652" y="655.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PB14</text>
+  <text x="752" y="655.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PD2</text>
+  <text x="872" y="655.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">PC3 (IN9)</text>
+  <text x="992" y="655.5" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="10" font-weight="400" fill="#898781" text-anchor="start">RR_*</text>
+  <text x="44" y="695.36" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.6" font-weight="400" fill="#898781" text-anchor="start">wheel index order everywhere: 0 = LF, 1 = LR, 2 = RF, 3 = RR — the order the protocol's CMD_VEL payload uses</text>
+  <text x="44" y="729.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="600" fill="#898781" text-anchor="start" letter-spacing="1.1">SAFETY, SENSE AND SERVICE PINS</text>
+  <text x="44" y="755.465" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.9" font-weight="400" fill="#0b0b0b" text-anchor="start">E-stop chain state</text>
+  <text x="232" y="755.465" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.9" font-weight="400" fill="#898781" text-anchor="start">PB12</text>
+  <text x="326" y="755.465" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.9" font-weight="400" fill="#898781" text-anchor="start">input, ext. pull-down</text>
+  <text x="44" y="778.465" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.9" font-weight="400" fill="#0b0b0b" text-anchor="start">Vbat sense</text>
+  <text x="232" y="778.465" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.9" font-weight="400" fill="#898781" text-anchor="start">PC4</text>
+  <text x="326" y="778.465" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.9" font-weight="400" fill="#898781" text-anchor="start">analog in</text>
+  <text x="44" y="801.465" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.9" font-weight="400" fill="#0b0b0b" text-anchor="start">Status LED</text>
+  <text x="232" y="801.465" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.9" font-weight="400" fill="#898781" text-anchor="start">PA5</text>
+  <text x="326" y="801.465" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.9" font-weight="400" fill="#898781" text-anchor="start">output</text>
+  <text x="44" y="824.465" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.9" font-weight="400" fill="#0b0b0b" text-anchor="start">User button</text>
+  <text x="232" y="824.465" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.9" font-weight="400" fill="#898781" text-anchor="start">PC13</text>
+  <text x="326" y="824.465" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.9" font-weight="400" fill="#898781" text-anchor="start">input</text>
+  <text x="44" y="847.465" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.9" font-weight="400" fill="#0b0b0b" text-anchor="start">VCP UART</text>
+  <text x="232" y="847.465" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.9" font-weight="400" fill="#898781" text-anchor="start">PA2</text>
+  <text x="326" y="847.465" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.9" font-weight="400" fill="#898781" text-anchor="start">bus</text>
+  <text x="44" y="870.465" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.9" font-weight="400" fill="#0b0b0b" text-anchor="start">SWD</text>
+  <text x="232" y="870.465" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.9" font-weight="400" fill="#898781" text-anchor="start">PA13</text>
+  <text x="326" y="870.465" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.9" font-weight="400" fill="#898781" text-anchor="start">debug</text>
+  <text x="1096" y="515.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="600" fill="#898781" text-anchor="start" letter-spacing="1.1">THE CABLE EACH LINK NEEDS</text>
+  <text x="1096" y="545.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="400" fill="#0b0b0b" text-anchor="start">jetson → drive_mcu</text>
+  <text x="1096" y="560.29" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.4" font-weight="400" fill="#898781" text-anchor="start">USB-A → micro-B</text>
+  <text x="1096" y="600.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="400" fill="#0b0b0b" text-anchor="start">motor → drive_mcu</text>
+  <text x="1096" y="615.29" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.4" font-weight="400" fill="#898781" text-anchor="start">4-pos JST XH MH-FC → 4 × 1-pos TJC8</text>
+  <text x="1096" y="630.29" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.4" font-weight="400" fill="#898781" text-anchor="start">goBILDA encoder BREAKOUT 300 mm</text>
+  <text x="1096" y="670.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="400" fill="#0b0b0b" text-anchor="start">driver → motor</text>
+  <text x="1096" y="685.29" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.4" font-weight="400" fill="#898781" text-anchor="start">3.5 mm bullet MH-FC pigtail</text>
+  <text x="1096" y="700.29" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.4" font-weight="400" fill="#898781" text-anchor="start">16 AWG silicone</text>
+  <text x="1096" y="740.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="400" fill="#0b0b0b" text-anchor="start">imu → jetson</text>
+  <text x="1096" y="755.29" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.4" font-weight="400" fill="#898781" text-anchor="start">4-wire JST/Dupont</text>
+  <text x="1096" y="795.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="400" fill="#0b0b0b" text-anchor="start">lidar → jetson</text>
+  <text x="1096" y="810.29" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.4" font-weight="400" fill="#898781" text-anchor="start">USB-A</text>
+  <text x="44" y="901.395" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.7" font-weight="400" fill="#898781" text-anchor="start">The encoder cable is the BREAKOUT version on purpose: the four encoder pairs land on TIM2/3/4/8 pins that are deliberately not adjacent, and the encoder's 3.3 V has to reach a different header entirely.</text>
+  <text x="44" y="916.395" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.7" font-weight="400" fill="#898781" text-anchor="start">A straight 4-pin-to-4-pin cable physically cannot make this harness.</text>
+  <text x="44" y="931.395" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.7" font-weight="400" fill="#898781" text-anchor="start">Assembly-day checks (wiring_harness.md §5): encoders must count up when the wheel is pushed forward · a wheel spinning backwards is fixed by swapping its two bullets, never by a sign in firmware ·</text>
+  <text x="44" y="946.395" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.7" font-weight="400" fill="#898781" text-anchor="start">every encoder is verified with the motor bus unpowered, before the drivers are ever energised.</text>
+  <text x="44" y="979.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="600" fill="#898781" text-anchor="start" letter-spacing="1.1">SOURCES</text>
+  <text x="108" y="979.395" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.7" font-weight="400" fill="#898781" text-anchor="start">pin_map.md · wiring_harness.md · electrical_interfaces.md · electronics/KiCAD/drive_mcu_wiring/ (pin-level schematic)</text>
+</svg>

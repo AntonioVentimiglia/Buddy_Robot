@@ -5,6 +5,8 @@
 
 Purchases are proceeding on the assumption these parts interface as intended.
 This document checks that assumption signal-by-signal, with the numbers.
+For the same chain as a picture — and for the power distribution around it — see
+[`system_integration.md`](system_integration.md).
 Sources: [VNH5019 carrier page](https://www.pololu.com/product/1451) (logic ≥ 2.1 V = high,
 PWM ≤ 20 kHz, CS ≈ 140 mV/A), goBILDA 5203 product spec (3.3–5 V encoder,
 753.2 counts/rev at output — datasheet), ST NUCLEO-G474RE / STM32G474 datasheets, Jetson Orin Nano

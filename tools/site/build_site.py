@@ -28,7 +28,18 @@ from buddy_calcs import power  # noqa: E402
 from buddy_calcs.drive import summary as drive_summary  # noqa: E402
 
 SITE = ROOT / "site"
-CFG = yaml.safe_load((ROOT / "tools" / "site" / "site_config.yaml").read_text())
+CFG = yaml.safe_load(
+    (ROOT / "tools" / "site" / "site_config.yaml").read_text(encoding="utf-8"))
+
+
+def write_page(path: Path, html: str) -> None:
+    """Site pages are UTF-8 with LF endings on every platform.
+
+    Without the explicit encoding Python picks the host's default, which is
+    cp1252 on Windows and cannot encode the µ, η and · that these documents are
+    full of — the build simply dies partway through.
+    """
+    path.write_text(html, encoding="utf-8", newline="\n")
 IDENTITY = " · ".join(
     [f'<b>{CFG["name"]}</b>', CFG["role"]] +
     [f'<a href="{u}">{k}</a>' for k, u in (CFG.get("links") or {}).items()])
@@ -140,7 +151,7 @@ def rewrite_links(html: str, page_map: dict[str, str]) -> str:
 
 
 def parse_frontmatter(path: Path) -> tuple[dict, str]:
-    text = path.read_text()
+    text = path.read_text(encoding="utf-8")
     if text.startswith("---"):
         _, fm, body = text.split("---", 2)
         meta = yaml.safe_load(fm) or {}
@@ -241,9 +252,9 @@ def main() -> int:
         head = f'<p class="meta">{date}{" · " + str(tags).strip("[]") if tags else ""}</p>' if date else ""
         out = SITE / section / f"{src.stem}.html"
         out.parent.mkdir(exist_ok=True)
-        out.write_text(page(meta.get("title", src.stem),
-                            f"<article>{head}{html}</article>", section,
-                            depth=1, math=True))
+        write_page(out, page(meta.get("title", src.stem),
+                             f"<article>{head}{html}</article>", section,
+                             depth=1, math=True))
 
     for meta, body, f in milestones:
         write_article(meta, body, f, "milestones")
@@ -252,14 +263,15 @@ def main() -> int:
 
     adr_rows = []
     for f in adrs:
-        text = f.read_text()
+        text = f.read_text(encoding="utf-8")
         title = re.search(r"^# (.+)$", text, re.M).group(1)
         status = (re.search(r"- Status: (.+)", text) or ["", "—"])[1]
         date = (re.search(r"- Date: (.+)", text) or ["", ""])[1]
         html = rewrite_links(render_md(text), page_map)
         (SITE / "decisions").mkdir(exist_ok=True)
-        (SITE / "decisions" / f"{f.stem}.html").write_text(
-            page(title, f"<article>{html}</article>", "decisions", depth=1, math=True))
+        write_page(SITE / "decisions" / f"{f.stem}.html",
+                   page(title, f"<article>{html}</article>", "decisions",
+                        depth=1, math=True))
         num = f.stem.split("-")[1]
         adr_rows.append(
             f'<li><span class="id">ADR-{num}</span>'
@@ -269,8 +281,9 @@ def main() -> int:
     log_html = ""
     for meta, body, f in sorted(logs, key=lambda x: str(x[2]), reverse=True):
         log_html += rewrite_links(render_md(body), {k: v.replace("../", "") for k, v in page_map.items()})
-    (SITE / "log.html").write_text(
-        page("Engineering Log", f"<article>{log_html}</article>", "log", math=True))
+    write_page(SITE / "log.html",
+               page("Engineering Log", f"<article>{log_html}</article>", "log",
+                    math=True))
 
     def cards(items: list, section: str, prefix: str = "") -> str:
         cs = ""
@@ -288,14 +301,14 @@ def main() -> int:
     ]:
         body = (f'<span class="eyebrow">{section}</span><h1>{blurb}</h1>'
                 + cards(items, section, prefix="../").replace(f'href="../{section}/', 'href="'))
-        (SITE / section / "index.html").write_text(
-            page(section.capitalize(), body, section, depth=1))
+        write_page(SITE / section / "index.html",
+                   page(section.capitalize(), body, section, depth=1))
     dec_rows_local = "".join(r.replace('href="decisions/', 'href="') for r in adr_rows)
-    (SITE / "decisions" / "index.html").write_text(
-        page("Decisions", '<span class="eyebrow">decision record</span>'
-             '<h1>Architecture Decision Records</h1>'
-             f'<ul class="decisions" style="list-style:none;padding:0">{dec_rows_local}</ul>',
-             "decisions", depth=1))
+    write_page(SITE / "decisions" / "index.html",
+               page("Decisions", '<span class="eyebrow">decision record</span>'
+                    '<h1>Architecture Decision Records</h1>'
+                    f'<ul class="decisions" style="list-style:none;padding:0">'
+                    f'{dec_rows_local}</ul>', "decisions", depth=1))
 
     index_body = f"""
 <span class="eyebrow">project record · v0.1 design phase</span>
@@ -318,7 +331,7 @@ decision is written down with the conditions that would reverse it.</p>
 <p class="lede" style="font-size:.95rem">The raw record behind the milestones —
 <a href="log.html">read the full log</a>.</p></section>
 """
-    (SITE / "index.html").write_text(page("Overview", index_body, "home"))
+    write_page(SITE / "index.html", page("Overview", index_body, "home"))
     print(f"site built: {sum(1 for _ in SITE.rglob('*.html'))} pages -> {SITE.relative_to(ROOT)}/")
     return 0
 

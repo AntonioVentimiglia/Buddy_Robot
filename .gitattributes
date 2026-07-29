@@ -1,0 +1,16 @@
+# Buddy is developed from both macOS and Windows, and it commits a lot of
+# GENERATED text (buddy_params.xacro, buddy_config.h, the analysis exports, the
+# figures, the KiCAD schematics). Every generator writes LF explicitly; without
+# this file, core.autocrlf=true checks those same files out as CRLF on Windows
+# and the next rebuild rewrites all of them — a whole-file diff that hides the
+# one number that actually changed.
+* text=auto eol=lf
+
+# Binary — never touch, never try to diff as text.
+*.pdf binary
+*.xlsx binary
+*.png binary
+*.jpg binary
+
+# SVG is text (figures-as-code produces readable diffs), but only with LF.
+*.svg text eol=lf

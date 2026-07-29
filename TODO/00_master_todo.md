@@ -61,6 +61,10 @@
 - [x] Firmware skeleton compiles (PlatformIO, 16 kB): host-tested safety state
   machine, HAL layer, constants generated from `design_params.yaml`.
 - [x] Jetson-side bridge node (`buddy_base`): core host-tested (13 tests incl. end-to-end vs mock MCU); thin rclpy shell + real base.launch.py ready for the Jetson.
+- [x] System integration drawn and machine-checked (M03): six generated figures
+  indexed from `docs/system_model/system_integration.md`, topology in
+  `integration_map.yaml`, drift checker wired into `tools/build.py`, second KiCAD
+  sheet (`system_wiring`) for power distribution + Jetson/sensor interconnect.
 - [ ] Velocity PID + mid-pulse current sampling (bench phase, needs motors).
 
 ## Phase 5 - Electronics bench

@@ -68,11 +68,11 @@ enforced automatically: `tools/build.py` fails if a parameter change breaks it.
 
 | Scenario | Drive (A) | Total incl. system (A) |
 |---|---|---|
-    | flat cruise | 2.5 | 7.5 |
-    | ramp + accel (design) | 12.3 | 17.3 |
-    | pivot breakaway (mu=0.8) | 30.3 | 35.3 |
-    | all-motor stall, driver-limited | 32.0 | 37.0 |
-    | all-motor stall, UNLIMITED (fault) | 36.8 | 41.8 |
+| flat cruise | 2.5 | 7.5 |
+| ramp + accel (design) | 12.3 | 17.3 |
+| pivot breakaway (mu=0.8) | 30.3 | 35.3 |
+| all-motor stall, driver-limited | 32.0 | 37.0 |
+| all-motor stall, UNLIMITED (fault) | 36.8 | 41.8 |
 
 The **designed peak is 37.0 A** (all four drivers
 simultaneously at their limit — already a pathological command). The

@@ -2,6 +2,12 @@
 
 This is the first interface contract. Topic names should remain stable even as vendors/hardware change.
 
+> This page owns **types and QoS**. Who publishes what, and which of it runs
+> today, is drawn in [`assets/figures/ros_graph.svg`](../../assets/figures/ros_graph.svg)
+> from [`integration_map.yaml`](integration_map.yaml) — and the bridge's half of
+> that graph is checked against `ros_bridge_node.py` on every build. See
+> [`system_integration.md`](system_integration.md).
+
 ## Mobility
 
 | Interface | Type | Publisher | Subscriber | QoS | Notes |

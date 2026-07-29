@@ -1,5 +1,10 @@
 # Startup Sequence
 
+> Drawn as [`assets/figures/startup_sequence.svg`](../../assets/figures/startup_sequence.svg),
+> generated from the `startup` section of
+> [`integration_map.yaml`](integration_map.yaml) — edit the map, not the list
+> below, and both stay in step. See [`system_integration.md`](system_integration.md).
+
 1. Linux boots on Jetson.
 2. Systemd starts safe bringup service.
 3. MCU bridge starts with motors disabled.

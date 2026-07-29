@@ -1,0 +1,520 @@
+# Buddy integration map — TOPOLOGY source of truth (what connects to what).
+#
+# Companion to design_params.yaml, which owns the NUMBERS. The split is strict:
+#
+#   design_params.yaml  = values we CHOSE or ASSUME      (8 A limit, 200 ms watchdog)
+#   requirements yaml   = what must be TRUE              (60 min runtime, 0.5 m/s)
+#   this file           = what CONNECTS to what          (topics, buses, rails, nets)
+#
+# No number that already lives in design_params.yaml or the requirements yaml may
+# be copied here. Where a diagram needs one, write a reference instead:
+#
+#   param:firmware.watchdog_ms   -> design_params.yaml    firmware.watchdog_ms
+#   req:mobility.teleop_commissioning_max_mps -> requirements yaml
+#
+# `tools/check_integration_map.py` resolves every reference and fails the build
+# if one dangles. It also cross-checks this file against pin_map.md, the drive
+# protocol spec, and the topics the bridge node actually creates — so a diagram
+# cannot silently disagree with the firmware or the code.
+#
+# Consumed by: tools/figures/plot_ros_graph.py, plot_control_safety_loop.py,
+# plot_power_one_line.py, plot_interconnect.py, plot_fault_state_machine.py,
+# plot_startup_sequence.py, and tools/kicad/gen_system_wiring.py.
+#
+# After editing:  python3 tools/build.py
+
+meta:
+  updated: "2026-07-28"
+  # status vocabulary used throughout this file:
+  #   working  — exists and is tested today
+  #   proposed — decided in an ADR, hardware not yet purchased
+  #   planned  — intended, no implementation yet
+  #   deferred — selected but deliberately postponed to a later phase
+  #   future   — a later version of the robot (arms era)
+  status_values: [working, proposed, planned, deferred, future]
+
+# ---------------------------------------------------------------------------
+# 1. PHYSICAL BLOCKS — every box that appears in a hardware diagram
+# ---------------------------------------------------------------------------
+blocks:
+  - id: jetson
+    name: Jetson Orin Nano Super
+    detail: ROS 2 Jazzy · Ubuntu 24.04
+    domain: compute
+    status: working          # owned and flashed
+    note: owns autonomy, never hard real-time motor safety
+
+  - id: drive_mcu
+    name: NUCLEO-G474RE
+    detail: STM32G474RET6 · drive MCU
+    domain: embedded
+    status: proposed
+    adr: ADR-0006
+    note: owns the watchdog, the current limit and the safety state machine
+
+  - id: driver
+    name: Pololu VNH5019
+    detail: "×4 carriers — one per wheel"
+    domain: power_stage
+    status: proposed
+    adr: ADR-0005
+
+  - id: motor
+    name: goBILDA 5203 26.9:1
+    detail: "×4 · quadrature encoder"
+    domain: actuator
+    status: proposed
+    adr: ADR-0003
+
+  - id: battery
+    name: 3S Li-ion pack + BMS
+    detail: sized for the future arms
+    domain: power
+    status: proposed
+    adr: ADR-0005
+
+  - id: fuse
+    name: main fuse
+    detail: slow-blow MIDI/ANL
+    domain: power
+    status: proposed
+
+  - id: estop
+    name: E-stop + contactor
+    detail: mushroom switch, ~40 A
+    domain: safety
+    status: proposed
+    note: REQ_SAFE_001 — interrupts motor power in hardware, not in firmware
+
+  - id: buck12
+    name: 12 V buck
+    detail: "≥ 5 A regulated"
+    domain: power
+    status: proposed
+    note: isolates compute from motor-bus sag
+
+  - id: buck5
+    name: 5 V buck
+    detail: "≥ 3 A"
+    domain: power
+    status: proposed
+
+  - id: ldo3v3
+    name: Nucleo 3V3 LDO
+    detail: on-board
+    domain: power
+    status: proposed
+
+  - id: vbat_div
+    name: Vbat divider
+    detail: "10:1 into ADC2_IN5"
+    domain: sense
+    status: proposed
+
+  - id: lidar
+    name: LDROBOT LD19
+    detail: 2D LiDAR · 12 m ToF
+    domain: sensor
+    status: proposed
+    adr: ADR-0007
+
+  - id: imu
+    name: BNO086 breakout
+    detail: on-chip fusion
+    domain: sensor
+    status: proposed
+    adr: ADR-0007
+
+  - id: camera
+    name: OAK-D Lite
+    detail: RGB-D · on-camera VPU
+    domain: sensor
+    status: deferred
+    adr: ADR-0007
+    note: selected but not bought until perception work starts
+
+  - id: arms
+    name: dual 6-DOF arms
+    detail: later version
+    domain: actuator
+    status: future
+    note: battery and bus already sized for them; own fused branch
+
+# ---------------------------------------------------------------------------
+# 2. LINKS — every physical connection, with the cable that makes it real
+# ---------------------------------------------------------------------------
+# kind: usb | uart | i2c | pwm | gpio | analog | quadrature | power | contact
+links:
+  - id: jetson_mcu
+    from: jetson
+    to: drive_mcu
+    kind: usb
+    bidirectional: true
+    signals: drive protocol v1 frames
+    detail: ST-LINK V3E virtual COM port
+    baud: 921600-8N1
+    device: /dev/buddy_drive_mcu
+    connector: USB-A → micro-B
+    status: proposed
+    adr: ADR-0006
+
+  - id: mcu_driver_cmd
+    from: drive_mcu
+    to: driver
+    kind: pwm
+    signals: PWM (TIM1 CH1–4), INA, INB
+    detail: "×4 · 3.3 V logic, driver high ≥ 2.1 V"
+    rate: param:firmware.pwm_hz
+    connector: jumper to morpho headers
+    status: proposed
+
+  - id: driver_mcu_fb
+    from: driver
+    to: drive_mcu
+    kind: analog
+    signals: EN/DIAG fault, CS current sense
+    detail: "×4 · CS 140 mV/A into ADC1, sampled mid-pulse"
+    connector: jumper to morpho headers
+    status: proposed
+
+  - id: driver_motor
+    from: driver
+    to: motor
+    kind: power
+    signals: OUT A / OUT B
+    detail: "×4 · the only high-current signal path"
+    connector: 3.5 mm bullet MH-FC pigtail
+    cable: 16 AWG silicone
+    status: proposed
+    note: never touches the MCU — see wiring_harness.md §1
+
+  - id: motor_mcu_enc
+    from: motor
+    to: drive_mcu
+    kind: quadrature
+    signals: Ch.A, Ch.B (+3V3, GND)
+    detail: "×4 · hardware timers TIM2/3/4/8, 3.3 V native"
+    connector: 4-pos JST XH MH-FC → 4 × 1-pos TJC8
+    cable: goBILDA encoder BREAKOUT 300 mm
+    status: proposed
+    note: breakout, not straight-through — the four pin pairs are not adjacent
+
+  - id: estop_mcu
+    from: estop
+    to: drive_mcu
+    kind: contact
+    signals: ESTOP_STATE
+    detail: reporting only — power is already cut upstream
+    status: proposed
+
+  - id: vbat_mcu
+    from: vbat_div
+    to: drive_mcu
+    kind: analog
+    signals: VBAT_SENSE
+    detail: bus voltage → /battery_state
+    status: proposed
+
+  - id: jetson_lidar
+    from: lidar
+    to: jetson
+    kind: usb
+    signals: scan packets
+    detail: UART 230400 through the kit's USB adapter board
+    connector: USB-A
+    status: proposed
+
+  - id: jetson_imu
+    from: imu
+    to: jetson
+    kind: i2c
+    signals: SDA / SCL
+    detail: 40-pin header pins 3/5, 3.3 V
+    connector: 4-wire JST/Dupont
+    status: proposed
+
+  - id: jetson_camera
+    from: camera
+    to: jetson
+    kind: usb
+    signals: RGB + depth + VPU results
+    detail: USB 3.0
+    connector: USB-C → USB-A
+    status: deferred
+
+# ---------------------------------------------------------------------------
+# 3. POWER — the distribution chain and what each rail feeds
+# ---------------------------------------------------------------------------
+power:
+  # Voltages, currents, fuse and BMS ratings all live in design_params.yaml.
+  protection_chain:
+    - node: driver current limit
+      detail: firmware chop, per motor
+      value: param:power.driver_current_limit_a
+      unit: A
+    - node: BMS
+      detail: pack protection, continuous
+      value: param:power.protection.bms_min_continuous_a
+      unit: A
+    - node: main fuse
+      detail: slow-blow
+      value: param:power.protection.main_fuse_a
+      unit: A
+    - node: E-stop contactor
+      detail: opens the motor bus
+      value: null
+      unit: null
+
+  rails:
+    - id: pack
+      name: 3S pack
+      detail: param:power.bus.v_cutoff–param:power.bus.v_full V
+      source: battery
+      status: proposed
+    - id: bus12
+      name: +12V_BUS
+      detail: raw pack, post-fuse/E-stop
+      source: estop
+      feeds: [driver, buck12, buck5, vbat_div, arms]
+      status: proposed
+      note: KiCAD net name is historical — the rail is the unregulated pack
+    - id: v12_reg
+      name: +12V_JETSON
+      detail: regulated
+      source: buck12
+      feeds: [jetson]
+      status: proposed
+    - id: v5
+      name: +5V_RAIL
+      detail: regulated
+      source: buck5
+      feeds: [drive_mcu]
+      status: proposed
+      note: >-
+        Nucleo via E5V (JP3) so the MCU survives a Jetson reboot. The LD19 is
+        NOT on this rail — the D300 kit's USB adapter draws its 0.9 W from the
+        Jetson's USB port, so the LiDAR sits inside the Jetson's power budget.
+    - id: v3v3
+      name: +3V3
+      detail: Nucleo LDO
+      source: ldo3v3
+      feeds: [motor, driver, imu]
+      status: proposed
+      note: encoder supply — 3.3 V everywhere means no level shifters anywhere
+
+  branches:
+    - id: arm_branch
+      name: future arm branch
+      fuse: param:power.protection.arm_branch_fuse_a
+      status: future
+
+# ---------------------------------------------------------------------------
+# 4. ROS 2 GRAPH — nodes and topics
+# ---------------------------------------------------------------------------
+ros:
+  nodes:
+    - id: teleop
+      name: teleop_twist_keyboard
+      package: teleop_twist_keyboard
+      host: operator
+      status: working
+      role: commissioning input
+
+    - id: nav2
+      name: Nav2 stack
+      package: nav2_bringup
+      host: jetson
+      status: planned
+      role: planning + control, /navigate_to_pose
+
+    - id: slam
+      name: slam_toolbox
+      package: slam_toolbox
+      host: jetson
+      status: planned
+      role: map building and pose
+
+    - id: ekf
+      name: ekf_filter_node
+      package: robot_localization
+      host: jetson
+      status: planned
+      role: fuses wheel odometry with the IMU
+
+    - id: bridge
+      name: buddy_base_bridge
+      package: buddy_base
+      host: jetson
+      status: working
+      role: the ROS ↔ MCU boundary; all drive maths, host-tested
+
+    - id: rsp
+      name: robot_state_publisher
+      package: robot_state_publisher
+      host: jetson
+      status: working
+      role: URDF → /tf_static and joint transforms
+
+    - id: lidar_drv
+      name: ldlidar_node
+      package: ldlidar
+      host: jetson
+      status: planned
+      role: LD19 driver
+
+    - id: imu_drv
+      name: bno08x driver
+      package: bno08x_driver
+      host: jetson
+      status: planned
+      role: BNO086 driver, fused quaternion out
+
+    - id: cam_drv
+      name: depthai node
+      package: depthai_ros_driver
+      host: jetson
+      status: deferred
+      role: OAK-D Lite driver
+
+    - id: diag
+      name: diagnostic_aggregator
+      package: diagnostic_aggregator
+      host: jetson
+      status: planned
+      role: health rollup for every hardware-facing node
+
+    - id: mock
+      name: mock_mcu.py
+      package: buddy_firmware_interfaces
+      host: host
+      status: working
+      role: pty-backed MCU stand-in — the same bridge code path, zero hardware
+
+  # `from` / `to` are node ids; `endpoint: mcu` marks where the graph leaves ROS.
+  topics:
+    - name: /cmd_vel
+      type: geometry_msgs/msg/Twist
+      from: [teleop, nav2]
+      to: [bridge]
+      status: working
+      note: stale commands are zeroed by the bridge and stopped by the MCU
+
+    - name: /odom
+      type: nav_msgs/msg/Odometry
+      from: [bridge]
+      to: [ekf, nav2]
+      frame: odom → base_footprint
+      status: working
+
+    - name: /joint_states
+      type: sensor_msgs/msg/JointState
+      from: [bridge]
+      to: [rsp]
+      status: working
+
+    - name: /battery_state
+      type: sensor_msgs/msg/BatteryState
+      from: [bridge]
+      to: [diag]
+      status: working
+
+    - name: /tf
+      type: tf2_msgs/msg/TFMessage
+      from: [bridge, ekf]
+      to: [nav2, slam]
+      status: working
+
+    - name: /tf_static
+      type: tf2_msgs/msg/TFMessage
+      from: [rsp]
+      to: [nav2, slam]
+      status: working
+
+    - name: /scan
+      type: sensor_msgs/msg/LaserScan
+      from: [lidar_drv]
+      to: [slam, nav2]
+      frame: base_laser
+      rate: 10 Hz
+      status: planned
+
+    - name: /imu/data
+      type: sensor_msgs/msg/Imu
+      from: [imu_drv]
+      to: [ekf]
+      frame: imu_link
+      status: planned
+
+    - name: /diagnostics
+      type: diagnostic_msgs/msg/DiagnosticArray
+      from: [bridge, lidar_drv, imu_drv]
+      to: [diag]
+      status: planned
+
+    - name: /camera/color/image_raw
+      type: sensor_msgs/msg/Image
+      from: [cam_drv]
+      to: []
+      frame: front_camera_optical_frame
+      status: deferred
+
+  actions:
+    - name: /navigate_to_pose
+      type: nav2_msgs/action/NavigateToPose
+      owner: nav2
+      status: planned
+
+# ---------------------------------------------------------------------------
+# 5. MCU STATE MACHINE — mirrors firmware/shared_protocol/drive_protocol.md
+# ---------------------------------------------------------------------------
+# The checker asserts these names and values against the protocol spec.
+state_machine:
+  states:
+    - {value: 0, id: BOOT,      detail: power-on}
+    - {value: 1, id: SELF_TEST, detail: peripherals + pin checks}
+    - {value: 2, id: SAFE_IDLE, detail: motors off, comms up}
+    - {value: 3, id: ARMED,     detail: enabled, not moving}
+    - {value: 4, id: ACTIVE,    detail: the only state that produces motion}
+    - {value: 5, id: FAULT,     detail: latched, motors off}
+    - {value: 6, id: UPDATE,    detail: firmware update}
+
+  transitions:
+    - {from: BOOT,      to: SELF_TEST, on: reset complete}
+    - {from: SELF_TEST, to: SAFE_IDLE, on: self-test pass}
+    - {from: SELF_TEST, to: FAULT,     on: self-test fail, kind: fault}
+    - {from: SAFE_IDLE, to: ARMED,     on: CMD_MODE(ARM)}
+    - {from: ARMED,     to: ACTIVE,    on: first valid CMD_VEL}
+    - {from: ACTIVE,    to: SAFE_IDLE, on: watchdog timeout, kind: safety}
+    - {from: ACTIVE,    to: FAULT,     on: any fault bit, kind: fault}
+    - {from: ARMED,     to: FAULT,     on: any fault bit, kind: fault}
+    - {from: FAULT,     to: SAFE_IDLE, on: CMD_MODE(CLEAR) + cause gone, kind: recover}
+
+  fault_bits:
+    - {mask: 0x0001, id: ESTOP,        detail: E-stop chain open}
+    - {mask: 0x0002, id: CMD_TIMEOUT,  detail: no CMD_VEL within the watchdog}
+    - {mask: 0x0004, id: DRIVER_FAULT, detail: VNH5019 EN/DIAG low}
+    - {mask: 0x0008, id: OVERCURRENT,  detail: CS above the driver limit}
+    - {mask: 0x0010, id: ENCODER_FAULT, detail: no counts while commanded}
+    - {mask: 0x0020, id: UNDERVOLT,    detail: Vbat below cutoff}
+    - {mask: 0x0040, id: OVERTEMP,     detail: driver/motor thermal}
+    - {mask: 0x8000, id: INTERNAL,     detail: firmware assertion}
+
+# ---------------------------------------------------------------------------
+# 6. STARTUP — the boot-to-motion gate sequence (docs/system_model/startup_sequence.md)
+# ---------------------------------------------------------------------------
+startup:
+  rule: >-
+    After a reboot or an OTA update Buddy boots into SAFE_IDLE, never into armed
+    motion. Motion requires an explicit ARM from the operator.
+
+  sequence:
+  - {step: 1, actor: jetson,   action: Linux boots,                    gate: null}
+  - {step: 2, actor: jetson,   action: systemd starts safe bringup,    gate: null}
+  - {step: 3, actor: drive_mcu, action: MCU boots → SELF_TEST → SAFE_IDLE, gate: motors off}
+  - {step: 4, actor: bridge,   action: bridge opens the serial port,   gate: PING/PONG version match}
+  - {step: 5, actor: rsp,      action: robot_state_publisher → /tf_static, gate: null}
+  - {step: 6, actor: sensors,  action: LiDAR + IMU drivers start,      gate: null}
+  - {step: 7, actor: diag,     action: diagnostics aggregator starts,  gate: null}
+  - {step: 8, actor: slam,     action: localization / SLAM starts,     gate: transforms valid}
+  - {step: 9, actor: nav2,     action: Nav2 lifecycle configure+activate, gate: null}
+  - {step: 10, actor: operator, action: operator arms the robot,       gate: E-stop clear · battery healthy · transforms valid · sensors live}

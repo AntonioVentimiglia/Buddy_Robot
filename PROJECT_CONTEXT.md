@@ -1,11 +1,16 @@
 # Buddy Project Context for AI Prompts
 
-**Last updated:** 2026-07-11
+**Last updated:** 2026-07-28
 
 > This is the single canonical context file. Paste it into any AI prompt to
 > orient it. The only other top-level doc you need is the runbook
 > `robot_ws/SIMULATION_START_HERE.md`. (The old `MANIFEST.md` file index was
 > deleted — it went stale instantly and duplicated this file.)
+>
+> For how the pieces connect — ROS graph, control/safety loop, power one-line,
+> interconnect and pin table, MCU state machine, startup gates — read
+> `docs/system_model/system_integration.md`. It indexes six generated figures
+> and both KiCAD sheets, and is the fastest way to understand the system.
 
 ## 0. Reality check — what actually exists today
 
@@ -175,13 +180,27 @@ Packages:
   name later changed.) A topic is "settled" when it has an ADR in `docs/decisions/`.
 - **Parametric build (single source of truth):** all design choices and
   assumptions live in `design_params.yaml`; requirements live in
-  `docs/requirements/buddy_v0_1_requirements.yaml`; no value may exist in both.
+  `docs/requirements/buddy_v0_1_requirements.yaml`; **topology** (what connects
+  to what — ROS nodes/topics, buses, rails, MCU states) lives in
+  `docs/system_model/integration_map.yaml`; no value may exist in more than one.
+  The map holds no numbers — it writes references like
+  `param:power.protection.main_fuse_a` that resolve at draw time.
   `python3 tools/build.py` regenerates from them: `buddy_params.xacro`
-  (generated — never hand-edit), the analysis notebooks' markdown exports,
-  all figures, and the torque sweep CSV. `buddy_calcs/` is the shared loader +
-  equation module every consumer imports. Derivation documents are **marimo
-  notebooks** (`docs/analysis/*.py`, edit live with `marimo edit <file>`); their
-  committed `.md` exports are generated artifacts.
+  (generated — never hand-edit), `firmware/drive_mcu/include/buddy_config.h`,
+  the analysis notebooks' markdown exports, all figures, the torque sweep CSV,
+  both KiCAD schematics (+ their PDFs), and the website. `buddy_calcs/` is the
+  shared loader + equation module every consumer imports. Derivation documents
+  are **marimo notebooks** (`docs/analysis/*.py`, edit live with
+  `marimo edit <file>`); their committed `.md` exports are generated artifacts.
+  Consecutive builds are byte-identical — if `git diff` is noisy, something is
+  non-deterministic and that is a bug.
+- **Integration is drawn, and the drawings are checked.**
+  `docs/system_model/system_integration.md` indexes six generated figures plus
+  both KiCAD sheets. `tools/check_integration_map.py` runs first in every build
+  and fails it if the map disagrees with `pin_map.md`, `pins.h`, the KiCAD net
+  table, `drive_protocol.md`, or the topics `ros_bridge_node.py` actually
+  creates. Never hand-draw an architecture diagram in this repo — the last one
+  (a Mermaid file) silently contradicted ADR-0006 for two weeks.
 - The robot model has exactly one entry point: `buddy.urdf.xacro`. All dimensions
   flow from `design_params.yaml` through the generated `buddy_params.xacro`.
   There is no separate Gazebo SDF — the sim spawns this URDF. Do not reintroduce
@@ -253,3 +272,7 @@ When adding, deleting, renaming, or promoting any file:
 2. Update the relevant folder README.
 3. Update `TODO/00_master_todo.md` if work status changes.
 4. Add or update an ADR when the change locks in a major decision.
+5. If the change alters what connects to what — a topic, a bus, a rail, a pin, a
+   state — update `docs/system_model/integration_map.yaml` and re-run
+   `python3 tools/build.py`. The figures follow automatically; the checker will
+   tell you if the map now disagrees with the firmware or the code.
