@@ -90,9 +90,15 @@ setsid nohup ros2 topic pub -r 20 /cmd_vel geometry_msgs/msg/Twist \
 sleep "$DRIVE_SECONDS"
 pkill -f "[r]os2 topic pub" 2>/dev/null || true
 
-FAULTS=$(grep -c "MCU fault event" /tmp/buddy_realbridge.log || true)
-check "no MCU fault events while commanding" "$([ "$FAULTS" = "0" ] && echo 1 || echo 0)" \
-      "$FAULTS events"
+# Assert on actual fault BITS, not on log-line count. FAULT_EVT is emitted on
+# every state transition, so counting those flagged the benign SAFE_IDLE->ARMED
+# handover as a failure. Only a "MCU fault:" WARN carries real fault bits.
+FAULTS=$(grep -c "MCU fault:" /tmp/buddy_realbridge.log || true)
+check "no real MCU faults while commanding" "$([ "$FAULTS" = "0" ] && echo 1 || echo 0)" \
+      "$FAULTS faults"
+# The positive assertion: the ARM actually took effect on real silicon.
+grep -q "MCU state -> ARMED" /tmp/buddy_realbridge.log && ARMED=1 || ARMED=0
+check "MCU reached ARMED on real hardware" "$ARMED"
 
 echo "== 4/5 stop the bridge, then interrogate the MCU directly =="
 cleanup

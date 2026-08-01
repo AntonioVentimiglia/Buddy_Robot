@@ -85,9 +85,25 @@ class BridgeNode(Node):
                                            now.nanoseconds * 1e-9)
                 self.publish_state(now)
             elif f.type == bp.T_FAULT_EVT:
-                self.get_logger().warn(
-                    f"MCU fault event: bits=0x{int.from_bytes(f.payload[:2], 'little'):04x} "
-                    f"state={self.core.state_name()}")
+                # FAULT_EVT is emitted on ANY state transition (drive_protocol.md:
+                # "on transition"), not only on faults - main.c sends it whenever
+                # state or fault_bits change. Logging all of them at WARN buried
+                # real faults under routine SAFE_IDLE->ARMED chatter, so split on
+                # whether any fault bit is actually set.
+                #
+                # Use the state carried IN the event payload rather than
+                # core.state_name(): the latter is whatever the last telemetry
+                # frame said, which is not necessarily the state this transition
+                # was about.
+                bits = int.from_bytes(f.payload[:2], "little")
+                state = f.payload[2] if len(f.payload) > 2 else None
+                sname = (bp.STATE_NAMES[state]
+                         if state is not None and state < len(bp.STATE_NAMES)
+                         else self.core.state_name())
+                if bits:
+                    self.get_logger().warn(f"MCU fault: bits=0x{bits:04x} state={sname}")
+                else:
+                    self.get_logger().info(f"MCU state -> {sname}")
 
     def housekeeping(self) -> None:
         if (self.get_parameter("auto_arm").value and not self._armed_sent
