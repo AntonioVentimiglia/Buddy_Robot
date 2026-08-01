@@ -77,6 +77,14 @@
 
 ## Phase 5 - Electronics bench
 
+- [x] **Flash the drive MCU and verify the Jetson↔MCU link** (2026-07-31).
+  `tools/flash/flash_drive_mcu.sh`; `devops/jetson/verify_drive_mcu_link.py`
+  passes 13/13 — 102 Hz telemetry, 0 CRC errors, SAFE_IDLE, PING/PONG 10/10,
+  0.49 ms median round trip vs the 200 ms watchdog.
+- [ ] **Bench TODO (firmware robustness):** add `HAL_UART_ErrorCallback` to
+  re-arm `HAL_UART_Receive_IT`. Today nothing recovers from a UART error, so one
+  overrun silently kills RX while telemetry keeps streaming — it looks like a
+  dead Jetson link, not a dead MCU. Not today's bug, but a real one.
 - [ ] Build bench drive loop: MCU + motor driver + one motor + encoder.
 - [ ] Verify encoder direction and scaling.
 - [ ] Verify command watchdog stops motor.
