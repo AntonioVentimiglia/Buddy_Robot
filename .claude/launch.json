@@ -1,49 +1,37 @@
 {
   "version": "0.0.1",
   "_comment": [
-    "macOS ONLY, and a workaround rather than a good config — read before copying.",
+    "runtimeExecutable is a pyenv-installed python BINARY, deliberately, on macOS.",
     "",
-    "This repo lives under `~/Desktop/Desktop - MacBook Air (263)/`. macOS TCC",
-    "denies the preview-server process any access to ~/Desktop, so it cannot",
-    "read a single file in this tree:",
-    "    can't open file 'tools/site/serve.py': [Errno 1] Operation not permitted",
-    "It fails earlier still on `python`/`python3`, which are pyenv shims whose",
-    "shell script needs a working getcwd, and on `-m http.server`, whose CLI",
-    "evaluates os.getcwd() eagerly as the argparse default for -d.",
+    "This repo sits under ~/Desktop, which macOS TCC protects. Claude.app already",
+    "holds the Desktop grant, but TCC attributes access per executable identity,",
+    "and two obvious choices do NOT inherit it:",
     "",
-    "So the preview serves a MIRROR outside ~/Desktop. Refresh it with:",
-    "    tools/site/sync_preview_mirror.sh",
-    "after any `python3 tools/build.py`, or the served pages go stale.",
+    "  /usr/bin/python3        -> resolves to Xcode's Python.app, a separate app",
+    "                             bundle with its own TCC identity. getcwd() and",
+    "                             every listdir under ~/Desktop return EPERM, so",
+    "                             it cannot read a single file in this repo.",
+    "  ~/.pyenv/shims/python3  -> a shell script; the shell fails getcwd first",
+    "                             ('pyenv: cannot change working directory to').",
     "",
-    "DURABLE FIXES (either removes the need for all of this):",
-    "  * grant the app access to the Desktop folder, or Full Disk Access, in",
-    "    System Settings > Privacy & Security; or",
-    "  * move the repo out of ~/Desktop.",
-    "Then this becomes the normal config:",
-    "    runtimeExecutable python3, runtimeArgs [-m, http.server, -d, site, 8137].",
+    "A plain pyenv binary inherits the grant and works normally - verified by",
+    "listing every path component from / down to the repo.",
     "",
-    "Paths below are absolute and specific to this machine, which is why they",
-    "point outside the repo. Other machines should use the normal config above."
+    "If this version is ever removed, point it at any other",
+    "~/.pyenv/versions/<ver>/bin/python3. Do not 'simplify' it back to python3.",
+    "Linux/Windows: plain `python3` is fine."
   ],
   "configurations": [
     {
       "name": "site",
-      "runtimeExecutable": "/usr/bin/python3",
-      "runtimeArgs": [
-        "/Users/ventimaj/.buddy_preview/serve.py",
-        "/Users/ventimaj/.buddy_preview/site",
-        "8137"
-      ],
+      "runtimeExecutable": "/Users/ventimaj/.pyenv/versions/3.13.7/bin/python3",
+      "runtimeArgs": ["-m", "http.server", "-d", "site", "8137"],
       "port": 8137
     },
     {
       "name": "figures",
-      "runtimeExecutable": "/usr/bin/python3",
-      "runtimeArgs": [
-        "/Users/ventimaj/.buddy_preview/serve.py",
-        "/Users/ventimaj/.buddy_preview/figures",
-        "8138"
-      ],
+      "runtimeExecutable": "/Users/ventimaj/.pyenv/versions/3.13.7/bin/python3",
+      "runtimeArgs": ["-m", "http.server", "-d", "assets/figures", "8138"],
       "port": 8138
     }
   ]
