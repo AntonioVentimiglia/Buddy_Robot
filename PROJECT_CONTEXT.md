@@ -71,11 +71,23 @@ Buddy v0.1 is an indoor autonomous mobile base using:
   - Sensors (proposed, ADR-0007, phased): **LD19 2D LiDAR + BNO086 IMU** with
     the current order; **OAK-D Lite RGB-D** selected but deferred to the
     perception phase. Reserves hold (0.9 W / 4.5 W vs ≤ 5 W each).
+  - Fabrication: **in-house FDM printing** (ADR-0008) — chassis, motor mounts,
+    trays, sensor mounts, and future arm structure. Printer: **QIDI Plus 4**
+    (305 × 305 × 280 mm, actively heated 65 °C chamber, 370 °C hotend), bought
+    as a capital tool outside the robot BOM. Structural parts are **ASA or
+    PA-CF, never PLA** — motor mounts bolt to gearboxes running at the 8 A limit
+    and PLA's glass transition is ~60 °C.
+  - Future arms (proposed, ADR-0009): **printed structure + hobby servos**.
+    Note the consequence — hobby servos have no programmable current limit, so
+    ADR-0005's "stall is a designed ceiling" reasoning does **not** apply to the
+    arm branch; the 15 A branch fuse becomes the primary limiter.
 - Major hardware still undecided:
   - Exact battery SKU (spec locked by amended ADR-0005: 3S ≥ 14 Ah, BMS ≥ 50 A).
   - Chassis dimensions, track width, suspension/skid behavior.
   - IMU/sensor mounting positions (extrinsics at assembly).
-  - Robot arm type, gripper, payload, mounting, and whether manipulation is an early or later milestone.
+  - Arm servo SKU and joint-feedback strategy (ADR-0009 open items — evaluate
+    Feetech STS/SCS bus servos before committing to dumb PWM hobby servos).
+  - Gripper, arm payload/reach, and whether manipulation is an early or later milestone.
 
 ## 2. Architectural north star
 

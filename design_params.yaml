@@ -69,8 +69,21 @@ power: # ADR-0005: 3S Li-ion + BMS architecture; see docs/analysis/power_budget_
     drive_electrical_efficiency: 0.60 # motor + driver, mech power -> battery power
   future_arms: # dual 6-DOF arms planned for a later version (requirements yaml:
                # manipulation_future). Not built in v0.1, but the battery bought
-               # now must carry them. Assumptions are XM430-class placeholders —
-               # refine at arm selection, then re-run the build.
+               # now must carry them.
+               #
+               # ACTUATOR CLASS CHANGED 2026-07-31 (ADR-0009): printed structure
+               # + hobby servos, NOT the XM430-class smart servos these numbers
+               # were originally estimated from. The values below are UNCHANGED
+               # pending servo selection because the bounding analysis in
+               # ADR-0009 showed avg_power_w still holds (~39 W estimated) and
+               # peak_current_a is marginal (~11 A estimated for 8 loaded
+               # joints). The all-stalled case (~29 A) is contained by
+               # protection.arm_branch_fuse_a below — which is therefore now the
+               # PRIMARY current limiter for the arm branch, not a backstop:
+               # hobby servos have no programmable current limit, so ADR-0005's
+               # "stall is a designed ceiling" reasoning does not apply here.
+               # Refine with measured servo specs at selection, then re-run the
+               # build so the validator re-checks the chain.
     joint_count: 12
     avg_power_w: 45 # both arms, manipulation duty (<=4 joints loaded per arm at once)
     peak_current_a: 10 # both arms aggressive simultaneous lift, transient

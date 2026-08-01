@@ -49,15 +49,37 @@ Motor power goes to the **driver**, encoder goes to the **Nucleo** — never mix
 | ☐ | E-stop mushroom switch + motor-power relay/contactor (~40 A) | 1 | ~$25 | ~$25 | REQ_SAFE_001: E-stop interrupts motor power |
 | ☐ | Misc: inline fuse for logic rail, heat shrink, standoffs, JST leads | — | ~$15 | ~$15 | |
 
+## Fabrication — capital tool (NEW 2026-07-31, ADR-0008)
+
+Tracked **outside the robot BOM**: a tool purchase scoped to serve future
+projects, not a v0.1 part. See `design_conflicts.md` #4.
+
+| ✔ | Item | Qty | Unit | Ext. | Link / note |
+|---|---|---|---|---|---|
+| ☐ | QIDI Plus 4 (305×305×280 mm, 65 °C active chamber, 370 °C hotend, 120 °C bed) | 1 | ~$800 | ~$800 | [product](https://us.qidi3d.com/products/plus4-3d-printer) — verify price/warranty/spares at checkout. **Keep firmware on 5.0**; 5.1 has reported Plus 4 issues |
+| ☐ | ASA filament (chassis, structure) | 2 | ~$25 | ~$50 | |
+| ☐ | PA-CF filament (motor mounts, load paths) | 1 | ~$40 | ~$40 | hardened nozzle is stock — no upgrade needed |
+| ☐ | PETG filament (non-structural mounts) | 1 | ~$20 | ~$20 | |
+| ☐ | *(assumed needed)* Heat-set threaded inserts, M3/M4 assortment + installation tip | 1 | ~$25 | ~$25 | printed fastener bosses are not load-bearing on their own |
+
+**Fabrication subtotal: ~$935.**
+
 ## Totals
 
-- Drivetrain: **~$292**
-- Harness/cabling: **~$56** (added 2026-07-16 — previously missed)
+- Drivetrain: **~$292** — **ORDERED 2026-07-31** (in transit)
+- Harness/cabling: **~$56** (added 2026-07-16 — previously missed) — partly ordered
 - Electronics + power: **~$297** (excl. optional bench shield; battery re-sized 2026-07-14 for future dual arms, +$40, wiring +$8)
-- **Grand total: ~$646** against the $300–600 budget (excl. Jetson, already owned)
-  — top of band, as flagged in `design_conflicts.md` #4. Trim options: BTS7960
-  drivers (−$65), smaller battery accepting <60 min allocation-guaranteed runtime
-  (−$20), defer E-stop contactor to bench-supply phase (not recommended past bench).
+- **Robot subtotal: ~$646** (excl. Jetson, already owned)
+- Fabrication capital tool: **~$935** (ADR-0008, outside the robot budget)
+
+Budget framing revised 2026-07-31: the $300–600 band is superseded by a **$2000
+programme budget** split into pots — see `design_conflicts.md` #4 for the live
+tally ($1,173.85 spent, $826.15 remaining, v0.1 needs ~$355 of it). The trim
+options below are retained as the fallback if the budget contracts again:
+BTS7960 drivers (−$65), smaller battery accepting <60 min allocation-guaranteed
+runtime (−$20), Elegoo Centauri Carbon instead of the Plus 4 (−$500, costs the
+active chamber — see ADR-0008 alternatives), defer E-stop contactor to
+bench-supply phase (not recommended past bench).
 
 ## Already owned (not in totals)
 

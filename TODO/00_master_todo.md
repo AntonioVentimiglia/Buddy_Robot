@@ -11,7 +11,9 @@
 - [x] Decide speed, stopping distance, ramp angle, and runtime targets (see requirements yaml).
 - [x] Estimate mass budget including growth (20 kg gross design limit).
 - [x] Decide whether a robot arm is required for prototype v1 (no arm in v0.1).
-- [ ] Create first hardware budget range.
+- [x] Create first hardware budget range. **$2000 programme budget**, split into
+  v0.1 / future-phase pots with tooling tracked separately — `design_conflicts.md` #4
+  (revised 2026-07-31).
 - [ ] Create first safety envelope: people nearby, pets, supervised operation, speed limit.
 
 ## Phase 1 - Development baseline
@@ -25,7 +27,11 @@
 
 ## Phase 2 - Robot model
 
-- [ ] Choose provisional chassis dimensions.
+- [x] Fabrication method locked: **in-house FDM printing** (ADR-0008, QIDI Plus 4).
+  Chassis CAD must follow printed-part design rules — print orientation on load
+  paths, metal inserts at bearing/fastener interfaces, ASA/PA-CF on structure.
+- [ ] Choose provisional chassis dimensions. **Constraint from ADR-0008:**
+  305 × 305 mm bed, effective heated Z ~268 mm — parts above 280 mm must be split.
 - [x] Wheel diameter locked: 96mm Hogback (ADR-0004). Track width still provisional.
 - [x] Frame tree, wheels, LiDAR/camera/IMU/arm placeholders modeled (`buddy.urdf.xacro`). Validate in RViz.
 - [x] Simple collision geometry present (boxes/cylinders).
