@@ -40,9 +40,24 @@ def write_page(path: Path, html: str) -> None:
     full of — the build simply dies partway through.
     """
     path.write_text(html, encoding="utf-8", newline="\n")
-IDENTITY = " · ".join(
-    [f'<b>{CFG["name"]}</b>', CFG["role"]] +
-    [f'<a href="{u}">{k}</a>' for k, u in (CFG.get("links") or {}).items()])
+
+
+def identity_html(rel: str = "") -> str:
+    """Footer identity line, depth-aware.
+
+    Config links may be absolute (GitHub, mailto) or relative to the site root
+    (Resume -> resume.pdf, copied to SITE root below). Relative ones need the
+    same `../` prefix the nav uses, or they 404 on every page below the root.
+    This was hardcoded as a constant, so the resume link worked only on
+    index.html and was dead on the other 19 pages.
+    """
+    parts = [f'<b>{CFG["name"]}</b>', CFG["role"]]
+    for k, u in (CFG.get("links") or {}).items():
+        href = u if re.match(r"^(?:[a-z][a-z0-9+.-]*:|//|#)", u, re.I) else f"{rel}{u}"
+        parts.append(f'<a href="{href}">{k}</a>')
+    return " · ".join(parts)
+
+
 KATEX = "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist"
 
 CSS = """
@@ -145,8 +160,15 @@ def rewrite_links(html: str, page_map: dict[str, str]) -> str:
     for md_name, target in page_map.items():
         html = re.sub(r'href="[^"]*' + re.escape(md_name) + r'"',
                       f'href="{target}"', html)
-    # repo documents that aren't site pages: show as code, not broken links
-    html = re.sub(r'<a href="[^"]*\.md(?:#[^"]*)?">(.*?)</a>', r'<code>\1</code>', html)
+    # Repo files that aren't site pages: show as code, not broken links.
+    # This covered .md only, so milestone references to the scripts that
+    # generate their own figures (../../../tools/figures/plot_torque_envelope.py)
+    # rendered as dead links. The negative lookahead keeps genuine external
+    # URLs that happen to end in one of these extensions clickable.
+    html = re.sub(
+        r'<a href="(?!(?:[a-z][a-z0-9+.-]*:|//))'
+        r'[^"]*\.(?:md|py|c|h|sh|ya?ml|csv|xlsx|ini|json|txt)(?:#[^"]*)?">(.*?)</a>',
+        r'<code>\1</code>', html, flags=re.I)
     return html
 
 
@@ -184,7 +206,7 @@ def page(title: str, body: str, here: str, depth: int = 0, math: bool = False) -
 <span class="eyebrow">autonomous mobile robot — engineering record</span>
 <nav>{nav}</nav></div></header>
 <main><div class="wrap">{body}</div></main>
-<footer><div class="wrap"><p class="who">{IDENTITY}</p>
+<footer><div class="wrap"><p class="who">{identity_html(rel)}</p>
 Generated from the project repository by tools/site/build_site.py ·
 figures and numbers regenerate from design_params.yaml</div></footer>
 </body></html>"""
@@ -318,7 +340,7 @@ complete engineering record: every component is sized from first-principles deri
 that can be checked by hand, every figure regenerates from one parameter file, and every
 decision is written down with the conditions that would reverse it.</p>
 {spec_chips()}
-<p class="meta" style="margin-top:1rem">{IDENTITY}</p>
+<p class="meta" style="margin-top:1rem">{identity_html()}</p>
 <section class="block"><div class="sec-head"><h2>Milestones</h2>
 <span class="eyebrow">one illustrated report per phase</span></div>{cards(milestones, "milestones")}</section>
 <section class="block"><div class="sec-head"><h2>Analyses</h2>

@@ -1,6 +1,6 @@
 # Buddy Project Context for AI Prompts
 
-**Last updated:** 2026-07-28
+**Last updated:** 2026-07-31
 
 > This is the single canonical context file. Paste it into any AI prompt to
 > orient it. The only other top-level doc you need is the runbook
@@ -26,7 +26,7 @@ assume a package does anything until you have opened it.
 | `buddy_base` | **Working (host-tested).** ament_python bridge: `base_core.py` (kinematics/odometry/clamping, no ROS, 13 tests incl. end-to-end vs the mock MCU) + thin rclpy `bridge_node`. Custom bridge, not ros2_control (README explains). **Verified on the Jetson 2026-07-31** — `/cmd_vel` → bridge → real protocol bytes → mock MCU → `/odom`, steady-state velocity tracking within 0.4% of command, watchdog stop confirmed (`devops/jetson/verify_zero_hardware_stack.sh`, 9/9). |
 | `buddy_bringup` | Skeleton, except `base.launch.py` (real — launches the bridge vs MCU or mock). Other launch files are stubs. |
 | `buddy_firmware_interfaces` | **Working (host-tested).** Drive protocol v1 spec + Python implementation + mock MCU (`python/`); golden-vector cross-checked against the C implementation. Run all tests: `tools/run_protocol_tests.sh`. |
-| `firmware/drive_mcu` (not a ROS pkg) | **Compiles** for NUCLEO-G474RE via PlatformIO (16 kB flash): pure-C safety state machine (host-tested), HAL layer per `docs/pin_map.md`, constants generated from `design_params.yaml` (`include/buddy_config.h`). Velocity PID + mid-pulse current sampling are bench-phase TODOs. |
+| `firmware/drive_mcu` (not a ROS pkg) | **Running on hardware** (2026-07-31). Flashed to a NUCLEO-G474RE (16.4 kB); telemetry at 102 Hz, 0 CRC errors, PING/PONG round trip **0.49 ms median**, boots `SELF_TEST → SAFE_IDLE` and holds. Pure-C safety state machine (host-tested + hardware-verified), HAL layer per `docs/pin_map.md`, constants generated from `design_params.yaml`. Bench TODOs: velocity PID, mid-pulse current sampling, `HAL_UART_ErrorCallback` (nothing re-arms RX after a UART error). |
 | `buddy_navigation`, `buddy_perception`, `buddy_manipulation`, `buddy_mission`, `buddy_diagnostics`, `buddy_operator`, `buddy_tests` | **Deleted 2026-07-11.** They were empty scaffolds full of stub files that only added noise. Recreate each package (`ros2 pkg create`) when its build phase is actually reached; the intended responsibilities are listed in section 6. |
 
 **To start working right now:** read `robot_ws/SIMULATION_START_HERE.md`. Design
