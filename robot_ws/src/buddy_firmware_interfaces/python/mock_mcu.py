@@ -60,6 +60,11 @@ class MockMcu:
         if self.estop:
             return  # E-stop dominates
         if mode == bp.MODE_ARM and self.state == bp.STATE_SAFE_IDLE:
+            # Mirror of state_machine.c: a command timeout is a recoverable
+            # stop, so re-arming clears it. Without this the bit is unreachable
+            # (CLEAR_FAULT only acts in FAULT, which the watchdog never enters)
+            # and every later transition reports an already-recovered fault.
+            self.fault_bits &= ~bp.FAULT_CMD_TIMEOUT
             self.state = bp.STATE_ARMED
         elif mode == bp.MODE_SAFE_IDLE and self.state in (bp.STATE_ARMED,
                                                           bp.STATE_ACTIVE):
@@ -78,6 +83,9 @@ class MockMcu:
         self.target = [max(-VEL_LIMIT_MMPS, min(VEL_LIMIT_MMPS, v)) for v in vals]
         self.cmd_seq_echo = f.seq
         self.last_cmd_time = self.now()
+        # Commands are flowing again; covers the path into ACTIVE that does not
+        # pass through ARM. Mirror of state_machine.c.
+        self.fault_bits &= ~bp.FAULT_CMD_TIMEOUT
 
     def _stop(self, new_state: int) -> None:
         self.target = [0, 0, 0, 0]

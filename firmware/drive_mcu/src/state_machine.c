@@ -31,7 +31,17 @@ void sm_handle_mode(sm_t *sm, uint8_t mode) {
     if (sm->estop) return; /* E-stop dominates all mode requests */
     switch (mode) {
     case BP_MODE_ARM:
-        if (sm->state == BP_STATE_SAFE_IDLE) sm->state = BP_STATE_ARMED;
+        if (sm->state == BP_STATE_SAFE_IDLE) {
+            /* A command timeout is a recoverable stop (see sm_tick), so
+               re-arming is the operator action that resolves it. Without this
+               the bit was unreachable: MODE_CLEAR_FAULT only acts in FAULT,
+               which the watchdog deliberately does not enter. Same pattern as
+               sm_set_estop, which clears its own bit when the cause goes away.
+               Only CMD_TIMEOUT is cleared - real faults still require
+               CLEAR_FAULT from FAULT state. */
+            sm->fault_bits &= (uint16_t)~BP_FAULT_CMD_TIMEOUT;
+            sm->state = BP_STATE_ARMED;
+        }
         break;
     case BP_MODE_SAFE_IDLE:
         if (sm->state == BP_STATE_ARMED || sm->state == BP_STATE_ACTIVE) {
@@ -66,6 +76,9 @@ int sm_handle_cmd_vel(sm_t *sm, const int16_t vel_mmps[4], uint8_t seq,
         sm->target_mmps[i] = clamp16(vel_mmps[i], sm->vel_limit_mmps);
     sm->cmd_seq_echo = seq;
     sm->last_cmd_ms = now_ms;
+    /* Commands are flowing again, so the timeout condition is demonstrably
+       resolved. Covers the path into ACTIVE that does not pass through ARM. */
+    sm->fault_bits &= (uint16_t)~BP_FAULT_CMD_TIMEOUT;
     return 1;
 }
 

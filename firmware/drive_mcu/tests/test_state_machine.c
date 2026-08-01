@@ -75,6 +75,40 @@ int main(void) {
     CHECK(sm.state == BP_STATE_FAULT && (sm.fault_bits & BP_FAULT_INTERNAL),
           "failed self-test -> FAULT");
 
+    /* CMD_TIMEOUT must not latch.
+     *
+     * sm_tick() documents the watchdog as "a recoverable stop, not a latched
+     * fault" and drops to SAFE_IDLE rather than FAULT. But the bit it sets had
+     * no clear path: MODE_CLEAR_FAULT only acts in FAULT state, which the
+     * watchdog deliberately avoids, so once set the bit was unreachable and
+     * every later transition reported a fault that had already been recovered.
+     * Found on real hardware - a fresh run inherited 0x0002 from the previous
+     * session and reported it in ARMED and ACTIVE.
+     * ESTOP already had this right (sm_set_estop clears its bit on release);
+     * this asserts CMD_TIMEOUT behaves the same way. */
+    {
+        int16_t v[4] = {100, 100, 100, 100};
+        sm_init(&sm, 750, 200);
+        sm_self_test_done(&sm, 1);
+        sm_handle_mode(&sm, BP_MODE_ARM);
+        CHECK(sm_handle_cmd_vel(&sm, v, 1, 1000) && sm.state == BP_STATE_ACTIVE,
+              "timeout-recovery: reached ACTIVE");
+
+        sm_tick(&sm, 1000 + 201); /* let the watchdog expire */
+        CHECK(sm.state == BP_STATE_SAFE_IDLE &&
+              (sm.fault_bits & BP_FAULT_CMD_TIMEOUT),
+              "timeout-recovery: watchdog stops to SAFE_IDLE and flags timeout");
+
+        sm_handle_mode(&sm, BP_MODE_ARM);
+        CHECK(sm.state == BP_STATE_ARMED &&
+              !(sm.fault_bits & BP_FAULT_CMD_TIMEOUT),
+              "timeout-recovery: re-ARM clears the stale timeout bit");
+
+        CHECK(sm_handle_cmd_vel(&sm, v, 2, 2000) &&
+              sm.fault_bits == 0 && sm.state == BP_STATE_ACTIVE,
+              "timeout-recovery: driving again leaves no residual fault bits");
+    }
+
     printf(failures ? "\n%d FAILURES\n" : "\nall state machine tests passed\n",
            failures);
     return failures ? 1 : 0;
