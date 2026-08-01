@@ -18,37 +18,41 @@ to be sitting at.
 | Wi-Fi MAC | `9C:C7:D3:F6:CA:0B` (interface `wlP1p1s0`) — for a DHCP reservation |
 | ROS domain | `ROS_DOMAIN_ID=42`, set in `~/.bashrc` by the setup script |
 
-## One-time: let the Jetson pull from GitHub
+## The Jetson pulls from GitHub (configured 2026-07-31)
 
-The repo is private, so the Jetson needs its own credential. It has a dedicated
-deploy key at `~/.ssh/github_buddy` (generated 2026-07-31).
+The repo is private, so the Jetson has its own deploy key at
+`~/.ssh/github_buddy`, registered on GitHub under repo **Settings** →
+**Deploy keys** as `buddy-jetson`. `~/Buddy_Robot` is a real checkout on branch
+`main` tracking `origin/main`.
 
-**Add the public key to GitHub** → repo **Settings** → **Deploy keys** →
-**Add deploy key**. Title it `buddy-jetson`. Tick **Allow write access** only if
-you intend to commit *from* the robot; read-only is the safer default.
-
-```
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPiQ8pta1nDYJt9VicxUHcucGZP9/cj9vUSzHivRFLrM buddy-jetson-deploy
-```
-
-Then, on the Jetson, point git at that key and attach the remote:
-
-```bash
-git config --global core.sshCommand "ssh -i ~/.ssh/github_buddy -o IdentitiesOnly=yes"
-cd ~/Buddy_Robot && git init -q 2>/dev/null; git remote add origin git@github.com:AntonioVentimiglia/Buddy_Robot.git 2>/dev/null
-git fetch origin && git reset --hard origin/main
-```
-
-After that, refreshing the robot from any machine is just:
+Refreshing the robot from any machine:
 
 ```bash
 ssh buddy 'cd ~/Buddy_Robot && git pull'
 ```
 
-> Note: `~/Buddy_Robot` was originally populated by `rsync` from the Mac and is
-> not yet a git checkout. The `git fetch` + `reset --hard` above converts it.
-> **CAD/ and site/ were excluded from that rsync** and will appear on first pull;
-> that is expected, and CAD is unused on the robot.
+That is the whole workflow. Push from whichever laptop you are on, pull on the
+robot. No machine is authoritative and there is no rsync step.
+
+### If the key ever needs re-creating
+
+```bash
+ssh-keygen -t ed25519 -f ~/.ssh/github_buddy -N "" -C "buddy-jetson-deploy"
+git config --global core.sshCommand "ssh -i ~/.ssh/github_buddy -o IdentitiesOnly=yes"
+```
+
+Then add `~/.ssh/github_buddy.pub` to the repo's deploy keys. Grant **write
+access** only if you intend to commit *from* the robot; read-only is the default
+and is enough for `git pull`.
+
+> **Gotcha worth knowing:** `git init` may create a `master` branch with no
+> upstream, in which case `git pull` prints tracking advice and silently does
+> nothing — HEAD never moves and the robot looks up to date when it isn't.
+> Fix with `git checkout -B main origin/main`.
+
+> `robot_ws/install/`, `build/` and `log/` are colcon build artifacts and are
+> gitignored. They live only on the robot and survive `git pull`; a rebuild is
+> `colcon build` in `robot_ws/` (about 6 s).
 
 ## macOS (already configured)
 
