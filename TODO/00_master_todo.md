@@ -81,6 +81,11 @@
   `tools/flash/flash_drive_mcu.sh`; `devops/jetson/verify_drive_mcu_link.py`
   passes 13/13 — 102 Hz telemetry, 0 CRC errors, SAFE_IDLE, PING/PONG 10/10,
   0.49 ms median round trip vs the 200 ms watchdog.
+- [x] **Run the bridge against the real MCU** (2026-07-31).
+  `devops/jetson/verify_bridge_vs_real_mcu.sh` 13/13: real telemetry into
+  `/odom`/`/joint_states`/`/battery_state`, auto-arm off genuine MCU state,
+  `cmd_seq_echo=71` (ROS `/cmd_vel` accepted by real silicon), watchdog fired.
+  Found and fixed a latched-CMD_TIMEOUT firmware bug in the process.
 - [ ] **Bench TODO (firmware robustness):** add `HAL_UART_ErrorCallback` to
   re-arm `HAL_UART_Receive_IT`. Today nothing recovers from a UART error, so one
   overrun silently kills RX while telemetry keeps streaming — it looks like a
