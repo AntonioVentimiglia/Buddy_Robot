@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-07-12
 **Status:** shortlisted, recommendation made, purchase pending
-**Hard requirements (from [ADR-0005](../../../../decisions/ADR-0005-power-architecture-3s-liion.md)):**
+**Hard requirements (from [ADR-0005](../../../../decisions/ADR-0005-power-architecture-battery-bus.md)):**
 4 brushed-DC channels · 12 V-class bus (10–12.6 V) · ≥ 10 A capable per channel ·
 **adjustable ~8 A per-channel current limit** (in-driver, or implementable in the
 MCU from driver current-sense feedback) · current telemetry to MCU preferred ·

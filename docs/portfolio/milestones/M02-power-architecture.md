@@ -75,7 +75,7 @@ when sensors were actually selected (0.9 W and 4.5 W).
 
 ## Artifacts
 
-- Decision record: [`ADR-0005`](../../decisions/ADR-0005-power-architecture-3s-liion.md) (with the dual-arm amendment)
+- Decision record: [`ADR-0005`](../../decisions/ADR-0005-power-architecture-battery-bus.md) (with the dual-arm amendment)
 - Derivation: [`power_budget_and_battery.md`](../../analysis/power_budget_and_battery.md) — every number computed from `design_params.yaml`
 - Figure source: [`tools/figures/plot_power_budget.py`](../../../tools/figures/plot_power_budget.py)
 - Downstream: driver requirement (adjustable 8 A limit) → VNH5019 selection; interface verification in [`electrical_interfaces.md`](../../system_model/electrical_interfaces.md)

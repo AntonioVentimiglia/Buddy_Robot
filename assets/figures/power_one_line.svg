@@ -29,8 +29,8 @@
   <rect x="48" y="104" width="300" height="104" rx="5" fill="#fcfcfb" stroke="#898781" stroke-width="1.2" stroke-dasharray="5 4"/>
   <rect x="49.5" y="105.5" width="3" height="101" rx="1.5" fill="#1baf7a" opacity="0.45"/>
   <text x="200" y="141.675" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">3S Li-ion pack + BMS</text>
-  <text x="200" y="155.225" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">9–12.6 V (11.1 V nominal)</text>
-  <text x="200" y="167.58" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">≥ 14 Ah (≈ 155 Wh)</text>
+  <text x="200" y="155.225" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">10–14.6 V (12.8 V nominal)</text>
+  <text x="200" y="167.58" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">≥ 12 Ah (≈ 155 Wh)</text>
   <text x="200" y="179.78" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">BMS ≥ 50 A continuous</text>
   <rect x="48" y="244" width="300" height="76" rx="5" fill="#fcfcfb" stroke="#898781" stroke-width="1.2" stroke-dasharray="5 4"/>
   <rect x="49.5" y="245.5" width="3" height="73" rx="1.5" fill="#d03b3b" opacity="0.45"/>
@@ -57,7 +57,7 @@
   <rect x="1115.5" y="153.5" width="3" height="71" rx="1.5" fill="#d03b3b"/>
   <text x="1211" y="186.875" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">E-stop</text>
   <text x="1211" y="200.425" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">contactor</text>
-  <text x="454" y="261.43" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="start">Sized against the 47 A designed peak including the future arm branch — not against the 37 A unlimited-stall fault, which the driver current limit makes unreachable.</text>
+  <text x="454" y="261.43" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="start">Sized against the 46 A designed peak including the future arm branch — not against the 37 A unlimited-stall fault, which the driver current limit makes unreachable.</text>
   <text x="454" y="274.93" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="start">Stall current is a fault condition, not an operating point. See power_budget.svg and ADR-0005.</text>
   <rect x="430" y="486" width="300" height="92" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
   <rect x="431.5" y="487.5" width="3" height="89" rx="1.5" fill="#1baf7a"/>

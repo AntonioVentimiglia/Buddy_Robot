@@ -26,7 +26,17 @@ wheels: # ADR-0004: goBILDA Hogback 96 mm + 8 mm REX hubs
                     # as radius_m - z_offset_m so wheels always touch ground in sim
 
 drive_motor: # ADR-0003: goBILDA 5203 Yellow Jacket 26.9:1
-  part: "goBILDA 5203-2402-0027 (26.9:1, 223 RPM)"
+  # All figures below are DATASHEET VALUES AT 12 V. The bus is now 4S LiFePO4
+  # (10.0-14.6 V, 12.8 V nominal), so the motors run slightly ABOVE nominal:
+  #   - speed and stall torque scale with voltage: 223 RPM -> ~238 at 12.8 V,
+  #     ~271 at 14.6 V. That is spare headroom, not a problem — required wheel
+  #     RPM is derived from the speed requirements (buddy_calcs/drive.py), never
+  #     from this number.
+  #   - stall CURRENT scales too: 9.2 A -> ~11.2 A at 14.6 V. This only moves the
+  #     "unlimited stall" FAULT scenario; every operating case is capped by
+  #     driver_current_limit_a below, and torque per amp (Kt) is voltage
+  #     independent, so the pivot-torque check is unaffected.
+  part: "goBILDA 5203-2402-0027 (26.9:1, 223 RPM @ 12 V)"
   count: 4
   stall_torque_nm: 3.73
   stall_current_a: 9.2
@@ -40,12 +50,22 @@ drive_motor: # ADR-0003: goBILDA 5203 Yellow Jacket 26.9:1
   encoder_counts_per_rev_output: 753.2
   price_usd: 54.99
 
-power: # ADR-0005: 3S Li-ion + BMS architecture; see docs/analysis/power_budget_and_battery.py
+power: # ADR-0005: 4S LiFePO4 + BMS architecture; see docs/analysis/power_budget_and_battery.py
   bus:
-    chemistry: "3S Li-ion with BMS"
-    v_nominal: 11.1
-    v_full: 12.6
-    v_cutoff: 9.0
+    # CHEMISTRY CHANGED 2026-08-01 (ADR-0005 amendment #2): 3S Li-ion -> 4S
+    # LiFePO4. Two sourcing realities drove it, not a preference:
+    #   1. A 3S Li-ion pack with a >=50 A continuous BMS is not a consumer
+    #      product; stock packs ship 10-30 A boards and would nuisance-trip on
+    #      the first carpet pivot (designed peak is ~46 A).
+    #   2. The Jetson rail could not be built. A 3S bus is 12.6 V only at full
+    #      charge and bottoms at 9.0 V, so a "12 V buck" cannot regulate from it,
+    #      and the dev kit's 9-20 V window had ZERO margin at the bottom.
+    # LiFePO4's 10.0-14.6 V sits inside 9-20 V with margin at both ends, so the
+    # Jetson feeds straight off the bus and the converter disappears entirely.
+    chemistry: "4S LiFePO4 with BMS"
+    v_nominal: 12.8
+    v_full: 14.6
+    v_cutoff: 10.0
   driver_current_limit_a: 8.0 # per-motor cap set in the motor driver — turns the
                               # stall fault into a designed ceiling (drivers must
                               # support an adjustable limit; selection pending)
@@ -64,7 +84,9 @@ power: # ADR-0005: 3S Li-ion + BMS architecture; see docs/analysis/power_budget_
     maneuver_power_factor: 1.5 # average driving power vs flat cruise (turns, accels)
     jetson_average_w: 20 # typical between 15 W mode and 25 W super bursts
   battery_sizing:
-    usable_fraction: 0.80 # Li-ion depth-of-discharge for cycle life
+    usable_fraction: 0.80 # depth-of-discharge for cycle life. Conservative for
+                          # LiFePO4, which tolerates deeper cycling than Li-ion —
+                          # left at 0.80 so the capacity target keeps its margin.
     conversion_efficiency: 0.90 # DC-DC losses on regulated rails
     drive_electrical_efficiency: 0.60 # motor + driver, mech power -> battery power
   future_arms: # dual 6-DOF arms planned for a later version (requirements yaml:
@@ -88,7 +110,9 @@ power: # ADR-0005: 3S Li-ion + BMS architecture; see docs/analysis/power_budget_
     avg_power_w: 45 # both arms, manipulation duty (<=4 joints loaded per arm at once)
     peak_current_a: 10 # both arms aggressive simultaneous lift, transient
   protection:
-    bms_min_continuous_a: 50 # must exceed designed peak INCLUDING future arm branch
+    bms_min_continuous_a: 50 # must exceed designed peak INCLUDING future arm
+                             # branch (46.3 A on the 12.8 V LiFePO4 bus; was
+                             # 47.0 A at 11.1 V — higher volts, less current)
     main_fuse_a: 60 # slow-blow; bus wiring 8 AWG (or 2x10 AWG) to stay above fuse
     arm_branch_fuse_a: 15 # future arm branch gets its own fuse off the bus
 

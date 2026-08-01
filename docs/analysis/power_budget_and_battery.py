@@ -38,7 +38,7 @@ def _(mo):
         r"""
     # Power Budget and Battery Sizing
 
-    Methods document for the power architecture ([ADR-0005](../decisions/ADR-0005-power-architecture-3s-liion.md)).
+    Methods document for the power architecture ([ADR-0005](../decisions/ADR-0005-power-architecture-battery-bus.md)).
     The driving concern: four drive motors with 9.2 A stall each *looks* like an
     impossible worst case. This document shows why it is not — stall current is a
     **fault condition converted into a designed ceiling** by the motor drivers'

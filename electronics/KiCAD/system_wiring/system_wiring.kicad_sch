@@ -178,7 +178,7 @@
   (symbol (lib_id "Buddy:BATTERY_3S") (at 54.61 95.25 0) (unit 1)
     (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "956163f7-9b0a-56f9-b5d2-db7dd1ba08cf")
     (property "Reference" "BT1" (at 54.61 76.17 0) (effects (font (size 1.27 1.27))))
-    (property "Value" "3S Li-ion + BMS >= 50A (9-12.6V)" (at 54.61 114.33 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "3S Li-ion + BMS >= 50A (10-14.6V)" (at 54.61 114.33 0) (effects (font (size 1.27 1.27))))
     (pin "1" (uuid "1f965cbb-5b5d-52f0-b027-2a9b1f72c317"))
     (pin "2" (uuid "3b0f24b8-2cc9-5ff9-9123-a1465648fa58"))
     (instances (project "system_wiring" (path "/3d7084b6-c639-55e1-8d84-c1213d072ede" (reference "BT1") (unit 1))))

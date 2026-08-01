@@ -14,7 +14,7 @@ Known design conflicts:
    | Pot | Contents | Est. |
    |---|---|---|
    | *Spent to date* | Jetson, Nucleos, drivers, drivetrain, network, tools | **$1,173.85** |
-   | **v0.1 remaining** | battery + charger, 12 V and 5 V bucks, 60 A fuse, bus wire/XT60, E-stop + contactor, misc; LD19 + BNO086 | ~$355 |
+   | **v0.1 remaining** | LiFePO4 pack + charger, 5 V buck (the 12 V one is deleted — see ADR-0005 amendment #2), fuses, bus wire/XT60, E-stop + DC contactor, crimper, misc; LD19 + BNO086 | ~$385 |
    | **Future-phase** | OAK-D Lite (deferred, ADR-0007); dual-arm servos + hardware (ADR-0009) | ~$380–560 |
    | | *Remaining of $2000* | **$826.15** |
 

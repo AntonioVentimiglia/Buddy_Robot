@@ -59,10 +59,13 @@ Buddy v0.1 is an indoor autonomous mobile base using:
   - Drive motors: **4× goBILDA 5203 Yellow Jacket 26.9:1** (proposed, ADR-0003; buy pending).
   - Wheels: **4× goBILDA Hogback 96 mm + 8 mm REX hubs** (proposed, ADR-0004; buy pending.
     Ground-clearance requirement amended 0.05 → 0.038 m as part of this decision).
-  - Power architecture: **3S Li-ion + BMS ≥ 50 A, ≥ 14 Ah, driver current limit
-    8 A/motor, 60 A main fuse** (proposed, ADR-0005 as amended 2026-07-14: battery
-    sized for the future dual 6-DOF arm version so the v0.1 purchase isn't wasted.
-    Camera/LiDAR carry ≤ 5 W reserved allocations as selection constraints).
+  - Power architecture: **4S LiFePO4 + BMS ≥ 50 A, ≥ 12.1 Ah (buy 20 Ah), driver
+    current limit 8 A/motor, 60 A main fuse** (proposed, ADR-0005 as amended twice:
+    2026-07-14 sized the battery for the future dual 6-DOF arms; 2026-08-01 changed
+    chemistry from 3S Li-ion because a ≥50 A BMS was not buyable in that format and
+    a 12 V rail could not be regulated from a 9.0–12.6 V bus. LiFePO4's 10.0–14.6 V
+    sits inside the Jetson's 9–20 V window, so **the Jetson feeds straight off the
+    bus and needs no converter**. Camera/LiDAR carry ≤ 5 W reserved allocations).
   - Motor drivers: **4× Pololu VNH5019** (recommended; 8 A firmware limit on the
     G474 from current-sense — see `driver_selection.md`). Drive MCU confirmed:
     **NUCLEO-G474RE**. Purchases pending: `docs/financials/SHOPPING_LIST_v0_1.md`.
@@ -82,7 +85,8 @@ Buddy v0.1 is an indoor autonomous mobile base using:
     ADR-0005's "stall is a designed ceiling" reasoning does **not** apply to the
     arm branch; the 15 A branch fuse becomes the primary limiter.
 - Major hardware still undecided:
-  - Exact battery SKU (spec locked by amended ADR-0005: 3S ≥ 14 Ah, BMS ≥ 50 A).
+  - Exact battery SKU (spec locked by twice-amended ADR-0005: 4S LiFePO4,
+    ≥ 12.1 Ah, BMS ≥ 50 A). Candidates in `docs/financials/PARTS_OPTIONS_v0_1.md`.
   - Chassis dimensions, track width, suspension/skid behavior.
   - IMU/sensor mounting positions (extrinsics at assembly).
   - Arm servo SKU and joint-feedback strategy (ADR-0009 open items — evaluate

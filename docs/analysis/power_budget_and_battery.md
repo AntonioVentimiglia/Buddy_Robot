@@ -10,7 +10,7 @@ figures: [assets/figures/power_budget.svg]
 
 # Power Budget and Battery Sizing
 
-Methods document for the power architecture ([ADR-0005](../decisions/ADR-0005-power-architecture-3s-liion.md)).
+Methods document for the power architecture ([ADR-0005](../decisions/ADR-0005-power-architecture-battery-bus.md)).
 The driving concern: four drive motors with 9.2 A stall each *looks* like an
 impossible worst case. This document shows why it is not — stall current is a
 **fault condition converted into a designed ceiling** by the motor drivers'
@@ -22,7 +22,7 @@ current limit — and derives the battery that covers both the peaks and the
 
 | Symbol / item | Meaning | Current value | Units |
 |---|---|---|---|
-| $V$ | bus voltage, 3S Li-ion nominal | 11.1 (range 9–12.6) | V |
+| $V$ | bus voltage, 3S Li-ion nominal | 12.8 (range 10–14.6) | V |
 | $I_{stall}$ | motor stall current | 9.2 | A |
 | $T_{stall}$ | motor stall torque | 3.73 | N·m |
 | $I_0$ | motor no-load current (estimate) | 0.25 | A |
@@ -36,8 +36,8 @@ current limit — and derives the battery that covers both the peaks and the
 The camera and LiDAR are **not chosen yet** — their rows are *reserved
 allocations*, upper bounds that become hard selection constraints. A candidate
 sensor exceeding its reserve triggers a budget re-run before purchase. Total
-system (non-drive) allocation: **55 W = 5.0 A** at
-11.1 V.
+system (non-drive) allocation: **55 W = 4.3 A** at
+12.8 V.
 
 ## 2. Motor current model
 
@@ -64,17 +64,17 @@ $\mu = 0.8$, from the [drive derivation](drive_torque_and_pivot_scrub.md)) —
 so even thick-carpet pivots complete under the limit. This inequality is
 enforced automatically: `tools/build.py` fails if a parameter change breaks it.
 
-## 3. Peak-current scenarios (bus amps at 11.1 V)
+## 3. Peak-current scenarios (bus amps at 12.8 V)
 
 | Scenario | Drive (A) | Total incl. system (A) |
 |---|---|---|
-| flat cruise | 2.5 | 7.5 |
-| ramp + accel (design) | 12.3 | 17.3 |
-| pivot breakaway (mu=0.8) | 30.3 | 35.3 |
-| all-motor stall, driver-limited | 32.0 | 37.0 |
-| all-motor stall, UNLIMITED (fault) | 36.8 | 41.8 |
+| flat cruise | 2.5 | 6.8 |
+| ramp + accel (design) | 12.3 | 16.6 |
+| pivot breakaway (mu=0.8) | 30.3 | 34.6 |
+| all-motor stall, driver-limited | 32.0 | 36.3 |
+| all-motor stall, UNLIMITED (fault) | 36.8 | 41.1 |
 
-The **designed peak is 37.0 A** (all four drivers
+The **designed peak is 36.3 A** (all four drivers
 simultaneously at their limit — already a pathological command). The
 unlimited-stall row exists only to size the fault protection; it is not an
 operating point.
@@ -83,7 +83,7 @@ A future version adds **dual 6-DOF arms** (requirements:
 `manipulation_future`) on the same battery. Provisioned as documented
 placeholders (12 XM430-class joints, ≤4 loaded per arm
 at once): +45 W average, +10 A
-peak burst → **designed peak including arms: 47.0 A**. The
+peak burst → **designed peak including arms: 46.3 A**. The
 battery bought for v0.1 is sized against *this*, so it is not wasted when
 the arms arrive.
 
@@ -97,7 +97,7 @@ capacity. Regenerate: `python3 tools/figures/plot_power_budget.py`.*
 
 Ordered so each layer only sees what the previous one failed to stop:
 driver limits (8 A/motor) → BMS overcurrent
-(≥ 50 A continuous, above the 47.0 A designed
+(≥ 50 A continuous, above the 46.3 A designed
 peak including the future arm branch) → main fuse (60 A slow-blow,
 below wiring ampacity — bus wiring 8 AWG or 2×10 AWG) → E-stop interrupts
 motor power upstream of the drivers per REQ_SAFE. The future arm branch gets
@@ -129,19 +129,19 @@ conversion efficiency 0.9:
 
 $$E = \frac{P_{avg}\, t}{f_{usable}\ \eta_{conv}}$$
 
-| Mission model | Energy | Capacity @ 11.1 V |
+| Mission model | Energy | Capacity @ 12.8 V |
 |---|---|---|
-| v0.1 expected | 65 Wh | 5.8 Ah |
-| v0.1 allocation (guarantee) | 92 Wh | 8.3 Ah |
-| **Future allocation + dual arms** | **155 Wh** | **13.9 Ah** |
+| v0.1 expected | 65 Wh | 5.0 Ah |
+| v0.1 allocation (guarantee) | 92 Wh | 7.2 Ah |
+| **Future allocation + dual arms** | **155 Wh** | **12.1 Ah** |
 
-**Target: 3S Li-ion, ≥ 14 Ah (≈ 155 Wh),
+**Target: 3S Li-ion, ≥ 12 Ah (≈ 155 Wh),
 BMS ≥ 50 A continuous** — sized for the *future* row so the
 v0.1 purchase carries the dual-arm version without replacement. E.g. a
 3S4P–3S5P pack of high-drain 21700 cells or an equivalent prebuilt pack,
 $100–140 class. The C-rate demand stays mild:
-47.0 A peak on ≥ 14 Ah is
-≈ 3.4C. In v0.1 (no arms) the same pack
+46.3 A peak on ≥ 12 Ah is
+≈ 3.8C. In v0.1 (no arms) the same pack
 simply runs longer: ≈ 144 min
 at expected load. Mass cost ≈ 0.6–0.8 kg over the small pack — absorbed by
 the 20 kg design ceiling (the torque envelope already uses the ceiling, so

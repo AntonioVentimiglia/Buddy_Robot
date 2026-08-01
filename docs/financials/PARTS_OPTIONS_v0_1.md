@@ -1,6 +1,10 @@
 # Buddy v0.1 — Remaining Parts: Options and Alternatives
 
 **Compiled:** 2026-08-01 · **Status:** research, nothing ordered
+**DECIDED 2026-08-01: LiFePO4 (Path 2).** ADR-0005 amended, `design_params.yaml`
+updated, `power.py::validate` re-run and passing. Path 1 (3S Li-ion) and the
+Jetson converter options are kept below as the record of what was rejected and
+why — do not order from them.
 **Scope:** every line still unbought — power, protection, wiring, sensors, and the
 3D printer. Supersedes the "Power" and "Sensors" sections of
 [`SHOPPING_LIST_v0_1.md`](SHOPPING_LIST_v0_1.md), which lists specs but not
@@ -16,19 +20,20 @@ amending them):
 
 | Constraint | Value | Source |
 |---|---|---|
-| Bus | 3S Li-ion, 12.6 V full → 11.1 V nom → 9.0 V cutoff | ADR-0005 |
-| Capacity | ≥ 14 Ah (~155 Wh) | ADR-0005 amendment (sized for future arms) |
-| BMS | ≥ 50 A continuous | ADR-0005 amendment |
-| Designed peak | 47 A incl. arm branch | `power.py::validate` |
+| Bus | **4S LiFePO4, 14.6 V full → 12.8 V nom → 10.0 V cutoff** | ADR-0005 amend. 2026-08-01 |
+| Capacity | **≥ 12.1 Ah** (~155 Wh — energy unchanged, volts up) | ADR-0005 amendments |
+| BMS | ≥ 50 A continuous (unchanged — still clears 46.3 A) | ADR-0005 amendment |
+| Designed peak | **46.3 A** incl. arm branch | `power.py::validate` |
 | Main fuse | 60 A slow-blow | ADR-0005 amendment |
 | Arm branch fuse | 15 A | ADR-0009 — now the *primary* limiter |
 | Bus wiring | 8 AWG (or 2× 10 AWG) | must exceed the 60 A fuse |
 | LiDAR / camera | ≤ 5 W each | ADR-0005 reserves, build-enforced |
 | E-stop | must interrupt **motor power**, not just logic | REQ_SAFE_001 |
+| Jetson rail | **none — fed directly from the bus** (9–20 V window) | ADR-0005 amend. 2026-08-01 |
 
 ---
 
-## ⚠ Two findings to settle before ordering anything
+## ⚠ Two findings that forced the chemistry decision *(now resolved — see ADR-0005 amendment 2026-08-01)*
 
 ### Finding 1 — the "12 V buck" for the Jetson cannot work as specified
 
@@ -91,7 +96,11 @@ credible consumer product**. The realistic routes:
   still well clear of the ≥120 RPM loaded requirement.)
 - Driver headroom is fine either way: the VNH5019 operates to 24 V.
 
-**Recommendation: decide Finding 2 first — it determines Finding 1.**
+**Resolved: LiFePO4 chosen.** Recomputed on the 12.8 V bus — system current
+4.95 → 4.30 A, designed peak 37.0 → 36.3 A, peak incl. arms 47.0 → 46.3 A,
+capacity target ≥14 → **≥12.1 Ah**, torque at the 8 A limit unchanged at
+3.23 N·m. BMS ≥50 A and the 60 A fuse both stand. The Jetson converter is
+deleted, not re-specified.
 
 ---
 
@@ -286,19 +295,16 @@ Jetson converter. Neither path changes the printer decision.
 
 ---
 
-## H. Decisions needed from you
+## H. Still open
 
-1. **Battery chemistry — 3S Li-ion or 12 V LiFePO4?** Everything else in the
-   power chain follows. LiFePO4 is cheaper, safer, easier to source at the
-   required current, and removes the converter; it costs ~+1.3 kg and needs an
-   ADR-0005 amendment plus a re-run of the mass budget and the motor RPM
-   assumption.
-2. **If staying Li-ion:** buy a pack with a proven ≥50 A BMS, or a bare pack plus
-   your own BMS? The second is more certain and needs soldering.
-3. **LD19 D300 or the newer D500?** Only if D500 power draw is confirmed ≤5 W.
-4. **Do you already own an 8 AWG lug crimper?** If not it is ~$25 and not
-   optional — soldered high-current lugs are a fire risk.
-5. **LiFePO4 capacity: 12 Ah (meets spec, ~1.4 kg) or 20 Ah (65% over, ~2.1 kg)?**
-
-Answer 1 and I will amend the ADRs, re-run `power.py::validate`, update the
-shopping list, and cut this down to a single ordered list.
+1. ~~Battery chemistry~~ — **decided: LiFePO4**, ADR-0005 amended 2026-08-01.
+2. **Capacity: 20 Ah is the buy.** A 12 Ah pack is 154 Wh against a 155 Wh
+   target — about 1 % under, so not the safe choice. 20 Ah is the next standard
+   size (256 Wh, ~2.1 kg).
+3. **LD19 D300 or the newer D500?** Only if D500 power draw is confirmed ≤ 5 W —
+   the reserve is build-enforced, not advisory.
+4. **Do you own an 8 AWG lug crimper?** If not it is ~$25 and not optional.
+5. **Mass:** LiFePO4 costs ~+1.3 kg against a 20 kg ceiling the torque envelope
+   already assumes. Drive sizing is unaffected while the build stays under it,
+   but headroom is now materially smaller — **chassis CAD settles this**, and it
+   is the reason the mass budget should be tracked from CAD rather than guessed.

@@ -36,18 +36,23 @@ Motor power goes to the **driver**, encoder goes to the **Nucleo** — never mix
 | ☐ | USB-A → micro-B cable (Nucleo ST-LINK ↔ Jetson) | 1 | ~$8 | ~$8 | ⚠ confirm the Nucleo's USB connector type on arrival |
 | ☐ | *(if Nucleo mounts far from motors)* Encoder cable extension, 4-Pos JST XH, 300 mm | 0–4 | $2.99 | — | [product](https://www.gobilda.com/encoder-cable-extension-4-pos-jst-xh-300mm-length/) — decide at chassis layout |
 
-## Power (ADR-0005)
+## Power (ADR-0005, as amended 2026-08-01 — chemistry now LiFePO4)
+
+> Sourced candidates with links: **`PARTS_OPTIONS_v0_1.md`**.
 
 | ✔ | Item | Qty | Unit | Ext. | Link / note |
 |---|---|---|---|---|---|
-| ☐ | 3S Li-ion pack, **≥ 14 Ah (≈ 155 Wh), BMS ≥ 50 A continuous** (ADR-0005 amendment: sized for future dual 6-DOF arms so the v0.1 purchase isn't wasted) | 1 | $100–140 | ~$120 | verify the BMS continuous rating explicitly — most cheap "12 V" packs are 10–15 A and will trip on pivots |
-| ☐ | Li-ion charger for 3S pack (matched to pack/BMS) | 1 | ~$20 | ~$20 | |
-| ☐ | 12 V regulated buck ≥ 5 A for Jetson (e.g. Pololu D24V50F12-class) | 1 | ~$30 | ~$30 | isolates compute from motor sag |
-| ☐ | 5 V buck ≥ 3 A (LiDAR / logic rail) | 1 | ~$10 | ~$10 | |
-| ☐ | 60 A slow-blow fuse (MIDI/ANL) + holder (ADR-0005 amendment) | 1 | ~$12 | ~$12 | |
-| ☐ | XT60 connector pairs, 8 AWG silicone wire for the bus (~2 m each color) + 10 AWG branch wire | — | ~$28 | ~$28 | bus wiring ampacity must exceed the 60 A fuse |
-| ☐ | E-stop mushroom switch + motor-power relay/contactor (~40 A) | 1 | ~$25 | ~$25 | REQ_SAFE_001: E-stop interrupts motor power |
-| ☐ | Misc: inline fuse for logic rail, heat shrink, standoffs, JST leads | — | ~$15 | ~$15 | |
+| ☐ | **4S LiFePO4 pack, 12 V 20 Ah** (≥ 12.1 Ah required; 20 Ah is the next standard size) | 1 | $60–90 | ~$75 | 100 A BMS is standard in this class — still **verify continuous rating** |
+| ☐ | **LiFePO4 charger, 14.6 V** | 1 | ~$25 | ~$25 | ⚠ must be LiFePO4-specific — a 12.6 V Li-ion charger never fills the pack |
+| ☐ | ~~12 V buck for Jetson~~ | — | — | **$0** | **DELETED.** Bus is 10.0–14.6 V, inside the dev kit's 9–20 V — the Jetson feeds straight off the bus |
+| ☐ | 5 V buck ≥ 3 A (logic rail) | 1 | ~$25 | ~$25 | Pololu D24V50F5 (5 V 5 A) |
+| ☐ | 60 A slow-blow fuse (MIDI/ANL) + holder | 1 | ~$15 | ~$15 | slow-blow required — motor inrush trips a fast fuse |
+| ☐ | 15 A arm-branch fuse + holder | 1 | ~$8 | ~$8 | ADR-0009 made this the arm's PRIMARY limiter |
+| ☐ | E-stop mushroom, latching **NC** | 1 | ~$10 | ~$10 | switches the contactor COIL, never motor current |
+| ☐ | **DC** contactor / relay ≥ 40 A, continuous duty | 1 | ~$25 | ~$25 | ⚠ must be DC-rated — an AC contact can weld closed on a DC bus |
+| ☐ | 8 AWG silicone wire (~2 m each colour) + XT60 pairs + 10 AWG branch | — | ~$45 | ~$45 | ampacity must exceed the 60 A fuse |
+| ☐ | 8 AWG lug crimper | 1 | ~$25 | ~$25 | soldered high-current lugs are a fire risk |
+| ☐ | Misc: logic-rail fuse, heat shrink, standoffs, ring terminals | — | ~$20 | ~$20 | |
 
 ## Fabrication — capital tool (NEW 2026-07-31, ADR-0008)
 
@@ -68,7 +73,7 @@ projects, not a v0.1 part. See `design_conflicts.md` #4.
 
 - Drivetrain: **~$292** — **ORDERED 2026-07-31** (in transit)
 - Harness/cabling: **~$56** (added 2026-07-16 — previously missed) — partly ordered
-- Electronics + power: **~$297** (excl. optional bench shield; battery re-sized 2026-07-14 for future dual arms, +$40, wiring +$8)
+- Electronics + power: **~$273** (LiFePO4 2026-08-01: cheaper pack, and the Jetson 12 V converter is deleted entirely)
 - **Robot subtotal: ~$646** (excl. Jetson, already owned)
 - Fabrication capital tool: **~$935** (ADR-0008, outside the robot budget)
 
