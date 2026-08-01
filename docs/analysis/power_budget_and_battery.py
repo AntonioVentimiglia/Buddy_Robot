@@ -121,48 +121,56 @@ def _(m, mo, s):
 
 
 @app.cell(hide_code=True)
-def _(P, mo, s):
+def _(mo, s):
+    # The markdown literal below sits at COLUMN 0 on purpose, and the rows carry
+    # no indent either, so there is nothing left for anything to dedent.
+    # Do not "tidy" it to match the surrounding indentation: marimo versions
+    # disagree about what they dedent — some the literal template before
+    # interpolation, some the finished string — and the two behaviours differ
+    # exactly when interpolated rows carry their own indent. The Mac and Windows
+    # machines here had versions on opposite sides of that, and 4-space-indented
+    # table rows render as a CODE BLOCK rather than a table.
     _rows = "\n".join(
-        f"    | {name} | {a - s.system_a:.1f} | {a:.1f} |"
+        f"| {name} | {a - s.system_a:.1f} | {a:.1f} |"
         for name, a in s.scen_total.items()
     )
     mo.md(
         rf"""
-    ## 3. Peak-current scenarios (bus amps at {s.v:g} V)
+## 3. Peak-current scenarios (bus amps at {s.v:g} V)
 
-    | Scenario | Drive (A) | Total incl. system (A) |
-    |---|---|---|
+| Scenario | Drive (A) | Total incl. system (A) |
+|---|---|---|
 {_rows}
 
-    The **designed peak is {s.peak_designed:.1f} A** (all four drivers
-    simultaneously at their limit — already a pathological command). The
-    unlimited-stall row exists only to size the fault protection; it is not an
-    operating point.
+The **designed peak is {s.peak_designed:.1f} A** (all four drivers
+simultaneously at their limit — already a pathological command). The
+unlimited-stall row exists only to size the fault protection; it is not an
+operating point.
 
-    A future version adds **dual 6-DOF arms** (requirements:
-    `manipulation_future`) on the same battery. Provisioned as documented
-    placeholders ({s.arms["joint_count"]} XM430-class joints, ≤4 loaded per arm
-    at once): +{s.arms["avg_power_w"]:g} W average, +{s.arms["peak_current_a"]:g} A
-    peak burst → **designed peak including arms: {s.peak_with_arms:.1f} A**. The
-    battery bought for v0.1 is sized against *this*, so it is not wasted when
-    the arms arrive.
+A future version adds **dual 6-DOF arms** (requirements:
+`manipulation_future`) on the same battery. Provisioned as documented
+placeholders ({s.arms["joint_count"]} XM430-class joints, ≤4 loaded per arm
+at once): +{s.arms["avg_power_w"]:g} W average, +{s.arms["peak_current_a"]:g} A
+peak burst → **designed peak including arms: {s.peak_with_arms:.1f} A**. The
+battery bought for v0.1 is sized against *this*, so it is not wasted when
+the arms arrive.
 
-    ![Power budget](../../assets/figures/power_budget.svg)
+![Power budget](../../assets/figures/power_budget.svg)
 
-    *Left: peak bus current by scenario against the protection chain. Right:
-    average-power stack for the two mission models, with the resulting battery
-    capacity. Regenerate: `python3 tools/figures/plot_power_budget.py`.*
+*Left: peak bus current by scenario against the protection chain. Right:
+average-power stack for the two mission models, with the resulting battery
+capacity. Regenerate: `python3 tools/figures/plot_power_budget.py`.*
 
-    ## 4. Protection chain
+## 4. Protection chain
 
-    Ordered so each layer only sees what the previous one failed to stop:
-    driver limits ({s.i_lim:g} A/motor) → BMS overcurrent
-    (≥ {s.bms_min_a:g} A continuous, above the {s.peak_with_arms:.1f} A designed
-    peak including the future arm branch) → main fuse ({s.fuse_a:g} A slow-blow,
-    below wiring ampacity — bus wiring 8 AWG or 2×10 AWG) → E-stop interrupts
-    motor power upstream of the drivers per REQ_SAFE. The future arm branch gets
-    its own {P["power"]["protection"]["arm_branch_fuse_a"]:g} A fuse off the bus.
-    """
+Ordered so each layer only sees what the previous one failed to stop:
+driver limits ({s.i_lim:g} A/motor) → BMS overcurrent
+(≥ {s.bms_min_a:g} A continuous, above the {s.peak_with_arms:.1f} A designed
+peak including the future arm branch) → main fuse ({s.fuse_a:g} A slow-blow,
+below wiring ampacity — bus wiring 8 AWG or 2×10 AWG) → E-stop interrupts
+motor power upstream of the drivers per REQ_SAFE. The future arm branch gets
+its own {P["power"]["protection"]["arm_branch_fuse_a"]:g} A fuse off the bus.
+"""
     )
     return
 

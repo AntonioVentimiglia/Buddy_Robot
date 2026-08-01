@@ -57,6 +57,24 @@ C_SENSE = PINK        # sensor feeds
 C_NEUTRAL = MUTED     # ground, notes, "not built yet"
 
 # --- typography (mirrors the site CSS and the matplotlib rcParams) ----------
+# SANS/MONO are CSS font *stacks* written into the SVG. They are rendered by the
+# viewer, so listing several is right: each reader gets the best font they have.
 SANS = "Helvetica Neue, Helvetica, Arial, system-ui, sans-serif"
 MONO = "SF Mono, Menlo, Consolas, Liberation Mono, monospace"
-MPL_SANS = ["Helvetica Neue", "Helvetica", "Arial", "DejaVu Sans"]
+
+# MPL_SANS is different in kind, and must stay a single bundled font.
+#
+# matplotlib resolves this list against the fonts INSTALLED ON THE BUILD MACHINE
+# and measures glyph widths with whichever it finds. Those widths set the text
+# extents, `bbox_inches="tight"` sizes the canvas from the extents, and the
+# result is baked into the committed SVG. A list starting with "Helvetica Neue"
+# therefore produced 560.109531pt on macOS and 557.195pt on Windows (which has
+# no Helvetica Neue and fell through to Arial) — same code, same numbers,
+# different output bytes, and a noisy diff on every cross-machine rebuild.
+#
+# DejaVu Sans ships INSIDE matplotlib, so it is byte-identical on every install
+# including CI. Layout geometry is now machine-independent. Note this only fixes
+# the measuring: `svg.fonttype="none"` means glyphs are not outlined, so the SVG
+# still carries the SANS stack above and readers still see Helvetica if they
+# have it. Determinism where it matters, appearance where it doesn't.
+MPL_SANS = ["DejaVu Sans"]

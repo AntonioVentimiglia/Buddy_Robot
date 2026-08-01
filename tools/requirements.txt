@@ -1,5 +1,22 @@
 # Python deps for the parametric build (tools/build.py, figures, notebooks)
 #   pip3 install --user -r tools/requirements.txt
-pyyaml
-matplotlib
-marimo
+#
+# PINNED ON PURPOSE. Every generated artifact in this repo is committed, so an
+# unpinned dependency does not surface as a crash — it surfaces as a diff, and
+# only once two machines disagree about bytes.
+#
+# That already happened: an unpinned marimo changed WHICH string it dedents when
+# exporting a notebook (the literal template, vs the finished interpolated
+# string). This Mac and the Windows machine landed on opposite sides of that
+# change, and the difference left table rows indented by 4 spaces — which
+# Markdown renders as a code block, so a results table silently stopped being a
+# table. The notebook no longer relies on that behaviour either (see the comment
+# in docs/analysis/power_budget_and_battery.py), but the pin stops the next such
+# change from being found by accident.
+#
+# Bump deliberately: change a version, run `python3 tools/build.py` twice, and
+# confirm `git diff` is empty. If it is not, the new version changed generated
+# output, and that belongs in its own commit with the diff explained.
+pyyaml==6.0.3
+matplotlib==3.10.6
+marimo==0.23.14
