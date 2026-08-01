@@ -34,10 +34,18 @@
   paths, metal inserts at bearing/fastener interfaces, ASA/PA-CF on structure.
 - [ ] Choose provisional chassis dimensions. **Constraint from ADR-0008:**
   305 × 305 mm bed, effective heated Z ~268 mm — parts above 280 mm must be split.
+  **Read `docs/system_model/chassis_interface.md` first** — it defines what CAD
+  owns vs what `design_params.yaml` owns, so the model and the parametric chain
+  cannot drift apart.
+- [ ] Report chassis mass / CoM / inertia from CAD back into `design_params.yaml`
+  (`mass_kg`, `com_m`, `inertia_kgm2`, `mass_source: cad`). Until CoM is filled,
+  the sim cannot say anything trustworthy about the 20° ramp tipping case.
 - [x] Wheel diameter locked: 96mm Hogback (ADR-0004). Track width still provisional.
 - [x] Frame tree, wheels, LiDAR/camera/IMU/arm placeholders modeled (`buddy.urdf.xacro`). Validate in RViz.
 - [x] Simple collision geometry present (boxes/cylinders).
-- [x] Inertial placeholders auto-computed from mass/dims in xacro. Replace with measured values later.
+- [x] Inertial placeholders auto-computed from mass/dims in xacro. **Slot now exists
+  for measured values** — fill `chassis.com_m` + `chassis.inertia_kgm2` and the URDF
+  switches from the solid-box approximation to the real tensor automatically.
 
 ## Phase 3 - Simulation
 
@@ -52,7 +60,10 @@
 - [x] Complete motor torque worksheet (`docs/research/hardware/motors_and_gearboxes/motor_sizing_and_selection.md`).
 - [x] Shortlist + select motors — 4× goBILDA 5203 26.9:1 (ADR-0003). Purchase + BOM entry pending.
 - [x] Select wheels — 4× goBILDA Hogback 96mm + 8mm REX hubs (ADR-0004; clearance requirement amended 0.05→0.038 m). Purchase + hub SKU verification pending.
-- [x] Complete power budget and battery sizing (`docs/analysis/power_budget_and_battery.md`, ADR-0005: 3S Li-ion ≥8 Ah, BMS ≥40 A, driver limit 8 A/motor). Battery SKU purchase pending.
+- [x] Complete power budget and battery sizing (`docs/analysis/power_budget_and_battery.md`,
+  ADR-0005 as twice amended: **4S LiFePO4 ≥12.1 Ah, BMS ≥50 A**, driver limit
+  8 A/motor, 60 A fuse; Jetson feeds straight off the bus). Battery SKU pending —
+  candidates in `docs/financials/PARTS_OPTIONS_v0_1.md`.
 - [x] Shortlist motor drivers — 4× Pololu VNH5019 recommended (12 A/30 A, current sense → 8 A firmware limit on G474); alternates documented. Purchase pending.
 - [x] Confirm drive MCU: NUCLEO-G474RE (VNH5019 telemetry/PWM needs match the G474 exactly; dual-VNH5019 shield stacks on it for bench phase).
 - [ ] **BUY: work through `docs/financials/SHOPPING_LIST_v0_1.md` (~$540), then update BOM, flip ADR-0003/4/5 to Accepted, delete the list.**

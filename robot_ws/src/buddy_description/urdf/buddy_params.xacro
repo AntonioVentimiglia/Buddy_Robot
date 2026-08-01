@@ -15,6 +15,24 @@
   <xacro:property name="base_height" value="0.1"/>
   <xacro:property name="base_mass"   value="18"/>
 
+  <!-- Inertial provenance: "placeholder".
+       measured_inertia=false -> the URDF derives a uniform solid-box inertia
+       about the geometric centre (the long-standing placeholder behaviour).
+       Fill chassis.com_m and chassis.inertia_kgm2 in design_params.yaml from
+       SolidWorks mass properties and this flips to true, so the sim inherits
+       the real mass distribution — which is what the 20 deg ramp tipping case
+       actually depends on. See docs/system_model/chassis_interface.md -->
+  <xacro:property name="measured_inertia" value="false"/>
+  <xacro:property name="com_x" value="0"/>
+  <xacro:property name="com_y" value="0"/>
+  <xacro:property name="com_z" value="0"/>
+  <xacro:property name="base_ixx" value="0"/>
+  <xacro:property name="base_iyy" value="0"/>
+  <xacro:property name="base_izz" value="0"/>
+  <xacro:property name="base_ixy" value="0"/>
+  <xacro:property name="base_ixz" value="0"/>
+  <xacro:property name="base_iyz" value="0"/>
+
   <!-- base_link center height above ground (base_footprint -> base_link).
        DERIVED as wheel_radius - wheel_z so axle height always equals wheel
        radius (wheels touch ground in sim). Ground clearance

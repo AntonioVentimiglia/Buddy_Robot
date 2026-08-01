@@ -172,3 +172,11 @@ The figures cite; they never restate. When something changes, change it here:
    topics, not the transforms' correctness.
 4. **Nothing on these pages has been powered on.** Every hardware block is
    `proposed` — decided in an ADR, not yet purchased.
+
+## Chassis interface (mechanical)
+
+`chassis_interface.md` defines the boundary between `design_params.yaml` and the
+SolidWorks model: which geometry CAD must obey (track, wheelbase, wheel radius,
+bounding box, ground clearance) and which properties CAD measures and reports
+back (mass, centre of mass, inertia tensor). It exists so the URDF and the
+printed robot cannot drift apart silently.

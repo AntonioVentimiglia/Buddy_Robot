@@ -77,6 +77,24 @@ XACRO_TEMPLATE = """<?xml version="1.0"?>
   <xacro:property name="base_height" value="{c[height_m]:g}"/>
   <xacro:property name="base_mass"   value="{c[mass_kg]:g}"/>
 
+  <!-- Inertial provenance: "{c[mass_source]}".
+       measured_inertia=false -> the URDF derives a uniform solid-box inertia
+       about the geometric centre (the long-standing placeholder behaviour).
+       Fill chassis.com_m and chassis.inertia_kgm2 in design_params.yaml from
+       SolidWorks mass properties and this flips to true, so the sim inherits
+       the real mass distribution — which is what the 20 deg ramp tipping case
+       actually depends on. See docs/system_model/chassis_interface.md -->
+  <xacro:property name="measured_inertia" value="{measured}"/>
+  <xacro:property name="com_x" value="{com[x]:g}"/>
+  <xacro:property name="com_y" value="{com[y]:g}"/>
+  <xacro:property name="com_z" value="{com[z]:g}"/>
+  <xacro:property name="base_ixx" value="{inr[ixx]:g}"/>
+  <xacro:property name="base_iyy" value="{inr[iyy]:g}"/>
+  <xacro:property name="base_izz" value="{inr[izz]:g}"/>
+  <xacro:property name="base_ixy" value="{inr[ixy]:g}"/>
+  <xacro:property name="base_ixz" value="{inr[ixz]:g}"/>
+  <xacro:property name="base_iyz" value="{inr[iyz]:g}"/>
+
   <!-- base_link center height above ground (base_footprint -> base_link).
        DERIVED as wheel_radius - wheel_z so axle height always equals wheel
        radius (wheels touch ground in sim). Ground clearance
@@ -132,11 +150,34 @@ def generate_firmware_config(reqs: dict) -> Path:
     return out
 
 
+ZERO_COM = {"x": 0.0, "y": 0.0, "z": 0.0}
+ZERO_INERTIA = {k: 0.0 for k in ("ixx", "iyy", "izz", "ixy", "ixz", "iyz")}
+
+
 def generate_xacro() -> Path:
+    """Write buddy_params.xacro from design_params.yaml.
+
+    chassis.com_m and chassis.inertia_kgm2 are null until CAD measures them.
+    While null, emit zeros and measured_inertia=false so the URDF keeps using
+    its solid-box approximation; the zeros are never read in that branch.
+    """
+    c = P["chassis"]
+    com, inertia = c.get("com_m"), c.get("inertia_kgm2")
+    measured = com is not None and inertia is not None
+    if measured:
+        missing = [k for k in ZERO_INERTIA if k not in inertia] + \
+                  [k for k in ZERO_COM if k not in com]
+        if missing:
+            raise SystemExit(
+                f"chassis com_m/inertia_kgm2 are partially filled — missing {missing}. "
+                "Fill every component or set both back to null; a half-measured "
+                "inertia is worse than an honest box approximation.")
     out = ROOT / "robot_ws" / "src" / "buddy_description" / "urdf" / "buddy_params.xacro"
     out.write_text(XACRO_TEMPLATE.format(
-        c=P["chassis"], w=P["wheels"], bcz=base_center_z(),
-        clearance=ground_clearance()), encoding="utf-8", newline="\n")
+        c=c, w=P["wheels"], bcz=base_center_z(), clearance=ground_clearance(),
+        measured=str(measured).lower(),
+        com=com if measured else ZERO_COM,
+        inr=inertia if measured else ZERO_INERTIA), encoding="utf-8", newline="\n")
     return out
 
 

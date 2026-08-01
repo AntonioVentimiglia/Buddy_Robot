@@ -28,7 +28,20 @@
       <collision>
         <geometry><box size="${base_length} ${base_width} ${base_height}"/></geometry>
       </collision>
-      <xacro:box_inertia m="${base_mass}" x="${base_length}" y="${base_width}" z="${base_height}"/>
+      <!-- Inertia: measured from CAD when available, else the solid-box
+           approximation. Both branches come from design_params.yaml via the
+           generated buddy_params.xacro — see docs/system_model/chassis_interface.md -->
+      <xacro:unless value="${measured_inertia}">
+        <xacro:box_inertia m="${base_mass}" x="${base_length}" y="${base_width}" z="${base_height}"/>
+      </xacro:unless>
+      <xacro:if value="${measured_inertia}">
+        <inertial>
+          <origin xyz="${com_x} ${com_y} ${com_z}" rpy="0 0 0"/>
+          <mass value="${base_mass}"/>
+          <inertia ixx="${base_ixx}" ixy="${base_ixy}" ixz="${base_ixz}"
+                   iyy="${base_iyy}" iyz="${base_iyz}" izz="${base_izz}"/>
+        </inertial>
+      </xacro:if>
     </link>
 
     <!-- Wheel macro: cylinder about Y axis, inertia from wheel_mass/radius/width -->

@@ -9,11 +9,31 @@
 # That regenerates: buddy_params.xacro, docs/analysis/*.md (from marimo notebooks),
 # assets/figures/*.svg, robot_ws/analysis/torque_sweep.csv.
 
-chassis: # URDF placeholder box — revisit with chassis CAD
-  length_m: 0.28
+chassis:
+  # --- INTERFACE: owned HERE, and CAD must satisfy it ---------------------
+  # These are not CAD outputs. They are the contract the chassis model has to
+  # meet, because they feed the URDF, Gazebo, and the pivot-scrub torque that
+  # justified the motor choice. Changing one is a design decision made in this
+  # file and pushed OUT to CAD — never the other way round.
+  # Full rules: docs/system_model/chassis_interface.md
+  length_m: 0.28 # bounding box the model must fit within
   width_m: 0.22
   height_m: 0.10
-  mass_kg: 18.0 # body-only placeholder so gross ~ requirements mass limit
+
+  # --- MEASURED: owned by CAD, typed back in here ------------------------
+  # SolidWorks mass properties is the source. Read them, type them here, re-run
+  # `python3 tools/build.py`. That is a measurement, exactly like verifying wheel
+  # mass on receipt — the CAD file is never parsed by the build.
+  mass_kg: 18.0 # body-only, so gross ~ the 20 kg requirement ceiling
+  mass_source: placeholder # placeholder | cad | weighed — provenance, not a value
+
+  # Both null until CAD reports them. null means the URDF falls back to a
+  # uniform solid-box approximation about the geometric centre, which is what it
+  # has always done; filling them in makes the sim match the real robot.
+  com_m: null # {x, y, z} centre of mass relative to base_link origin.
+              # THIS is what tips the robot on the 20 deg ramp requirement —
+              # the box approximation cannot tell you about it.
+  inertia_kgm2: null # {ixx, iyy, izz, ixy, ixz, iyz} about the CoM
 
 wheels: # ADR-0004: goBILDA Hogback 96 mm + 8 mm REX hubs
   part: "goBILDA 3626-0014-0096 Hogback (96 mm, 50A)"
