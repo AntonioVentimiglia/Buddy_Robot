@@ -87,7 +87,16 @@ def main():
     check("never entered ACTIVE unprompted", bp.STATE_ACTIVE not in states,
           "states seen: " + ",".join(sorted(
               bp.STATE_NAMES[s] if s < len(bp.STATE_NAMES) else str(s) for s in states)))
-    check("no fault bits set", last.fault_bits == 0, f"0x{last.fault_bits:04x}")
+    # CMD_TIMEOUT is a recoverable stop flag, not a latched fault (state_machine.c
+    # sm_tick drops to SAFE_IDLE, not FAULT). It is EXPECTED to be set after any
+    # session where commands stopped - e.g. a prior bridge run - and clears on the
+    # next ARM. Asserting fault_bits == 0 here assumed a freshly booted MCU and
+    # failed the moment this script ran after the bridge. Everything else in the
+    # mask means something actually broke.
+    latching = last.fault_bits & ~bp.FAULT_CMD_TIMEOUT
+    check("no latching fault bits", latching == 0, f"0x{last.fault_bits:04x}")
+    if last.fault_bits & bp.FAULT_CMD_TIMEOUT:
+        print("     note: CMD_TIMEOUT flagged by an earlier session; clears on next ARM")
     check("wheels report zero velocity", all(v == 0 for v in last.wheel_vel),
           str(last.wheel_vel))
 
