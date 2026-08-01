@@ -37,7 +37,12 @@ grep -q "ros/jazzy/setup.bash" ~/.bashrc || {
   echo "export ROS_DOMAIN_ID=42   # keep fixed per network_plan.md" >> ~/.bashrc
   echo "[ -f $REPO_ROOT/robot_ws/install/setup.bash ] && source $REPO_ROOT/robot_ws/install/setup.bash" >> ~/.bashrc
 }
+# ROS's setup.bash reads variables it never sets (AMENT_TRACE_SETUP_FILES,
+# AMENT_CURRENT_PREFIX, ...). Under `set -u` that is fatal, so the script died
+# here on first real run. Relax -u for the sourcing only, then restore it.
+set +u
 source /opt/ros/jazzy/setup.bash
+set -u
 
 echo "== 4/6 udev rule (stable MCU device name) =="
 sudo cp "$REPO_ROOT/devops/udev/99-buddy-robot.rules" /etc/udev/rules.d/ 2>/dev/null || true
@@ -49,7 +54,9 @@ echo "== 5/6 host-side tests (no hardware, no ROS needed) =="
 echo "== 6/6 build the workspace =="
 cd "$REPO_ROOT/robot_ws"
 colcon build --symlink-install --packages-select buddy_base buddy_bringup buddy_description
+set +u  # same unbound-variable issue as above
 source install/setup.bash
+set -u
 
 echo
 echo "DONE. Try the zero-hardware drive stack (see header of this script)."

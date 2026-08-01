@@ -1,0 +1,51 @@
+# Buddy — narrow NOPASSWD rules so setup_ros2_jazzy.sh can run unattended over SSH.
+#
+# INSTALL (on the Jetson, NOT on the Mac):
+#   sudo visudo -f /etc/sudoers.d/buddy-setup
+# then paste this file's contents (minus this header if you like) and save.
+#
+# Use visudo, never a plain editor or `cp`. visudo validates syntax on save; a
+# malformed file in /etc/sudoers.d/ can break sudo for every user on the box and
+# the recovery path is a physical console. Verify afterwards:
+#   sudo visudo -c
+#
+# Username and binary paths below were VERIFIED on the actual Jetson 2026-07-31
+# (user `venti`; note udevadm is /usr/bin/udevadm on this JetPack image, not
+# /usr/sbin as on some Ubuntu builds — a wrong path here does not error, it just
+# silently fails to match and sudo falls back to prompting, which hangs an
+# unattended run). Re-verify with `command -v` if the image is ever reflashed.
+#
+# ---------------------------------------------------------------------------
+# HONEST SCOPE NOTE — read before installing.
+#
+# These rules are narrower than blanket NOPASSWD, but they are NOT a security
+# boundary. `apt install` as root can install any package, which is arbitrary
+# code execution as root by definition. The real reduction here is in blast
+# radius from accidents and from casual misuse, not from a determined attacker
+# who already has the `buddy` user account.
+#
+# What this genuinely buys:
+#   - No blanket `sudo <anything>` if the account is compromised.
+#   - `cp` is pinned to one destination directory instead of arbitrary
+#     root-owned file writes (which would otherwise be a trivial root escalation).
+#
+# If you want the exposure gone after bring-up: delete this file once
+# setup_ros2_jazzy.sh has run successfully. Nothing in the day-to-day robot
+# workflow (colcon build, ros2 launch, running tests) needs sudo at all.
+# ---------------------------------------------------------------------------
+
+# Package management — needed by steps 1 and 2 of setup_ros2_jazzy.sh
+venti ALL=(root) NOPASSWD: /usr/bin/apt, /usr/bin/apt-get, /usr/bin/dpkg
+venti ALL=(root) NOPASSWD: /usr/bin/add-apt-repository
+
+# Locale generation — step 1
+venti ALL=(root) NOPASSWD: /usr/sbin/locale-gen
+
+# rosdep initialisation — step 2 (`sudo rosdep init`)
+venti ALL=(root) NOPASSWD: /usr/bin/rosdep
+
+# udev rule install — step 4. `cp` is pinned to the rules directory on purpose:
+# an unpinned `sudo cp` is equivalent to root file-write anywhere, which would
+# make every other restriction in this file pointless.
+venti ALL=(root) NOPASSWD: /usr/bin/cp * /etc/udev/rules.d/
+venti ALL=(root) NOPASSWD: /usr/bin/udevadm

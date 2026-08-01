@@ -18,10 +18,12 @@
 
 ## Phase 1 - Development baseline
 
-- [ ] Select JetPack version after verifying current NVIDIA support for Jetson Orin Nano Super.
-- [ ] Select ROS 2 baseline: Jazzy first unless a critical driver forces another distro.
-- [ ] Install ROS 2 on Jetson or Linux development machine.
-- [ ] Confirm `colcon build` works for package skeletons after stub files are completed or excluded.
+- [x] Select JetPack version after verifying current NVIDIA support for Jetson Orin Nano Super.
+- [x] Select ROS 2 baseline: Jazzy first unless a critical driver forces another distro.
+- [x] **Install ROS 2 on the Jetson** — done 2026-07-31 via
+  `devops/jetson/setup_ros2_jazzy.sh`, driven over SSH. Zero-hardware milestone
+  verified: `devops/jetson/verify_zero_hardware_stack.sh` passes 9/9.
+- [x] Confirm `colcon build` works — 3 packages build on the Jetson in 5.5 s.
 - [ ] Set up VS Code Remote SSH from Mac/Windows host.
 - [ ] Set up Foxglove/RViz visualization path.
 
