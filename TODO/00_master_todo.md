@@ -86,10 +86,13 @@
   `/odom`/`/joint_states`/`/battery_state`, auto-arm off genuine MCU state,
   `cmd_seq_echo=71` (ROS `/cmd_vel` accepted by real silicon), watchdog fired.
   Found and fixed a latched-CMD_TIMEOUT firmware bug in the process.
-- [ ] **Bench TODO (firmware robustness):** add `HAL_UART_ErrorCallback` to
-  re-arm `HAL_UART_Receive_IT`. Today nothing recovers from a UART error, so one
-  overrun silently kills RX while telemetry keeps streaming — it looks like a
-  dead Jetson link, not a dead MCU. Not today's bug, but a real one.
+- [x] **`HAL_UART_ErrorCallback` added** (2026-08-01) — re-arms
+  `HAL_UART_Receive_IT` after a blocking error. Narrower than originally filed:
+  per the G4 HAL source only **ORE/RTO** abort reception (FE/NE/PE self-recover),
+  and ORE could not be provoked from the host — a 128 kB flood at line rate never
+  overran the ISR. Insurance against on-board causes (long ISR, critical section,
+  motor EMI), not a repair of an observed failure.
+  Check: `devops/jetson/verify_uart_error_recovery.py`.
 - [ ] Build bench drive loop: MCU + motor driver + one motor + encoder.
 - [ ] Verify encoder direction and scaling.
 - [ ] Verify command watchdog stops motor.
