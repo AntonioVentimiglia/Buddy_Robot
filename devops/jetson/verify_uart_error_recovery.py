@@ -3,18 +3,25 @@
 
 Background (see assets/figures/uart_rx_recovery.svg): RX is a self-re-arming
 chain — HAL_UART_Receive_IT arms exactly one byte, and HAL_UART_RxCpltCallback
-arms the next. An ORE/FE/NE error routes the interrupt to
-HAL_UART_ErrorCallback instead, which is weak and empty by default, so nothing
-re-arms and RX is dead for good. TX is unaffected, so telemetry keeps streaming
-and the MCU looks healthy while ignoring every command.
+arms the next.
 
-This script injects a real bus error, then checks whether the MCU can still be
-commanded:
+WHAT THIS DOES AND DOES NOT COVER — read before trusting a pass.
+ST's HAL splits UART errors two ways (stm32g4xx_hal_uart.c):
+  * FE / NE / PE  -> non-blocking. HAL keeps receiving with no help from us.
+  * ORE / RTO     -> blocking. UART_EndRxTransfer() disables the RX interrupts
+                     and only HAL_UART_ErrorCallback can re-arm them.
+This script injects the FE/NE class (garbage at a mismatched baud, plus a break
+condition), so it exercises the non-blocking branch end to end and proves the
+link recovers. It does NOT reproduce ORE: a 128 kB flood at line rate never
+overran the ISR on a 170 MHz M4, so the dangerous branch is not host-reachable
+on this setup. Realistic ORE sources are on-board — a long higher-priority ISR,
+a critical section, or motor EMI once the drivers are live.
+
+Treat a pass as "the link survives bus noise", not as "the overrun path is
+verified". The overrun path is covered by inspection of the HAL source and the
+callback in hw.c.
 
     ./devops/jetson/verify_uart_error_recovery.py
-
-Run it BEFORE the fix and step 4 fails — that is the bug, demonstrated on
-hardware. Run it AFTER and everything passes.
 
 SAFETY: sends PING only, never a motion command, and never arms the MCU.
 """

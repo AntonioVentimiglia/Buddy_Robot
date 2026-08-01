@@ -22,6 +22,7 @@ static UART_HandleTypeDef huart2;                   /* ST-LINK VCP */
 static volatile uint8_t rx_ring[RX_RING];
 static volatile uint16_t rx_head, rx_tail;
 static uint8_t rx_byte;
+static volatile uint32_t rx_error_count; /* UART errors seen; not yet in telemetry (39-byte payload is spec-locked) */
 
 /* Encoder extension to 32-bit for the 16-bit timers (TIM3/4/8). */
 static volatile int32_t enc_accum[4];
@@ -254,6 +255,35 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *h) {
         }
         HAL_UART_Receive_IT(&huart2, &rx_byte, 1);
     }
+}
+
+/* Reception is a self-re-arming chain: the ONLY thing that arms the next byte
+ * is HAL_UART_Receive_IT() at the end of the callback above. Break the chain
+ * once and RX is dead for good, while TX keeps streaming telemetry - so the
+ * MCU looks healthy and the Jetson looks at fault.
+ *
+ * HAL_UART_IRQHandler splits errors two ways (verified in the G4 HAL source,
+ * stm32g4xx_hal_uart.c):
+ *   FE / NE / PE  -> NON-blocking. Reception continues; nothing to do here.
+ *   ORE / RTO     -> blocking. It calls UART_EndRxTransfer(), which disables
+ *                    the RX interrupts, and then calls this callback. If this
+ *                    is the default weak no-op, nothing ever re-arms.
+ *
+ * Only the overrun case is actually dangerous, and it could not be provoked
+ * from the host (see devops/jetson/verify_uart_error_recovery.py): a 128 kB
+ * flood at line rate never overran the ISR. The realistic sources are on-board
+ * - a long higher-priority ISR, a critical section, or motor EMI on the cable
+ * once the drivers are live. This is cheap insurance against a failure that
+ * would otherwise be permanent and misattributed.
+ */
+void HAL_UART_ErrorCallback(UART_HandleTypeDef *h) {
+    if (h != &huart2) return;
+    rx_error_count++;
+    __HAL_UART_CLEAR_OREFLAG(h);
+    h->ErrorCode = HAL_UART_ERROR_NONE;
+    /* Re-arm unconditionally: harmless if RX was never disabled (the
+     * non-blocking case), essential if it was. */
+    HAL_UART_Receive_IT(h, &rx_byte, 1);
 }
 
 /* SysTick is configured by HAL_Init(); required IRQ handler: */
