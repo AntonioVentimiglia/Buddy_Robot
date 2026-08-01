@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="946" viewBox="0 0 1360 946" role="img" aria-label="UART receive is a self-re-arming loop — and one error breaks it open">
+  <rect width="1360" height="946" fill="#fcfcfb"/>
+  <marker id="arw-1baf7a" markerWidth="9" markerHeight="8" refX="8.4" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0.6,0.6 L8.4,4 L0.6,7.4 Z" fill="#1baf7a"/></marker>
+  <marker id="arws-1baf7a" markerWidth="9" markerHeight="8" refX="0.6" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M8.4,0.6 L0.6,4 L8.4,7.4 Z" fill="#1baf7a"/></marker>
+  <marker id="arw-2a78d6" markerWidth="9" markerHeight="8" refX="8.4" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0.6,0.6 L8.4,4 L0.6,7.4 Z" fill="#2a78d6"/></marker>
+  <marker id="arws-2a78d6" markerWidth="9" markerHeight="8" refX="0.6" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M8.4,0.6 L0.6,4 L8.4,7.4 Z" fill="#2a78d6"/></marker>
+  <marker id="arw-898781" markerWidth="9" markerHeight="8" refX="8.4" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0.6,0.6 L8.4,4 L0.6,7.4 Z" fill="#898781"/></marker>
+  <marker id="arws-898781" markerWidth="9" markerHeight="8" refX="0.6" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M8.4,0.6 L0.6,4 L8.4,7.4 Z" fill="#898781"/></marker>
+  <marker id="arw-d03b3b" markerWidth="9" markerHeight="8" refX="8.4" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0.6,0.6 L8.4,4 L0.6,7.4 Z" fill="#d03b3b"/></marker>
+  <marker id="arws-d03b3b" markerWidth="9" markerHeight="8" refX="0.6" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M8.4,0.6 L0.6,4 L8.4,7.4 Z" fill="#d03b3b"/></marker>
+  <text x="28" y="31.25" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="15" font-weight="700" fill="#0b0b0b" text-anchor="start">UART receive is a self-re-arming loop — and one error breaks it open</text>
+  <text x="28" y="50.78" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.8" font-weight="400" fill="#898781" text-anchor="start">Drive MCU (STM32G474, USART2 → ST-LINK VCP). The receive path only survives because each completed byte arms the next; an error exits that loop and nothing puts it back.</text>
+  <path d="M 60,854 L 1300,854" stroke="#e1e0d9" stroke-width="1"/>
+  <path d="M 272,213 L 322,213" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-2a78d6)"/>
+  <path d="M 534,213 L 584,213" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-2a78d6)"/>
+  <path d="M 796,213 L 846,213" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-2a78d6)"/>
+  <path d="M 1058,213 L 1108,213" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-2a78d6)"/>
+  <path d="M 1214,258 L 1214,297 Q 1214,304 1207,304 L 173,304 Q 166,304 166,297 L 166,258" fill="none" stroke="#1baf7a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-1baf7a)"/>
+  <rect x="634.2" y="289.59" width="111.6" height="14.82" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="690" y="300.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="500" fill="#1baf7a" text-anchor="middle">arms the next byte</text>
+  <path d="M 272,477 L 322,477" fill="none" stroke="#d03b3b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-d03b3b)"/>
+  <path d="M 534,477 L 584,477" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-2a78d6)"/>
+  <path d="M 796,477 L 846,477" fill="none" stroke="#d03b3b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-d03b3b)"/>
+  <path d="M 1058,477 L 1108,477" fill="none" stroke="#d03b3b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-d03b3b)"/>
+  <path d="M 690,522 L 690,553.16 Q 690,559 684.16,559 L 684.16,559 Q 678.32,559 678.32,564.84 L 678.32,596" fill="none" stroke="#898781" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 4"/>
+  <rect x="659.71" y="551.59" width="48.9" height="14.82" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="684.16" y="562.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="500" fill="#898781" text-anchor="middle">TX path</text>
+  <path d="M 272,745 L 322,745" fill="none" stroke="#d03b3b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-d03b3b)"/>
+  <path d="M 534,745 L 584,745" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-2a78d6)"/>
+  <path d="M 796,745 L 846,745" fill="none" stroke="#d03b3b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-d03b3b)"/>
+  <path d="M 1058,745 L 1108,745" fill="none" stroke="#1baf7a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-1baf7a)"/>
+  <path d="M 1214,790 L 1214,829 Q 1214,836 1207,836 L 173,836 Q 166,836 166,829 L 166,790" fill="none" stroke="#1baf7a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arw-1baf7a)"/>
+  <rect x="648.45" y="821.59" width="83.1" height="14.82" rx="3" fill="#fcfcfb" opacity="0.94"/>
+  <text x="690" y="832.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="500" fill="#1baf7a" text-anchor="middle">loop restored</text>
+  <text x="60" y="137.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="600" fill="#1baf7a" text-anchor="start" letter-spacing="1.1">A</text>
+  <text x="92.6" y="137.57" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.2" font-weight="400" fill="#898781" text-anchor="start">NORMAL BYTE — the loop closes, so RX continues forever</text>
+  <rect x="60" y="168" width="212" height="90" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="61.5" y="169.5" width="3" height="87" rx="1.5" fill="#2a78d6"/>
+  <text x="168" y="204.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">byte arrives</text>
+  <text x="168" y="218.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">PA3 / USART2_RX</text>
+  <text x="168" y="230.68" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">from the Jetson</text>
+  <rect x="322" y="168" width="212" height="90" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="323.5" y="169.5" width="3" height="87" rx="1.5" fill="#2a78d6"/>
+  <text x="430" y="204.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">USART2_IRQHandler</text>
+  <text x="430" y="218.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">hw.c</text>
+  <text x="430" y="230.68" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">vector fires</text>
+  <rect x="584" y="168" width="212" height="90" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="585.5" y="169.5" width="3" height="87" rx="1.5" fill="#2a78d6"/>
+  <text x="692" y="204.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">HAL_UART_IRQHandler</text>
+  <text x="692" y="218.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">ST HAL</text>
+  <text x="692" y="230.68" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">decodes the cause</text>
+  <rect x="846" y="168" width="212" height="90" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="847.5" y="169.5" width="3" height="87" rx="1.5" fill="#2a78d6"/>
+  <text x="954" y="204.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">HAL_UART_RxCpltCallback</text>
+  <text x="954" y="218.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">ours</text>
+  <text x="954" y="230.68" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">push to rx_ring</text>
+  <rect x="1108" y="168" width="212" height="90" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="1109.5" y="169.5" width="3" height="87" rx="1.5" fill="#1baf7a"/>
+  <text x="1216" y="204.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">HAL_UART_Receive_IT</text>
+  <text x="1216" y="218.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">re-arm</text>
+  <text x="1216" y="230.68" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">ready for next byte</text>
+  <text x="60" y="401.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="600" fill="#d03b3b" text-anchor="start" letter-spacing="1.1">B</text>
+  <text x="92.6" y="401.57" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.2" font-weight="400" fill="#898781" text-anchor="start">ERROR TODAY — the loop is exited and never re-entered</text>
+  <rect x="60" y="432" width="212" height="90" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="61.5" y="433.5" width="3" height="87" rx="1.5" fill="#d03b3b"/>
+  <text x="168" y="462.675" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">byte arrives</text>
+  <text x="168" y="476.225" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">with ORE / FE / NE</text>
+  <text x="168" y="488.58" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">overrun, framing,</text>
+  <text x="168" y="500.78" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">or noise</text>
+  <rect x="322" y="432" width="212" height="90" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="323.5" y="433.5" width="3" height="87" rx="1.5" fill="#2a78d6"/>
+  <text x="430" y="468.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">USART2_IRQHandler</text>
+  <text x="430" y="482.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">hw.c</text>
+  <text x="430" y="494.68" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">vector fires</text>
+  <rect x="584" y="432" width="212" height="90" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="585.5" y="433.5" width="3" height="87" rx="1.5" fill="#d03b3b"/>
+  <text x="692" y="462.675" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">HAL_UART_IRQHandler</text>
+  <text x="692" y="476.225" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">ST HAL</text>
+  <text x="692" y="488.58" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">sets ErrorCode,</text>
+  <text x="692" y="500.78" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">ABORTS the reception</text>
+  <rect x="846" y="432" width="212" height="90" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="847.5" y="433.5" width="3" height="87" rx="1.5" fill="#d03b3b"/>
+  <text x="954" y="468.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">HAL_UART_ErrorCallback</text>
+  <text x="954" y="482.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">weak, EMPTY</text>
+  <text x="954" y="494.68" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">default does nothing</text>
+  <rect x="1108" y="432" width="212" height="90" rx="5" fill="#fdf3f3" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="1109.5" y="433.5" width="3" height="87" rx="1.5" fill="#d03b3b"/>
+  <text x="1216" y="468.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">RX is dead</text>
+  <text x="1216" y="482.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">permanently</text>
+  <text x="1216" y="494.68" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">nothing re-arms</text>
+  <text x="942" y="555.5" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10" font-weight="400" fill="#d03b3b" text-anchor="start">↑ no return arrow — that absence is the bug</text>
+  <rect x="584" y="596" width="524" height="62" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="585.5" y="597.5" width="3" height="59" rx="1.5" fill="#898781"/>
+  <text x="848" y="618.825" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="11.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">meanwhile TX is completely unaffected — telemetry keeps flowing at 100 Hz</text>
+  <text x="848" y="632.08" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">so the MCU looks healthy and the Jetson looks at fault; the real symptom is that commands stop</text>
+  <text x="848" y="644.28" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">being obeyed</text>
+  <text x="60" y="669.325" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.5" font-weight="600" fill="#1baf7a" text-anchor="start" letter-spacing="1.1">C</text>
+  <text x="92.6" y="669.57" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.2" font-weight="400" fill="#898781" text-anchor="start">WITH THE FIX — the callback closes the loop again</text>
+  <rect x="60" y="700" width="212" height="90" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="61.5" y="701.5" width="3" height="87" rx="1.5" fill="#d03b3b"/>
+  <text x="168" y="736.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">byte arrives</text>
+  <text x="168" y="750.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">with ORE / FE / NE</text>
+  <text x="168" y="762.68" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">same fault</text>
+  <rect x="322" y="700" width="212" height="90" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="323.5" y="701.5" width="3" height="87" rx="1.5" fill="#2a78d6"/>
+  <text x="430" y="736.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">USART2_IRQHandler</text>
+  <text x="430" y="750.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">hw.c</text>
+  <text x="430" y="762.68" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">vector fires</text>
+  <rect x="584" y="700" width="212" height="90" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="585.5" y="701.5" width="3" height="87" rx="1.5" fill="#d03b3b"/>
+  <text x="692" y="730.675" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">HAL_UART_IRQHandler</text>
+  <text x="692" y="744.225" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">ST HAL</text>
+  <text x="692" y="756.58" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">sets ErrorCode,</text>
+  <text x="692" y="768.78" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">aborts the reception</text>
+  <rect x="846" y="700" width="212" height="90" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="847.5" y="701.5" width="3" height="87" rx="1.5" fill="#1baf7a"/>
+  <text x="954" y="736.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">HAL_UART_ErrorCallback</text>
+  <text x="954" y="750.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">OURS</text>
+  <text x="954" y="762.68" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">clear ORE/FE/NE/PE</text>
+  <rect x="1108" y="700" width="212" height="90" rx="5" fill="#fcfcfb" stroke="#e1e0d9" stroke-width="1.2"/>
+  <rect x="1109.5" y="701.5" width="3" height="87" rx="1.5" fill="#1baf7a"/>
+  <text x="1216" y="736.775" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="middle">HAL_UART_Receive_IT</text>
+  <text x="1216" y="750.325" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#898781" text-anchor="middle">re-armed</text>
+  <text x="1216" y="762.68" font-family="SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="9.8" font-weight="400" fill="#898781" text-anchor="middle">RX alive again</text>
+  <path d="M 60,878 L 80,878" stroke="#2a78d6" stroke-width="2.2" stroke-linecap="round"/>
+  <text x="87" y="881.43" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="start">normal interrupt flow</text>
+  <path d="M 60,893 L 80,893" stroke="#1baf7a" stroke-width="2.2" stroke-linecap="round"/>
+  <text x="87" y="896.43" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="start">re-arms RX — the loop closes here</text>
+  <path d="M 60,908 L 80,908" stroke="#d03b3b" stroke-width="2.2" stroke-linecap="round"/>
+  <text x="87" y="911.43" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.8" font-weight="400" fill="#898781" text-anchor="start">error path / dead end</text>
+  <text x="560" y="881.36" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.6" font-weight="400" fill="#898781" text-anchor="start">ORE = overrun (a byte arrived before the last was read) · FE = framing · NE = noise</text>
+  <text x="560" y="894.86" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.6" font-weight="400" fill="#898781" text-anchor="start">Losing the byte is fine — the protocol parser resynchronises on the 0xB5DD sync word.</text>
+  <text x="560" y="908.36" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.6" font-weight="400" fill="#898781" text-anchor="start">Losing the RECEIVER is not: it never recovers, and only a power cycle brings it back.</text>
+  <text x="60" y="929.395" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-size="9.7" font-weight="400" fill="#898781" text-anchor="start">firmware/drive_mcu/src/hw.c · drive_protocol.md · REQ_SAFE_002</text>
+</svg>
