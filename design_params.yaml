@@ -13,7 +13,7 @@ chassis:
   # --- INTERFACE: owned HERE, and CAD must satisfy it ---------------------
   # These are not CAD outputs. They are the contract the chassis model has to
   # meet, because they feed the URDF, Gazebo, and the pivot-scrub torque that
-  # justified the motor choice. Changing one is a design decision made in this
+  # justified the motor choice. xChanging one is a design decision made in this
   # file and pushed OUT to CAD — never the other way round.
   # Full rules: docs/system_model/chassis_interface.md
   length_m: 0.28 # bounding box the model must fit within
