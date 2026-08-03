@@ -14,4 +14,10 @@
 #define BUDDY_WHEEL_RADIUS_UM 48000   /* micrometers, integer-exact */
 #define BUDDY_ENC_COUNTS_PER_REV 753     /* 4x-decoded counts at output shaft */
 
+/* Per-wheel encoder sign (LF, LR, RF, RR). Applied in hw_encoder_count() so
+   telemetry always reports positive = forward. Left/right motors are mirrored
+   on a skid-steer, so one side is negated by geometry, not by miswiring.
+   Source: provisional — finalise at assembly. */
+#define BUDDY_ENCODER_SIGN { 1, 1, 1, 1 }
+
 #endif /* BUDDY_CONFIG_H */

@@ -324,13 +324,26 @@ void hw_all_motors_off(void) {
     for (int i = 0; i < 4; i++) hw_set_motor(i, 0);
 }
 
+/* Sign is applied HERE, at the lowest layer, so every consumer above -
+ * telemetry, the future velocity PID, the Jetson bridge - sees one convention:
+ * positive counts mean the wheel is turning the way that drives the robot
+ * forward. Left and right motors are mirrored on a skid-steer, so one side
+ * counts down by geometry; negating in the harness instead would hide that
+ * where nobody can see it. Values come from design_params.yaml. */
+static const int8_t enc_sign[4] = BUDDY_ENCODER_SIGN;
+
 int32_t hw_encoder_count(int wheel) {
-    if (wheel == 0) return (int32_t)__HAL_TIM_GET_COUNTER(&henc[0]); /* 32-bit */
-    uint16_t now = (uint16_t)__HAL_TIM_GET_COUNTER(&henc[wheel]);
-    int16_t delta = (int16_t)(now - enc_last[wheel]);
-    enc_last[wheel] = now;
-    enc_accum[wheel] += delta;
-    return enc_accum[wheel];
+    int32_t raw;
+    if (wheel == 0) {
+        raw = (int32_t)__HAL_TIM_GET_COUNTER(&henc[0]); /* 32-bit */
+    } else {
+        uint16_t now = (uint16_t)__HAL_TIM_GET_COUNTER(&henc[wheel]);
+        int16_t delta = (int16_t)(now - enc_last[wheel]);
+        enc_last[wheel] = now;
+        enc_accum[wheel] += delta;
+        raw = enc_accum[wheel];
+    }
+    return enc_sign[wheel] * raw;
 }
 
 uint16_t hw_motor_current_ma(int wheel) {

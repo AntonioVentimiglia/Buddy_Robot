@@ -66,8 +66,33 @@ drive_motor: # ADR-0003: goBILDA 5203 Yellow Jacket 26.9:1
   # "pulses" ARE already 4x-decoded counts. Output = 28 x 26.9 = 753.2.
   # Do NOT multiply by 4 again (that bug shipped once; the name now says counts).
   # NOTE: the datasheet's companion "(134.4 Cycles)" line is a vendor error -
-  # 134.4 = 7 x 19.2 belongs to the 19.2:1 motor. Verify empirically at bench.
+  # 134.4 = 7 x 19.2 belongs to the 19.2:1 motor.
+  #
+  # VERIFIED ON HARDWARE 2026-08-02 (devops/jetson/verify_encoder_counts.py):
+  # 5 hand turns of a wheel-mounted LF motor gave 3753 counts = 750.6 /rev,
+  # -0.3% from 753.2. That residual is ~1.2 deg of pen-mark alignment per turn,
+  # i.e. measurement error, not disagreement. The 4x reading (3013) that the
+  # datasheet ambiguity allowed did NOT occur: goBILDA's "28 pulses" really are
+  # already 4x-decoded counts. This number is now measured, not inferred.
   encoder_counts_per_rev_output: 753.2
+
+  # Per-wheel encoder sign, order LF, LR, RF, RR. Applied in firmware so that
+  # telemetry wheel_pos ALWAYS means "positive = the direction that drives the
+  # robot forward", making the protocol contract unambiguous for every consumer.
+  #
+  # This is a mounting consequence, not a wiring mistake. On a skid-steer the
+  # left and right motors are mirrored, so when the robot drives forward the two
+  # sides' shafts turn opposite ways relative to their own housings — one side
+  # must be negated no matter how neatly it is wired.
+  #
+  # The 2026-08-02 bench test read NEGATIVE for a motor turned in the judged
+  # "forward" direction, but that motor was unmounted, so which side needs the
+  # negation is not yet knowable. FINALISE AT ASSEMBLY, once chassis CAD fixes
+  # motor orientation: drive each wheel forward, and flip any channel that
+  # counts down. Do NOT "fix" this by swapping A/B at the connector — that hides
+  # the convention in the harness where the next person cannot see it.
+  encoder_sign: [1, 1, 1, 1] # provisional — see above
+  encoder_sign_source: provisional # provisional | assembly-verified
   price_usd: 54.99
 
 power: # ADR-0005: 4S LiFePO4 + BMS architecture; see docs/analysis/power_budget_and_battery.py

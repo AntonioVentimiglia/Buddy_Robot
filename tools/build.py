@@ -131,6 +131,12 @@ CONFIG_H_TEMPLATE = """/* ============================ GENERATED FILE ==========
 #define BUDDY_WHEEL_RADIUS_UM {wheel_um:d}   /* micrometers, integer-exact */
 #define BUDDY_ENC_COUNTS_PER_REV {cpr:d}     /* 4x-decoded counts at output shaft */
 
+/* Per-wheel encoder sign (LF, LR, RF, RR). Applied in hw_encoder_count() so
+   telemetry always reports positive = forward. Left/right motors are mirrored
+   on a skid-steer, so one side is negated by geometry, not by miswiring.
+   Source: {sign_src} — finalise at assembly. */
+#define BUDDY_ENCODER_SIGN {{ {signs} }}
+
 #endif /* BUDDY_CONFIG_H */
 """
 
@@ -146,6 +152,8 @@ def generate_firmware_config(reqs: dict) -> Path:
         control=fw["control_hz"], pwm=fw["pwm_hz"],
         wheel_um=round(P["wheels"]["radius_m"] * 1e6),
         cpr=round(P["drive_motor"]["encoder_counts_per_rev_output"]),
+        signs=", ".join(str(int(v)) for v in P["drive_motor"]["encoder_sign"]),
+        sign_src=P["drive_motor"]["encoder_sign_source"],
     ), encoding="utf-8", newline="\n")
     return out
 
