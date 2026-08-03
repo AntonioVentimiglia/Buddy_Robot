@@ -211,14 +211,30 @@ mass_budget:
       count: 4
       source: weighed
       spread_g: null
+    motor_driver:
+      each_kg: 0.011 # ONE Pololu VNH5019 carrier. Per-unit ON PURPOSE: this was
+                     # briefly held in a field defined as a 4x TOTAL, which
+                     # under-reported by 33 g. Every mass here is per unit.
+      count: 4
+      source: weighed
+      spread_g: null
+    jetson:
+      each_kg: 0.173 # Orin Nano DEV KIT as it will be mounted — carrier board,
+                     # module and heatsink/fan together. Standoffs and mounting
+                     # screws are NOT included; they belong to a fasteners line.
+      count: 1
+      source: weighed
+      spread_g: null
+    drive_mcu:
+      each_kg: 0.038 # NUCLEO-G474RE
+      count: 1
+      source: weighed
+      spread_g: null
 
   # Bought but not yet in hand — fill when they arrive.
   pending:
     battery_kg: null # 12 V 20 Ah LiFePO4, ~2.1 kg expected (ADR-0005 amendment 2)
-    jetson_kg: 0.173 # Orin Nano dev kit incl. heatsink/fan
-    drive_mcu_kg: 0.038 # NUCLEO-G474RE
-    motor_drivers_kg: 0.011 # 4x VNH5019 carriers, total
-    protection_kg: null # fuse holder, contactor, E-stop, bus wiring
+    protection_kg: null # fuse holder, DC contactor, E-stop, bus wiring
 
 firmware: # drive MCU runtime constants; tools/build.py generates
           # firmware/drive_mcu/include/buddy_config.h from this section
