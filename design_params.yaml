@@ -159,22 +159,22 @@ mass_budget:
   # the URDF consumes it for wheel-link inertia. The rollup reads it from there.
   # No value may exist in two places.
 
-  scale_resolution_g: null # smallest division your scale reads. Needed to make
+  scale_resolution_g: 1 # smallest division your scale reads. Needed to make
                            # "all four measured the same" an honest statement
                            # rather than a rounding artefact.
 
   components:
     drive_motor:
-      each_kg: null # goBILDA 5203, AS SUPPLIED incl. 470 mm power leads + encoder pigtail
+      each_kg: 0.433 # goBILDA 5203, AS SUPPLIED incl. 470 mm power leads + encoder pigtail
       count: 4
-      source: null # datasheet | measured | weighed
-      spread_g: null # (heaviest - lightest) across the units. null = not checked.
+      source: weighed # datasheet | measured | weighed
+      spread_g: 0 # (heaviest - lightest) across the units. null = not checked.
                      # Only split into per-unit values if this is large enough to
                      # matter to something that actually consumes asymmetry.
     wheel_hub:
-      each_kg: null # goBILDA Sonic hub, 8 mm REX
+      each_kg: 0.014 # goBILDA Sonic hub, 8 mm REX w/ two (provided) M4 screws
       count: 4
-      source: null
+      source: weighed
       spread_g: null
     drivetrain_fasteners:
       each_kg: null # M4 screws + any hardware added at assembly, per drivetrain corner
@@ -182,17 +182,17 @@ mass_budget:
       source: null
       spread_g: null
     harness_drivetrain:
-      each_kg: null # encoder breakout + motor power cabling, per motor
+      each_kg: 0.022 # encoder breakout + motor power cabling, per motor
       count: 4
-      source: null
+      source: weighed
       spread_g: null
 
   # Bought but not yet in hand — fill when they arrive.
   pending:
     battery_kg: null # 12 V 20 Ah LiFePO4, ~2.1 kg expected (ADR-0005 amendment 2)
-    jetson_kg: null # Orin Nano dev kit incl. heatsink/fan
-    drive_mcu_kg: null # NUCLEO-G474RE
-    motor_drivers_kg: null # 4x VNH5019 carriers, total
+    jetson_kg: 0.173 # Orin Nano dev kit incl. heatsink/fan
+    drive_mcu_kg: 0.038 # NUCLEO-G474RE
+    motor_drivers_kg: 0.011 # 4x VNH5019 carriers, total
     protection_kg: null # fuse holder, contactor, E-stop, bus wiring
 
 firmware: # drive MCU runtime constants; tools/build.py generates

@@ -29,10 +29,22 @@ Encoder 4-pin JST-XH -> breakout -> Nucleo, per firmware/drive_mcu/docs/pin_map.
     encoder VCC -> 3.3V on the Nucleo   (goBILDA encoder accepts 3.3-5 V)
     encoder GND -> GND
 
+MOUNT THE WHEEL FIRST — you will not turn the bare shaft by hand.
+The 26.9:1 planetary is being back-driven: one output turn spins the rotor 26.9
+times against its cogging torque, and gearboxes are far less efficient backwards.
+Stiff is normal; gritty or immovable is not. Fit the hub and wheel and turn the
+WHEEL: 48 mm radius against ~4 mm of finger grip on the hex is roughly 12x the
+torque for the same effort.
+
+Tighten the hub set screws properly and mark a pen line across the hub-to-shaft
+joint. If that line breaks during the test the hub slipped, the count reads LOW,
+and it looks exactly like a gear-ratio error — discard the run and re-tighten.
+
 SAFETY
 Nothing here drives a motor. The MCU is never armed and no CMD_VEL is sent. Keep
-the motor's two power leads unconnected for the whole test — with them floating,
-the motor cannot move even if something else went wrong.
+the motor's two power leads unconnected and NOT TOUCHING EACH OTHER for the whole
+test. Shorted leads also brake the motor electrically (it acts as a generator into
+a short), which makes it far stiffer and can be mistaken for a seized gearbox.
 
     ./devops/jetson/verify_encoder_counts.py                # wheel 0, 5 turns
     ./devops/jetson/verify_encoder_counts.py --wheel 2 --turns 10
@@ -136,9 +148,10 @@ def main():
         print("     confirm the encoder is powered from 3.3 V.")
 
     print()
-    print(f">>> Mark the OUTPUT shaft (the 8 mm REX hex, not the motor can).")
-    print(f">>> Rotate it exactly {args.turns:g} full turns, in the direction that")
-    print(f">>> would drive the robot FORWARD. Then press Enter.")
+    print(f">>> Mark a reference point on the WHEEL (fit the hub + wheel first —")
+    print(f">>> the bare shaft will not turn by hand through a 26.9:1 gearbox).")
+    print(f">>> Rotate the wheel exactly {args.turns:g} full turns, in the direction")
+    print(f">>> that would drive the robot FORWARD. Then press Enter.")
     input()
 
     end = read_pos(ser, args.wheel)
