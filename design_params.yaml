@@ -13,7 +13,7 @@ chassis:
   # --- INTERFACE: owned HERE, and CAD must satisfy it ---------------------
   # These are not CAD outputs. They are the contract the chassis model has to
   # meet, because they feed the URDF, Gazebo, and the pivot-scrub torque that
-  # justified the motor choice. xChanging one is a design decision made in this
+  # justified the motor choice. Changing one is a design decision made in this
   # file and pushed OUT to CAD — never the other way round.
   # Full rules: docs/system_model/chassis_interface.md
   length_m: 0.28 # bounding box the model must fit within
@@ -135,6 +135,65 @@ power: # ADR-0005: 4S LiFePO4 + BMS architecture; see docs/analysis/power_budget
                              # 47.0 A at 11.1 V — higher volts, less current)
     main_fuse_a: 60 # slow-blow; bus wiring 8 AWG (or 2x10 AWG) to stay above fuse
     arm_branch_fuse_a: 15 # future arm branch gets its own fuse off the bus
+
+mass_budget:
+  # Measured component masses, rolled up and checked against the requirement
+  # ceiling (requirements yaml: mass.design_gross_mass_limit_kg = 20 kg).
+  #
+  # WHY THIS EXISTS: chassis.mass_kg above was reverse-engineered so that gross
+  # landed near the 20 kg limit — its own comment admitted it. That made the
+  # ceiling an assumption rather than a check. With real numbers here, structure
+  # mass comes from CAD and GROSS BECOMES DERIVED, so every build re-checks it.
+  # It matters now: LiFePO4 cost ~+1.3 kg (ADR-0005 amendment 2), and printed
+  # structure is heavier than machined for the same stiffness (ADR-0008).
+  #
+  # HOW TO FILL: weigh each part type once, enter the PER-UNIT mass in kg.
+  # Identical parts share one value and a count — see spread_g below.
+  #
+  # DOUBLE COUNTING is the classic mass-budget error. Each screw, cable and
+  # connector belongs to exactly ONE line. The convention here: a component's
+  # mass is the part AS SUPPLIED (motor includes its moulded-on leads); anything
+  # you add during assembly goes in a fasteners/harness line.
+  #
+  # NOT LISTED HERE: wheels. Their mass already lives in wheels.mass_kg because
+  # the URDF consumes it for wheel-link inertia. The rollup reads it from there.
+  # No value may exist in two places.
+
+  scale_resolution_g: null # smallest division your scale reads. Needed to make
+                           # "all four measured the same" an honest statement
+                           # rather than a rounding artefact.
+
+  components:
+    drive_motor:
+      each_kg: null # goBILDA 5203, AS SUPPLIED incl. 470 mm power leads + encoder pigtail
+      count: 4
+      source: null # datasheet | measured | weighed
+      spread_g: null # (heaviest - lightest) across the units. null = not checked.
+                     # Only split into per-unit values if this is large enough to
+                     # matter to something that actually consumes asymmetry.
+    wheel_hub:
+      each_kg: null # goBILDA Sonic hub, 8 mm REX
+      count: 4
+      source: null
+      spread_g: null
+    drivetrain_fasteners:
+      each_kg: null # M4 screws + any hardware added at assembly, per drivetrain corner
+      count: 4
+      source: null
+      spread_g: null
+    harness_drivetrain:
+      each_kg: null # encoder breakout + motor power cabling, per motor
+      count: 4
+      source: null
+      spread_g: null
+
+  # Bought but not yet in hand — fill when they arrive.
+  pending:
+    battery_kg: null # 12 V 20 Ah LiFePO4, ~2.1 kg expected (ADR-0005 amendment 2)
+    jetson_kg: null # Orin Nano dev kit incl. heatsink/fan
+    drive_mcu_kg: null # NUCLEO-G474RE
+    motor_drivers_kg: null # 4x VNH5019 carriers, total
+    protection_kg: null # fuse holder, contactor, E-stop, bus wiring
 
 firmware: # drive MCU runtime constants; tools/build.py generates
           # firmware/drive_mcu/include/buddy_config.h from this section
